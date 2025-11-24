@@ -1,11 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" 
-            prefHeight="576.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="768.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane layoutX="297.0" layoutY="10.0" prefHeight="556.0" prefWidth="461.0"/>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="576.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="768.0" />
+      <Circle centerX="163.5" centerY="163.5" layoutX="-101.0" layoutY="32.0" radius="163.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+         <fill>
+            <LinearGradient endX="0.5118483412322274" endY="1.0" startX="0.7962085308056872">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8901960849761963" green="0.43529412150382996" blue="0.5568627715110779" opacity="0.5" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.8999999761581421" green="0.4320000112056732" blue="0.5490000247955322" opacity="0.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill></Circle>
+      <Circle centerX="70.0" centerY="70.0" layoutX="86.0" layoutY="354.0" radius="70.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+         <fill>
+            <LinearGradient endX="0.6872037914691943" endY="0.919431279620853" startX="0.7772511848341233" startY="0.5450236966824644">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8899999856948853" green="0.4361000061035156" blue="0.5722699761390686" opacity="0.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.8899999856948853" green="0.4361000061035156" blue="0.5571399927139282" opacity="0.30000001192092896" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill></Circle>
+      <ImageView fitHeight="180.0" fitWidth="201.0" layoutX="41.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@helloKittyPeace.png" />
+         </image>
+      </ImageView>
+      <Circle fill="#e76d8a" layoutX="297.5" layoutY="50.0" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#e76d8a" layoutX="297.5" layoutY="129.5" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#e76d8a" layoutX="297.5" layoutY="209.0" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#e76d8a" layoutX="297.5" layoutY="288.5" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#e76d8a" layoutX="297.5" layoutY="368.0" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#e76d8a" layoutX="297.5" layoutY="447.5" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="#e76d8a" layoutX="297.5" layoutY="527.0" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <AnchorPane layoutX="297.0" layoutY="10.0" prefHeight="556.0" prefWidth="461.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e76d8a" height="556.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="461.0" />
+            <Circle centerX="136.5" centerY="136.5" layoutX="171.0" layoutY="-66.0" radius="136.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <LinearGradient endX="0.5118483412322274" endY="1.0" startX="0.7962085308056872">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.949999988079071" green="0.6650000214576721" blue="0.7267500162124634" opacity="0.800000011920929" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.006711409395973154">
+                           <color>
+                              <Color red="0.949999988079071" green="0.6650000214576721" blue="0.7267500162124634" opacity="0.800000011920929" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.95686274766922" green="0.6627451181411743" blue="0.7254902124404907" opacity="0.0" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Circle>
+            <Circle centerX="91.5" centerY="91.5" layoutX="14.0" layoutY="406.0" radius="91.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+               <fill>
+                  <LinearGradient endX="0.7203791469194312" endY="1.0" startX="0.36492890995260663">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.949999988079071" green="0.6650000214576721" blue="0.7267500162124634" opacity="0.800000011920929" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.006711409395973154">
+                           <color>
+                              <Color red="0.9399999976158142" green="0.676800012588501" blue="0.7382133603096008" opacity="0.0" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.9300000071525574" green="0.6696000099182129" blue="0.7260199785232544" opacity="0.699999988079071" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Circle>
+            <Label fx:id="titleLabel" layoutX="41.0" layoutY="95.0" prefHeight="91.0" prefWidth="360.0" stylesheets="@style.css" text="Kawaii Count" textAlignment="CENTER" textFill="#f8e9e5" />
+         </children></AnchorPane>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="12.0" layoutX="296.0" layoutY="566.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="12.0" layoutX="433.0" layoutY="-2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="313.0" />
    </children>
 </AnchorPane>

@@ -1,0 +1,22 @@
+@font-face {
+    font-family: "Playfair Display Black";
+    src: url("PlayfairDisplayBlackItalic.ttf");
+}
+
+.gradient {
+    background-color: linear-gradient(#E76D8A, #F8E9E5);
+    -fx-background-color: linear-gradient(#E76D8A, #F8E9E5);
+}
+
+#titleLabel {
+    font-family: "Playfair Display Black";
+    -fx-font-family: "Playfair Display Black";
+
+    font-optical-sizing: auto;
+    -fx-font-optical-sizing: auto;
+
+    font-size: 45px;
+    -fx-font-size: 45px;
+    
+    -fx-alignment: center;
+}
