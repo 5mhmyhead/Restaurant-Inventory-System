@@ -1,5 +1,6 @@
 module com.inventory {
-    requires javafx.controls;
+    requires transitive javafx.graphics;
+    requires transitive javafx.controls;
     requires javafx.fxml;
 
     opens com.inventory to javafx.fxml;
