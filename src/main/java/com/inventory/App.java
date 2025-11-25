@@ -16,8 +16,11 @@ public class App extends Application
     public void start(Stage stage) throws IOException 
     {
         scene = new Scene(loadFXML("titlePage"), 768, 576);
+
         stage.setTitle("Kawaii Count");
+        stage.setResizable(false);
         stage.setScene(scene);
+        
         stage.show();
     }
 

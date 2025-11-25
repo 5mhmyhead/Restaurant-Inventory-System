@@ -1,22 +1,203 @@
-@font-face {
-    font-family: "Playfair Display Black";
-    src: url("PlayfairDisplayBlackItalic.ttf");
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-.gradient {
-    background-color: linear-gradient(#E76D8A, #F8E9E5);
-    -fx-background-color: linear-gradient(#E76D8A, #F8E9E5);
-}
+/*
+  COLORS:
+  off-white: #f8e9e5
+  light pink: #e76d8a
+*/
 
 #titleLabel {
-    font-family: "Playfair Display Black";
-    -fx-font-family: "Playfair Display Black";
+  font-family: "Poppins", sans-serif;
+  -fx-font-family: "Poppins", sans-serif;
 
-    font-optical-sizing: auto;
-    -fx-font-optical-sizing: auto;
+  font-optical-sizing: auto;
+  -fx-font-optical-sizing: auto;
 
-    font-size: 45px;
-    -fx-font-size: 45px;
+  font-size: 45px;
+  -fx-font-size: 45px;
     
-    -fx-alignment: center;
+  font-weight: 700;
+  -fx-font-weight: 700;
+    
+  font-style: normal;
+  -fx-font-style: normal;
+}
+
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  -fx-font-family: "Poppins", sans-serif;
+    
+  font-weight: 400;
+  -fx-font-weight: 400;
+
+  font-style: normal;
+  -fx-font-style: normal;
+}
+
+.poppins-black {
+  font-family: "Poppins", sans-serif;
+  -fx-font-family: "Poppins", sans-serif;
+    
+  font-weight: 900;
+  -fx-font-weight: 900;
+  
+  font-style: normal;
+  -fx-font-style: normal;
+}
+
+.button-pink {
+  font-family: "Poppins", sans-serif;
+  -fx-font-family: "Poppins", sans-serif;
+    
+  font-weight: 900;
+  -fx-font-weight: 900;
+  
+  font-style: normal;
+  -fx-font-style: normal;
+
+  -fx-text-fill: #f8e9e5;
+
+  background-color: #e76d8a;
+  -fx-background-color: #e76d8a;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-color: #f8e9e5;
+  -fx-border-color: #f8e9e5;
+}
+
+.button-pink:hover {
+  outline: none;
+  -fx-outline: none;
+
+  cursor: hand;
+  -fx-cursor: hand;
+
+  -fx-text-fill: #e76d8a;
+
+  background-color: #f8e9e5;
+  -fx-background-color: #f8e9e5;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+}
+
+.button-white {
+  font-family: "Poppins", sans-serif;
+  -fx-font-family: "Poppins", sans-serif;
+  
+  font-weight: 900;
+  -fx-font-weight: 900;
+  
+  font-style: normal;
+  -fx-font-style: normal;
+
+  -fx-text-fill: #e76d8a;
+
+  background-color: #f8e9e5;
+  -fx-background-color: #f8e9e5;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+}
+
+.button-white:hover {
+  outline: none;
+  -fx-outline: none;
+
+  cursor: hand;
+  -fx-cursor: hand;
+
+  -fx-text-fill: #f8e9e5;
+
+  background-color: #e76d8a;
+  -fx-background-color: #e76d8a;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-color: #f8e9e5;
+  -fx-border-color: #f8e9e5;
+}
+
+
+.poppins-medium {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.poppins-semibold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.poppins-bold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.poppins-extrabold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.poppins-regular-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.poppins-medium-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.poppins-semibold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.poppins-bold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.poppins-extrabold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.poppins-black-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: italic;
 }
