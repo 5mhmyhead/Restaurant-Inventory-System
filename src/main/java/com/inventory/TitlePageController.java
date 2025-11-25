@@ -6,8 +6,8 @@ import javafx.fxml.FXML;
 public class TitlePageController 
 {
     @FXML
-    private void switchToSecondary() throws IOException 
+    private void switchToLoginPage() throws IOException 
     {
-        App.setRoot("secondary");
+        App.setRoot("loginPage");
     }
 }

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 /*
   COLORS:
@@ -141,6 +141,104 @@
   -fx-border-color: #f8e9e5;
 }
 
+.button-login {
+  -fx-text-fill: #f8e9e5;
+
+  background-color: #e76d8a;
+  -fx-background-color: #e76d8a;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+}
+
+.button-login:hover {
+  outline: none;
+  -fx-outline: none;
+
+  cursor: hand;
+  -fx-cursor: hand;
+
+  -fx-text-fill: #e76d8a;
+
+  background-color: #f8e9e5;
+  -fx-background-color: #f8e9e5;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-color: #e76d8a;
+  -fx-border-color: #e76d8a;
+}
+
+.text-field {
+  -fx-text-fill: #253657;
+
+  opacity: 0.4;
+  -fx-opacity: 0.4;
+
+  background-color: #f8e9e5;
+  -fx-background-color: #f8e9e5;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid solid solid none;
+  -fx-border-style: solid solid solid none;
+
+  border-color: #e76d8a;
+  -fx-border-color: #e76d8a;
+
+  border-radius: 0 10px 10px 0;
+  -fx-border-radius: 0 10px 10px 0;
+
+  -fx-background-radius: 10px;
+}
+
+.text-field:focused {
+  opacity: 1.0;
+  -fx-opacity: 1.0;
+}
+
+.field-icon-container {
+  opacity: 0.4;
+  -fx-opacity: 0.4;
+
+  background-color: #f8e9e5;
+  -fx-background-color: #f8e9e5;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid none solid solid;
+  -fx-border-style: solid none solid solid;
+
+  border-color: #e76d8a;
+  -fx-border-color: #e76d8a;
+
+  -fx-border-radius-top-left: 20px;
+
+  border-radius: 10px 0 0 10px;
+  -fx-border-radius: 10px 0 0 10px;
+
+  -fx-background-radius: 10px 0 0 10px;
+}
+
+.pink-text:hover {
+  cursor: hand;
+  -fx-cursor: hand;
+
+  -fx-underline: true;
+}
 
 .poppins-medium {
   font-family: "Poppins", sans-serif;

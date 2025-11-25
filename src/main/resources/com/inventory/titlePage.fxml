@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="768.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="768.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inventory.TitlePageController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="576.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="768.0" />
       <Circle centerX="163.5" centerY="163.5" layoutX="-101.0" layoutY="32.0" radius="163.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
@@ -138,7 +138,7 @@
                   <Font name="Poppins Regular" size="12.0" />
                </font>
             </Label>
-            <Button layoutX="45.0" layoutY="437.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="175.0" styleClass="button-white" stylesheets="@style.css" text="Enter Inventory" textFill="#e76d8a" />
+            <Button fx:id="enterInventory" layoutX="45.0" layoutY="437.0" mnemonicParsing="false" onAction="#switchToLoginPage" prefHeight="28.0" prefWidth="175.0" styleClass="button-white" stylesheets="@style.css" text="Enter Inventory" textFill="#e76d8a" />
             <Button layoutX="232.0" layoutY="437.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="175.0" styleClass="button-pink" stylesheets="@style.css" text="See How It Works" textFill="#f8e9e5" />
          </children></AnchorPane>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="12.0" layoutX="296.0" layoutY="566.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
