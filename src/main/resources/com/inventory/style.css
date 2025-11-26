@@ -1,9 +1,10 @@
-/*@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 /*
   COLORS:
   off-white: #f8e9e5
   light pink: #e76d8a
+  dark blue: #253657
 */
 
 #titleLabel {
@@ -183,9 +184,6 @@
 .text-field {
   -fx-text-fill: #253657;
 
-  opacity: 0.4;
-  -fx-opacity: 0.4;
-
   background-color: #f8e9e5;
   -fx-background-color: #f8e9e5;
 
@@ -210,9 +208,6 @@
 }
 
 .field-icon-container {
-  opacity: 0.4;
-  -fx-opacity: 0.4;
-
   background-color: #f8e9e5;
   -fx-background-color: #f8e9e5;
 
