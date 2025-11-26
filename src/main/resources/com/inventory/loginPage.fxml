@@ -132,7 +132,7 @@
             <Font size="10.0" />
          </font>
       </Label>
-      <Label layoutX="558.0" layoutY="371.0" prefHeight="18.0" text="Forgot Password?" textFill="#e76d8a">
+      <Label layoutX="558.0" layoutY="371.0" onMouseClicked="#switchToRecoverAccount" prefHeight="18.0" text="Forgot Password?" textFill="#e76d8a">
          <styleClass>
             <String fx:value="pink-text" />
             <String fx:value="poppins-regular" />

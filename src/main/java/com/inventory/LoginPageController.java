@@ -16,4 +16,10 @@ public class LoginPageController
     {
         App.setRoot("createAccount");
     }
+
+        @FXML
+    private void switchToRecoverAccount() throws IOException 
+    {
+        App.setRoot("recoverAccount");
+    }
 }

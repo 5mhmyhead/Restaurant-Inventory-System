@@ -20,7 +20,7 @@ public class App extends Application
         stage.setTitle("Kawaii Count");
         stage.setResizable(false);
         stage.setScene(scene);
-
+        
         stage.show();
     }
 
