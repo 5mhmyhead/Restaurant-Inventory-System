@@ -10,4 +10,10 @@ public class LoginPageController
     {
         App.setRoot("titlePage");
     }
+
+    @FXML
+    private void switchToCreateAccount() throws IOException 
+    {
+        App.setRoot("createAccount");
+    }
 }
