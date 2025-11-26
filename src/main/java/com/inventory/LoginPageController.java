@@ -14,6 +14,6 @@ public class LoginPageController
     @FXML
     private void switchToCreateAccount() throws IOException 
     {
-        App.setRoot("createAccount");
+        App.setRoot("createAccount_ManagerView");
     }
 }

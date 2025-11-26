@@ -183,6 +183,95 @@
   -fx-border-color: #e76d8a;
 }
 
+.button-accountcreate_active {
+  -fx-text-fill: #f8e9e5;
+
+  background-color: #e76d8a;
+  -fx-background-color: #e76d8a;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-color: #e76d8a;
+  -fx-border-color: #e76d8a;
+}
+
+.button-accountcreate_default {
+  -fx-text-fill: #e76d8a;
+
+  background-color: #f8e9e5;
+  -fx-background-color: #f8e9e5;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-color: #e76d8a;
+  -fx-border-color: #e76d8a;
+}
+
+.button-accountcreate_default:hover {
+  -fx-text-fill: #e76d8a;
+
+  background-color: rgba(231, 109, 138, 0.5);
+  -fx-background-color: rgba(231, 109, 138, 0.5);
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+  -fx-background-radius: 10px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-color: #e76d8a;
+  -fx-border-color: #e76d8a;
+}
+
+.button-createaccount {
+  -fx-text-fill: #e76d8a;
+
+  background-color: #f8e9e5;
+  -fx-background-color: #f8e9e5;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-color: #e76d8a;
+  -fx-border-color: #e76d8a;
+}
+
+.button-createaccount:hover {
+  -fx-text-fill: #f8e9e5;
+
+  background-color: #e76d8a;
+  -fx-background-color: #e76d8a;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-color: #e76d8a;
+  -fx-border-color: #e76d8a;
+}
+
 .text-field {
   -fx-text-fill: #253657;
 

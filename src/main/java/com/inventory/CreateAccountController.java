@@ -11,4 +11,16 @@ public class CreateAccountController
     {
         App.setRoot("loginPage");
     }
+
+    @FXML
+    private void switchToManagerView() throws IOException 
+    {
+        App.setRoot("createAccount_ManagerView");
+    }
+
+    @FXML
+    private void switchToWorkerView() throws IOException 
+    {
+        App.setRoot("createAccount_WorkerView");
+    }
 }
