@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="768.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="576.0" stroke="#f8e9e5" strokeType="INSIDE" strokeWidth="0.0" width="768.0" />
+      <Label alignment="TOP_LEFT" layoutX="82.0" layoutY="20.0" prefHeight="55.0" prefWidth="279.0" styleClass="poppins-bold" stylesheets="@style.css" text="Filter Orders" textFill="#253657">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="26.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/filter.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="430.0" fitWidth="748.0" layoutX="10.0" layoutY="476.35" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/Side%20Bar.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="10.0" layoutY="86.0" prefHeight="430.0" prefWidth="748.0">
+         <children>
+            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#e76d8a" height="430.0" stroke="#e76d8a" strokeType="INSIDE" styleClass="rounded-rectangle" width="748.0" />
+            <ImageView fitHeight="183.0" fitWidth="183.0" layoutX="-55.0" layoutY="204.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/ellipse03.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="275.0" fitWidth="275.0" layoutX="502.0" layoutY="-31.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Ellipse02.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="183.0" fitWidth="183.0" layoutX="545.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true" rotate="60.0">
+               <image>
+                  <Image url="@images/Ellipse01.png" />
+               </image>
+            </ImageView>
+            <TextField layoutX="39.0" layoutY="73.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="329.0" styleClass="filter-order-text-field" stylesheets="@style.css" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e76d8a" height="14.0" layoutX="57.0" layoutY="67.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="105.0" />
+            <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="54.0" layoutY="66.0" prefHeight="25.0" prefWidth="111.0" styleClass="poppins-bold" stylesheets="@style.css" text="Cashier Username" textFill="#f8e9e5">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <TextField layoutX="380.0" layoutY="73.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="329.0" styleClass="filter-order-text-field" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e76d8a" height="14.0" layoutX="398.0" layoutY="67.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="105.0" />
+            <Label alignment="TOP_CENTER" layoutX="395.0" layoutY="66.0" prefHeight="25.0" prefWidth="111.0" styleClass="poppins-bold" stylesheets="@style.css" text="Enter Product ID" textFill="#f8e9e5">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <TextField layoutX="39.0" layoutY="176.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="329.0" styleClass="filter-order-text-field" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e76d8a" height="14.0" layoutX="57.0" layoutY="170.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="58.0" />
+            <Label alignment="TOP_CENTER" layoutX="54.0" layoutY="169.0" prefHeight="25.0" prefWidth="65.0" styleClass="poppins-bold" stylesheets="@style.css" text="Start Date" textFill="#f8e9e5">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <TextField layoutX="39.0" layoutY="241.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="329.0" styleClass="filter-order-text-field" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e76d8a" height="14.0" layoutX="57.0" layoutY="235.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="58.0" />
+            <Label alignment="TOP_CENTER" layoutX="54.0" layoutY="234.0" prefHeight="25.0" prefWidth="65.0" styleClass="poppins-bold" stylesheets="@style.css" text="End Date" textFill="#f8e9e5">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="42.0" layoutX="622.5" layoutY="119.0" rotate="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="293.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="42.0" layoutX="-167.5" layoutY="259.0" rotate="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="293.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e76d8a" height="28.0" layoutY="403.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="35.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e76d8a" height="28.0" layoutX="713.1" layoutY="403.0" stroke="#e76d8a" strokeType="INSIDE" strokeWidth="0.0" width="35.0" />
+            <Button layoutX="181.0" layoutY="345.0" mnemonicParsing="false" prefHeight="27.64" prefWidth="175.0" styleClass="button-white" text="Filter Order" />
+            <Button layoutX="380.0" layoutY="346.0" mnemonicParsing="false" prefHeight="27.64" prefWidth="175.0" styleClass="button-pink" text="Previous" />
+         </children>
+      </AnchorPane>
+      <Label alignment="TOP_CENTER" layoutX="24.0" layoutY="113.0" prefHeight="43.0" prefWidth="214.0" styleClass="poppins-bold" stylesheets="@style.css" text="Filter By Cashier" textAlignment="CENTER" textFill="#f8e9e5">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="16.0" layoutY="216.0" prefHeight="43.0" prefWidth="204.0" styleClass="poppins-bold" stylesheets="@style.css" text="Filter by Date" textFill="#f8e9e5">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label alignment="TOP_CENTER" layoutX="369.0" layoutY="113.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="43.0" prefWidth="214.0" styleClass="poppins-bold" stylesheets="@style.css" text="Filter By Product" textFill="#f8e9e5">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label alignment="TOP_CENTER" layoutX="35.0" layoutY="298.0" prefHeight="43.0" prefWidth="44.0" styleClass="poppins-bold" stylesheets="@style.css" text="to" textFill="#f8e9e5">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="42.0" layoutX="460.0" layoutY="44.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="293.0" />
+   </children>
+</AnchorPane>

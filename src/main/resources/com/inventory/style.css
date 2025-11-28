@@ -350,7 +350,7 @@
   -fx-border-style: solid solid solid none;
 
   border-color: #e76d8a;
-  -fx-border-color: #e76d8a;
+  -fx-border-color: c;
 
   border-radius: 0 10px 10px 0;
   -fx-border-radius: 0 10px 10px 0;
@@ -361,6 +361,26 @@
 .text-field:focused {
   opacity: 1.0;
   -fx-opacity: 1.0;
+}
+
+.filter-order-text-field {
+  background-color: #e76d8a;
+  -fx-background-color: #e76d8a;
+
+  border-width: 2px;
+  -fx-border-width: 2px;
+
+  border-style: solid solid solid solid;
+  -fx-border-style: solid solid solid solid;
+
+  border-radius: 10px 10px 10px 10px;
+  -fx-border-radius: 10px 10px 10px 10px;
+
+  -fx-background-radius: 10px;
+
+  border-color: #f8e9e5;
+  -fx-border-color: #f8e9e5;
+
 }
 
 .field-icon-container {
