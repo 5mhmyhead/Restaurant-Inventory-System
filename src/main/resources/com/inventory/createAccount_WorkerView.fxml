@@ -73,5 +73,16 @@
             <String fx:value="text-background" />
          </styleClass>
       </Label>
+      <Label layoutX="331.0" layoutY="500.0" prefHeight="18.0" prefWidth="158.0" styleClass="poppins-regular" text="Already have an account?" textFill="#253657" />
+      <Label fx:id="register" layoutX="488.0" layoutY="500.0" onMouseClicked="#switchToLoginPage" prefHeight="18.0" prefWidth="38.0" text="Login" textAlignment="CENTER" textFill="#e76d8a">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <styleClass>
+            <String fx:value="pink-text" />
+            <String fx:value="poppins-black" />
+            <String fx:value="text-center" />
+         </styleClass>
+      </Label>
    </children>
 </AnchorPane>
