@@ -48,6 +48,15 @@
   -fx-font-style: normal;
 }
 
+.text-center{
+  -fx-alignment: center;
+}
+
+.text-background {
+  background-color: #f8e9e5;
+  -fx-background-color: #f8e9e5;
+}
+
 .button-pink {
   font-family: "Poppins", sans-serif;
   -fx-font-family: "Poppins", sans-serif;
