@@ -16,7 +16,7 @@
       <Rectangle arcWidth="5.0" fill="#f8e9e5" height="576.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="768.0" />
       <Button layoutX="219.0" layoutY="190.0" mnemonicParsing="false" onAction="#switchToManagerView" prefHeight="35.0" prefWidth="225.0" styleClass="button-accountcreate_default" text="Manager" />
       <Button layoutX="473.0" layoutY="190.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="225.0" styleClass="button-accountcreate_active" text="Worker" />
-      <Button layoutX="225.0" layoutY="452.0" mnemonicParsing="false" onAction="#switchToLoginPage" prefHeight="35.0" prefWidth="463.0" styleClass="button-createaccount" text="Create Account" />
+      <Button fx:id="register" layoutX="225.0" layoutY="452.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="35.0" prefWidth="463.0" styleClass="button-createaccount" text="Create Account" />
       <ImageView fitHeight="556.0" fitWidth="139.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/Sidebar.png" />
@@ -32,7 +32,7 @@
             <Image url="@images/CreateAccountTexxt.png" />
          </image>
       </ImageView>
-      <TextField layoutX="243.0" layoutY="256.0" prefHeight="39.0" prefWidth="207.0" />
+      <TextField fx:id="usernameField" layoutX="243.0" layoutY="256.0" prefHeight="39.0" prefWidth="207.0" />
       <Button layoutX="225.0" layoutY="256.0" prefHeight="39.0" prefWidth="19.0" styleClass="field-icon-container" />
       <Label layoutX="234.0" layoutY="247.0" prefHeight="18.0" prefWidth="60.0" text="Username" textAlignment="CENTER" textFill="#263757cc">
          <font>
@@ -45,7 +45,7 @@
          </styleClass>
       </Label>
       <Button layoutX="464.0" layoutY="256.0" prefHeight="39.0" prefWidth="19.0" styleClass="field-icon-container" />
-      <PasswordField layoutX="482.0" layoutY="256.0" prefHeight="39.0" prefWidth="207.0" />
+      <PasswordField fx:id="passwordField" layoutX="482.0" layoutY="256.0" prefHeight="39.0" prefWidth="207.0" />
       <Label layoutX="470.0" layoutY="247.0" prefHeight="18.0" prefWidth="60.0" text="Password" textAlignment="CENTER" textFill="#263757cc">
          <font>
             <Font size="10.0" />
@@ -61,7 +61,7 @@
             <Font size="10.0" />
          </font>
       </Label>
-      <TextField layoutX="243.0" layoutY="330.0" prefHeight="39.0" prefWidth="451.0" />
+      <TextField fx:id="emailField" layoutX="243.0" layoutY="330.0" prefHeight="39.0" prefWidth="451.0" />
       <Button layoutX="225.0" layoutY="330.0" prefHeight="39.0" prefWidth="19.0" styleClass="field-icon-container" />
       <Label layoutX="234.0" layoutY="321.0" prefHeight="18.0" prefWidth="83.0" text="Email Address" textAlignment="CENTER" textFill="#263757cc">
          <font>

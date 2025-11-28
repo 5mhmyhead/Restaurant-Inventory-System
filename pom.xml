@@ -25,6 +25,11 @@
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.45.3.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.45.3.0</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -37,6 +42,9 @@
                     <modulePaths>                   
                         <modulePath>C:\Users\Asus\Desktop\javafx-sdk-25.0.1\lib</modulePath>
                     </modulePaths>
+                    <jvmArgs>
+                    --enable-native-access=ALL-UNNAMED
+                    </jvmArgs>
                 </configuration>
             </plugin>
         </plugins>
