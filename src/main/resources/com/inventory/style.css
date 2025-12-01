@@ -4,9 +4,10 @@
  *  COLORS:
  *  off-white: #f8e9e5
  *  light pink: #e76d8a
- *  soft red: F5A1A1
- *  pale orange: FFD6B7
+ *  soft red: #F5A1A1
+ *  pale orange: #FFD6B7
  *  dark blue: #253657
+ *  purple: #693C5B
  */
 
 @font-face {
@@ -256,6 +257,54 @@
   -fx-border-color: #F5A1A1;
 }
 
+.button-inventory {
+  font-family: "Poppins", sans-serif;
+  -fx-font-family: "Poppins", sans-serif;
+  
+  font-weight: 900;
+  -fx-font-weight: 900;
+  
+  font-style: normal;
+  -fx-font-style: normal;
+
+  -fx-text-fill: #693C5B;
+
+  background-color: #f8e9e5;
+  -fx-background-color: #f8e9e5;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+}
+
+.button-inventory:hover {
+  outline: none;
+  -fx-outline: none;
+
+  cursor: hand;
+  -fx-cursor: hand;
+
+  -fx-text-fill: #f8e9e5;
+
+  background-color: #693C5B;
+  -fx-background-color: #693C5B;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-color: #f8e9e5;
+  -fx-border-color: #f8e9e5;
+}
+
 .button-login {
   -fx-text-fill: #f8e9e5;
 
@@ -436,14 +485,32 @@
   border-style: solid solid solid solid;
   -fx-border-style: solid solid solid solid;
 
-  border-radius: 10px 10px 10px 10px;
-  -fx-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px;
+  -fx-border-radius: 10px;
 
   -fx-background-radius: 10px;
 
   border-color: #f8e9e5;
   -fx-border-color: #f8e9e5;
+}
 
+.text-field-purple {
+  background-color: #693C5B;
+  -fx-background-color: #693C5B;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+
+  border-color: #f8e9e5;
+  -fx-border-color: #f8e9e5;
 }
 
 .field-icon-container {
@@ -493,4 +560,46 @@
   -fx-cursor: hand;
 
   -fx-underline: true;
+}
+
+.table-view {
+  font-family: "Poppins Regular", sans-serif;
+  -fx-font-family: "Poppins Regular", sans-serif;
+
+  -fx-text-fill: #253657;
+
+  border-color: #F5A1A1;
+  -fx-border-color: #F5A1A1;
+
+  border-radius: 3px;
+  -fx-border-radius: 3px;
+
+  -fx-background-radius: 3px;
+
+  background-color: transparent;
+  -fx-background-color: transparent;
+}
+
+.table-view .column-header-background {
+  font-family: "Poppins Regular", sans-serif;
+  -fx-font-family: "Poppins Regular", sans-serif;
+
+  background-color: #F5A1A1;
+  -fx-background-color: #F5A1A1;
+
+  -fx-background-insets: 0 0 0 0;
+}
+
+.table-view .column-header, .filter {   
+  font-family: "Poppins Regular", sans-serif;
+  -fx-font-family: "Poppins Regular", sans-serif;
+  
+  -fx-text-fill: #253657;
+}
+
+.table-row-cell {
+
+  
+  background-color: #FFD6B7;
+  -fx-background-color: #FFD6B7;
 }

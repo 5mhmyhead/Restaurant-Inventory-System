@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.DropdownButton?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle fill="#f8e9e5" height="720.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="poppins-bold" width="1280.0" />
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="700.0" prefWidth="264.0">
+         <children>
+            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#e76d8a" height="700.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="264.0" />
+            <ImageView fitHeight="38.0" fitWidth="200.0" layoutX="70.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/kawaiiCountTextLight.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="50.0" layoutX="14.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/helloKittyIconLight.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="10.0" layoutY="662.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="244.0" styleClass="button-pink" stylesheets="@style.css" text="Sign Out" />
+            <Label layoutX="78.0" layoutY="44.0" styleClass="poppins-regular" stylesheets="@style.css" text="Welcome, user!" textFill="#f8e9e5" />
+            <ImageView fitHeight="150.0" fitWidth="32.0" layoutX="31.0" layoutY="283.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/cutleryWhite.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="76.0" layoutY="287.0" styleClass="poppins-bold" stylesheets="@style.css" text="Menu" textFill="#f8e9e5">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f8e9e5" height="116.0" layoutX="26.0" layoutY="142.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="238.0" />
+            <ImageView fitHeight="150.0" fitWidth="32.0" layoutX="31.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/chickenWhite.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="76.0" layoutY="387.0" styleClass="poppins-bold" stylesheets="@style.css" text="Orders" textFill="#f8e9e5">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="150.0" fitWidth="32.0" layoutX="31.0" layoutY="483.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/hatWhite.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="76.0" layoutY="487.0" styleClass="poppins-bold" stylesheets="@style.css" text="Analytics" textFill="#f8e9e5">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="52.0" layoutX="246.0" layoutY="174.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
+            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#e76d8a" height="32.0" layoutY="142.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="264.0" />
+            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#e76d8a" height="32.0" layoutY="226.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="264.0" />
+            <Label layoutX="76.0" layoutY="187.0" styleClass="poppins-bold" stylesheets="@style.css" text="Inventory" textFill="#e76d8a">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="150.0" fitWidth="32.0" layoutX="31.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/fridgePink.png" />
+               </image>
+            </ImageView>
+            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f8e9e5" height="52.0" layoutX="14.0" layoutY="174.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
+         </children>
+      </AnchorPane>
+      <Label layoutX="350.0" layoutY="25.0" styleClass="poppins-bold" text="Inventory">
+         <font>
+            <Font size="45.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="38.0" fitWidth="38.0" layoutX="300.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/fridgeBlue.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="295.0" layoutY="100.0" prefHeight="37.0" prefWidth="40.0" styleClass="search-icon-container" />
+      <ImageView fitHeight="23.0" fitWidth="44.0" layoutX="303.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/searchOrange.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="1058.0" layoutY="100.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="200.0" styleClass="button-orange" text="Filter Inventory" />
+      <TextField layoutX="335.0" layoutY="100.0" prefHeight="37.0" prefWidth="700.0" styleClass="search-field" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="10.0" layoutX="307.0" layoutY="97.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="100.0" />
+      <Label layoutX="310.0" layoutY="93.0" styleClass="poppins-regular" text="Search for an item" textFill="#f5a1a1">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="295.0" layoutY="150.0" prefHeight="275.0" prefWidth="963.0" stylesheets="@style.css">
+         <children>
+            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f5a1a1" height="275.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="963.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="255.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="943.0" />
+            <TableView layoutX="20.0" layoutY="19.0" prefHeight="235.0" prefWidth="923.0" stylesheets="@style.css">
+              <columns>
+                <TableColumn prefWidth="75.0" text="Product ID" />
+                <TableColumn prefWidth="182.0" text="Product Name" />
+                  <TableColumn minWidth="8.0" prefWidth="105.0" text="Type" />
+                  <TableColumn minWidth="8.0" prefWidth="105.0" text="Category" />
+                  <TableColumn minWidth="8.0" prefWidth="105.0" text="Stock" />
+                  <TableColumn minWidth="8.0" prefWidth="105.0" text="Price" />
+                  <TableColumn minWidth="8.0" prefWidth="105.0" text="Discount" />
+                  <TableColumn minWidth="8.0" prefWidth="139.0" text="Status" />
+              </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="295.0" layoutY="435.0" prefHeight="275.0" prefWidth="963.0">
+         <children>
+            <ImageView fitHeight="275.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/circlesPurple.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="275.0" fitWidth="931.0" layoutX="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/itemPane.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="36.0" fitWidth="32.0" layoutX="45.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/scalesWhite.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="89.0" layoutY="13.0" styleClass="poppins-bold" text="Add or Delete Item" textFill="#f8e9e5">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Button layoutX="108.0" layoutY="215.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Add" />
+            <Button layoutX="268.0" layoutY="215.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Update" />
+            <Button layoutX="465.0" layoutY="215.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Clear" />
+            <Button layoutX="625.0" layoutY="215.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Delete" />
+            <Button layoutX="785.0" layoutY="215.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Import Image" />
+            <TextField layoutX="108.0" layoutY="133.0" prefHeight="32.0" prefWidth="215.0" styleClass="text-field-purple" />
+            <TextField layoutX="108.0" layoutY="86.0" prefHeight="32.0" prefWidth="215.0" styleClass="text-field-purple" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#693c5b" height="10.0" layoutX="122.0" layoutY="81.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="60.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#693c5b" height="10.0" layoutX="121.0" layoutY="128.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="77.0" />
+            <Label layoutX="127.0" layoutY="78.0" styleClass="poppins-bold" text="Product ID" textFill="#f8e9e5">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label layoutX="125.0" layoutY="126.0" styleClass="poppins-bold" text="Product Name" textFill="#f8e9e5">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <TextField layoutX="333.0" layoutY="133.0" prefHeight="32.0" prefWidth="215.0" styleClass="text-field-purple" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#693c5b" height="10.0" layoutX="346.0" layoutY="128.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="44.0" />
+            <Label layoutX="350.0" layoutY="126.0" styleClass="poppins-bold" text="Price(₱)" textFill="#f8e9e5">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <TextField layoutX="333.0" layoutY="85.0" prefHeight="32.0" prefWidth="215.0" styleClass="text-field-purple" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#693c5b" height="10.0" layoutX="347.0" layoutY="80.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="32.0" />
+            <Label layoutX="350.0" layoutY="78.0" styleClass="poppins-bold" text="Stock" textFill="#f8e9e5">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f8e9e5" height="129.0" layoutX="718.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="217.0" />
+            <DropdownButton layoutX="558.0" layoutY="85.0" minHeight="32.0" minWidth="150.0" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory">
+                <items>
+                    <MenuItem text="Choice 1" />
+                    <MenuItem text="Choice 2" />
+                    <MenuItem text="Choice 3" />
+                </items>
+            </DropdownButton>
+            <DropdownButton layoutX="558.0" layoutY="133.0" minHeight="32.0" minWidth="150.0" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory">
+               <items>
+                  <MenuItem text="Choice 1" />
+                  <MenuItem text="Choice 2" />
+                  <MenuItem text="Choice 3" />
+               </items>
+            </DropdownButton>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
