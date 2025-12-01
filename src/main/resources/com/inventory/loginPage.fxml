@@ -44,7 +44,7 @@
       <Circle centerX="39.5" centerY="39.5" fill="#e76d8a" layoutX="268.0" layoutY="407.0" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
       <Circle centerX="39.5" centerY="39.5" fill="#e76d8a" layoutX="268.0" layoutY="487.0" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
       <Button fx:id="cancelButton" layoutX="561.0" layoutY="423.0" onAction="#switchToTitlePage" prefHeight="28.0" prefWidth="105.0" styleClass="button-login" text="Cancel" />
-      <Button layoutX="441.0" layoutY="423.0" prefHeight="28.0" prefWidth="105.0" styleClass="button-login" text="Log in" />
+      <Button fx:id="loginButton" layoutX="441.0" layoutY="423.0" onAction="#Login" prefHeight="28.0" prefWidth="105.0" styleClass="button-login" text="Log in" />
       <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="556.0" prefWidth="297.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e76d8a" height="556.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="298.0" />
@@ -110,8 +110,8 @@
             <String fx:value="pink-text" />
             <String fx:value="poppins-black" />
          </styleClass></Label>
-      <PasswordField layoutX="474.0" layoutY="332.0" prefHeight="32.0" prefWidth="192.0" />
-      <TextField layoutX="474.0" layoutY="267.0" prefHeight="32.0" prefWidth="192.0" />
+      <PasswordField fx:id="passwordField" layoutX="474.0" layoutY="332.0" prefHeight="32.0" prefWidth="192.0" />
+      <TextField fx:id="usernameField" layoutX="474.0" layoutY="267.0" prefHeight="32.0" prefWidth="192.0" />
       <ImageView fitHeight="38.0" fitWidth="60.0" layoutX="527.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/helloKittyIconDark.png" />
