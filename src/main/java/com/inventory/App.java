@@ -20,6 +20,7 @@ public class App extends Application
 
         stage.setTitle("Kawaii Count");
         stage.setResizable(false);
+        
         Image icon = new Image(getClass().getResourceAsStream("/com/inventory/images/helloKittyIcon.png"));
         stage.getIcons().add(icon);
 
@@ -27,10 +28,7 @@ public class App extends Application
         stage.show();
     }
 
-    static void setRoot(String fxml) throws IOException 
-    {
-        scene.setRoot(loadFXML(fxml));
-    }
+    static void setRoot(String fxml) throws IOException { scene.setRoot(loadFXML(fxml)); }
 
     private static Parent loadFXML(String fxml) throws IOException 
     {
@@ -38,8 +36,5 @@ public class App extends Application
         return fxmlLoader.load();
     }
 
-    public static void main(String[] args) 
-    {
-        launch(args);
-    }
+    public static void main(String[] args) { launch(args); }
 }

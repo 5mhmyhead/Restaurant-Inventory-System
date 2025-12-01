@@ -14,16 +14,16 @@ import javafx.scene.control.TextField;
 
 public class CreateAccountController 
 {   
-    //Hardcoded Manager Provided Password
+    // Hardcoded Manager Provided Password
     private static final String managerProvidedPW = "vivii";
 
-    //Text and Password Fields
+    // Text and Password Fields
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private TextField emailField;
     @FXML private PasswordField managerPasswordField;
 
-    //Navigation Methods
+    // Navigation Methods
     @FXML
     private void switchToLoginPage() throws IOException {App.setRoot("loginPage");}
 
@@ -33,15 +33,17 @@ public class CreateAccountController
     @FXML
     private void switchToWorkerView() throws IOException {App.setRoot("createAccount_WorkerView");}
 
-    //Database connection helper
-    private Connection connect() throws SQLException {
+    // Database connection helper
+    private Connection connect() throws SQLException 
+    {
         String url = "jdbc:sqlite:src/main/database/Restaurant.db";
         return DriverManager.getConnection(url);
     }
 
-    //Create Account method
+    // Create Account method
     @FXML
-    private void createAccount() {
+    private void createAccount() 
+    {
         String username = usernameField.getText();
         String password = passwordField.getText();
         String email = emailField.getText();
@@ -54,10 +56,12 @@ public class CreateAccountController
             String managerPassword = managerPasswordField.getText();
 
             // Validate against hardcoded secret
-            if (!managerProvidedPW.equals(managerPassword)) {
+            if (!managerProvidedPW.equals(managerPassword)) 
+            {
                 System.out.println("Invalid manager password! Account not created.");
                 return;
             }
+
             account_type = "manager";
         } 
         else 
@@ -70,8 +74,8 @@ public class CreateAccountController
         String sql = "INSERT INTO Account (username, password, email, account_type) VALUES(?,?,?,?)";
 
         try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);) {
-
+        PreparedStatement pstmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);) 
+        {
             pstmt.setString(1, username);
             pstmt.setString(2, password);
             pstmt.setString(3, email);
@@ -79,25 +83,28 @@ public class CreateAccountController
             pstmt.executeUpdate();
 
             try (Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT last_insert_rowid()")) {
+            ResultSet rs = stmt.executeQuery("SELECT last_insert_rowid()")) 
+            {
                 if (rs.next()) 
-                    {
+                {
                     int newUserId = rs.getInt(1);
                     System.out.println("Account created: " + username + " (" + account_type + "), user_id=" + newUserId);
                 }
             }
 
-            try (ResultSet rs = pstmt.getGeneratedKeys()) {
-            if (rs.next()) 
+            try (ResultSet rs = pstmt.getGeneratedKeys()) 
             {
-                int newUserId = rs.getInt(1);
-                System.out.println("Account created: " + username + " (" + account_type + "), user_id=" + newUserId);
-            }
+                if (rs.next()) 
+                {
+                    int newUserId = rs.getInt(1);
+                    System.out.println("Account created: " + username + " (" + account_type + "), user_id=" + newUserId);
+                }
             }
 
             switchToLoginPage(); // go back to login after creation
-
-        } catch (SQLException | IOException e) {
+        } 
+        catch (SQLException | IOException e) 
+        {
             e.printStackTrace();
         }
     }
