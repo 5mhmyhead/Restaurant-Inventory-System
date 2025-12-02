@@ -9,6 +9,6 @@ public class RecoverAccountController
     @FXML
     private void switchToLoginPage() throws IOException 
     { 
-        App.setRoot("loginPage"); 
+        App.setRoot("loginPage", App.WIDTH, App.HEIGHT); 
     }    
 }

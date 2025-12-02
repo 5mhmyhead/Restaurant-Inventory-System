@@ -14,41 +14,42 @@ import javafx.scene.control.TextField;
 
 public class CreateAccountController 
 {   
-    // Hardcoded Manager Provided Password
+    // hardcoded manager provided password
     private static final String managerProvidedPW = "vivii";
 
-    // Text and Password Fields
+    // text and password fields
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private TextField emailField;
     @FXML private PasswordField managerPasswordField;
 
-    // Navigation Methods
+    // navigation Methods
     @FXML
     private void switchToLoginPage() throws IOException 
     {
-        App.setRoot("loginPage");
+        App.setRoot("loginPage", App.WIDTH, App.HEIGHT);
     }
 
     @FXML
     private void switchToManagerView() throws IOException 
     {
-        App.setRoot("createAccount_ManagerView");}
+        App.setRoot("createAccount_ManagerView", App.WIDTH, App.HEIGHT);
+    }
 
     @FXML
     private void switchToWorkerView() throws IOException 
     {
-        App.setRoot("createAccount_WorkerView");
+        App.setRoot("createAccount_WorkerView", App.WIDTH, App.HEIGHT);
     }
 
-    // Database connection helper
+    // database connection helper
     private Connection connect() throws SQLException 
     {
         String url = "jdbc:sqlite:src/main/database/Restaurant.db";
         return DriverManager.getConnection(url);
     }
 
-    // Create Account method
+    // create Account method
     @FXML
     private void createAccount() 
     {
@@ -56,14 +57,14 @@ public class CreateAccountController
         String password = passwordField.getText();
         String email = emailField.getText();
 
-        // Determine account type based on which view is active
+        // determine account type based on which view is active
         String account_type;
         if (managerPasswordField != null && !managerPasswordField.getText().isEmpty()) 
         {
-            // Manager view is active
+            // manager view is active
             String managerPassword = managerPasswordField.getText();
 
-            // Validate against hardcoded secret
+            // validate against hardcoded secret
             if (!managerProvidedPW.equals(managerPassword)) 
             {
                 System.out.println("Invalid manager password! Account not created.");
@@ -74,11 +75,11 @@ public class CreateAccountController
         } 
         else 
         {
-            // Worker view is active
+            // worker view is active
             account_type = "worker";
         }
 
-        // Insert into database
+        // insert into database
         String sql = "INSERT INTO Account (username, password, email, account_type) VALUES(?,?,?,?)";
 
         try (Connection conn = connect();

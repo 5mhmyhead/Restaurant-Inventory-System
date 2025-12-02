@@ -1,7 +1,6 @@
 package com.inventory;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.*;
 
 import javafx.fxml.FXML;
@@ -16,39 +15,39 @@ public class LoginPageController
     @FXML
     private void switchToTitlePage() throws IOException 
     {
-        App.setRoot("titlePage");
+        App.setRoot("titlePage", App.WIDTH, App.HEIGHT);
     }
 
     @FXML
     private void switchToCreateAccount() throws IOException 
     {
-        App.setRoot("createAccount_ManagerView");
+        App.setRoot("createAccount_ManagerView", App.WIDTH, App.HEIGHT);
     }
 
     @FXML
     private void switchToRecoverAccount() throws IOException 
     {
-        App.setRoot("recoverAccount");
+        App.setRoot("recoverAccount", App.WIDTH, App.HEIGHT);
     }
 
     @FXML
     private void Login() throws IOException 
     {
         String user = usernameField.getText();
-        String pw = passwordField.getText();
+        String pass = passwordField.getText();
 
         try (Connection conn = SQLite_Connection.connect();
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Account WHERE username = ? AND password = ?")) 
             {
                 stmt.setString(1, user);
-                stmt.setString(2, pw);
+                stmt.setString(2, pass);
 
                 try (ResultSet rs = stmt.executeQuery()) 
                 {
                     if (rs.next()) 
                     {
                         System.out.println("Login successful!");
-                        App.setRoot("inventoryPage");
+                        App.setRoot("inventoryPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
                     }
                     else 
                     {

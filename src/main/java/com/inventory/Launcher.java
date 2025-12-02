@@ -4,8 +4,8 @@ public class Launcher
 {
     public static void main(String[] args) 
     {
-        // FINAL PROJECT: RESTAURANT INVENTORY SYSTEM
-        // GROUP MEMBERS: SIDO, BARTOLABAC, INOPIA, ABLEN
+        // final project: restaurant inventory system
+        // group members: Sido, Bartolabac, Inopia, Ablen
         App.main(args);    
     }
 }

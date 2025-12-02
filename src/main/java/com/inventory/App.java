@@ -11,12 +11,19 @@ import javafx.stage.Stage;
 
 public class App extends Application 
 {
+    // global variables that specify the width and height of the scene
+    public static final int HEIGHT = 576;
+    public static final int WIDTH = 768;
+    // height and width for the main scene of the app
+    public static final int MAIN_HEIGHT = 720;
+    public static final int MAIN_WIDTH = 1280; 
+
     private static Scene scene;
 
     @Override
     public void start(Stage stage) throws IOException 
     {
-        scene = new Scene(loadFXML("titlePage"), 768, 576);
+        scene = new Scene(loadFXML("titlePage"), WIDTH, HEIGHT);
 
         stage.setTitle("Kawaii Count");
         stage.setResizable(false);
@@ -28,9 +35,15 @@ public class App extends Application
         stage.show();
     }
 
-    static void setRoot(String fxml) throws IOException 
+    static void setRoot(String fxml, int width, int height) throws IOException 
     { 
-        scene.setRoot(loadFXML(fxml)); 
+        Stage stage = (Stage) scene.getWindow();
+        // sets a new scene with the specified height and width
+        Parent root = loadFXML(fxml);
+        scene = new Scene(root, width, height);
+        
+        stage.setScene(scene);
+        stage.sizeToScene();
     }
 
     private static Parent loadFXML(String fxml) throws IOException 
