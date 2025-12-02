@@ -51,7 +51,7 @@ public class CreateAccountController
 
     // create Account method
     @FXML
-    private void createAccount() 
+    private void createAccount() throws SQLException 
     {
         String username = usernameField.getText();
         String password = passwordField.getText();
@@ -79,17 +79,33 @@ public class CreateAccountController
             account_type = "worker";
         }
 
-        // insert into database
-        String sql = "INSERT INTO Account (username, password, email, account_type) VALUES(?,?,?,?)";
+        String checkSql = "SELECT * FROM Account WHERE username = ?";
+        String insertSql = "INSERT INTO Account (username, password, email, account_type) VALUES(?,?,?,?)";
 
+        //checks database if username already exists
         try (Connection conn = connect();
-        PreparedStatement pstmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);) 
+        PreparedStatement check = conn.prepareStatement(checkSql))
         {
-            pstmt.setString(1, username);
-            pstmt.setString(2, password);
-            pstmt.setString(3, email);
-            pstmt.setString(4, account_type);
-            pstmt.executeUpdate();
+            check.setString(1, username);
+            try (ResultSet rs = check.executeQuery())
+            {
+                if (rs.next() && rs.getInt(1) > 0)
+                {
+                    System.out.println("Username already exists!");
+                    return;
+                }
+            }
+        }
+
+        //inserts new user's data to database
+        try (Connection conn = connect();
+        PreparedStatement insert = conn.prepareStatement(insertSql, PreparedStatement.RETURN_GENERATED_KEYS);) 
+        {
+            insert.setString(1, username);
+            insert.setString(2, password);
+            insert.setString(3, email);
+            insert.setString(4, account_type);
+            insert.executeUpdate();
 
             try (Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT last_insert_rowid()")) 
@@ -101,7 +117,7 @@ public class CreateAccountController
                 }
             }
 
-            try (ResultSet rs = pstmt.getGeneratedKeys()) 
+            try (ResultSet rs = insert.getGeneratedKeys()) 
             {
                 if (rs.next()) 
                 {

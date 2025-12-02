@@ -42,8 +42,26 @@ public class LoginPageController
     {
         String user = usernameField.getText();
         String pass = passwordField.getText();
+        
+        if (user.isEmpty() || pass.isEmpty())
+        {
+            errorMessage.setText("Username or password is empty!");
+                        // the error message waits for 2 seconds
+                        PauseTransition delay = new PauseTransition(Duration.seconds(3));
+                        // then it fades out
+                        FadeTransition fade = new FadeTransition(Duration.seconds(2), errorMessage);
+                        fade.setFromValue(1);
+                        fade.setToValue(0);
+                        // the fade plays after the delay
+                        SequentialTransition transition = new SequentialTransition(errorMessage, delay, fade);
+                        transition.jumpTo(Duration.ZERO);
+                        transition.stop();
+                        transition.play();
+        }
 
-        try (Connection conn = SQLite_Connection.connect();
+        else
+        {
+            try (Connection conn = SQLite_Connection.connect();
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Account WHERE username = ? AND password = ?")) 
             {
                 stmt.setString(1, user);
@@ -78,5 +96,6 @@ public class LoginPageController
                 e.printStackTrace();
                 System.out.println("Database error: " + e.getMessage());
             }
+        }
     }
 }
