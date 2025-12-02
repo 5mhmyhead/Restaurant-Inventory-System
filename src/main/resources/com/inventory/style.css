@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 /*
  *  COLORS:
@@ -8,6 +8,7 @@
  *  pale orange: #FFD6B7
  *  dark blue: #253657
  *  purple: #693C5B
+ *  very light pink: #F1B8C0
  */
 
 @font-face {
@@ -530,6 +531,27 @@
 }
 
 .text-field {
+  -fx-text-fill: #253657;
+
+  background-color: #f8e9e5;
+  -fx-background-color: #f8e9e5;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid solid solid none;
+  -fx-border-style: solid solid solid none;
+
+  border-color: #F1B8C0;
+  -fx-border-color: #F1B8C0;
+
+  border-radius: 0 10px 10px 0;
+  -fx-border-radius: 0 10px 10px 0;
+
+  -fx-background-radius: 10px;
+}
+
+.text-field:focused {
   -fx-text-fill: #253657;
 
   background-color: #f8e9e5;

@@ -32,6 +32,7 @@ public class App extends Application
         stage.getIcons().add(icon);
 
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();
     }
 
@@ -44,6 +45,7 @@ public class App extends Application
         
         stage.setScene(scene);
         stage.sizeToScene();
+        stage.centerOnScreen();
     }
 
     private static Parent loadFXML(String fxml) throws IOException 

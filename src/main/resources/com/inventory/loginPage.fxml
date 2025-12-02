@@ -110,14 +110,33 @@
             <String fx:value="pink-text" />
             <String fx:value="poppins-black" />
          </styleClass></Label>
-      <PasswordField fx:id="passwordField" layoutX="474.0" layoutY="332.0" prefHeight="32.0" prefWidth="192.0" />
-      <TextField fx:id="usernameField" layoutX="474.0" layoutY="267.0" prefHeight="32.0" prefWidth="192.0" />
+      <AnchorPane layoutX="441.0" layoutY="267.0" prefHeight="32.0" prefWidth="225.0">
+         <children>
+            <TextField fx:id="usernameField" layoutX="33.0" prefHeight="32.0" prefWidth="192.0" />
+            <Button prefHeight="32.0" prefWidth="33.0" styleClass="field-icon-container" />
+            <ImageView fitHeight="21.0" fitWidth="120.0" layoutX="6.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" styleClass="field-icon-container">
+               <image>
+                  <Image url="@images/iconProfile.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="441.0" layoutY="332.0" prefHeight="32.0" prefWidth="225.0">
+         <children>
+            <Button prefHeight="32.0" prefWidth="33.0" styleClass="field-icon-container" />
+            <ImageView fitHeight="21.0" fitWidth="72.0" layoutX="7.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" styleClass="field-icon-container">
+               <image>
+                  <Image url="@images/iconLock.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
       <ImageView fitHeight="38.0" fitWidth="60.0" layoutX="527.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/helloKittyIconDark.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="72.0" fitWidth="327.0" layoutX="398.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="72.0" fitWidth="327.0" layoutX="390.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/kawaiiCountTextDark.png" />
          </image>
@@ -138,24 +157,22 @@
             <String fx:value="poppins-regular" />
          </styleClass>
       </Label>
-      <Label layoutX="494.0" layoutY="181.0" prefHeight="18.0" styleClass="poppins-regular" text="Log in before you continue" textFill="#263757">
+      <Label layoutX="488.0" layoutY="183.0" prefHeight="18.0" styleClass="poppins-regular" text="Log in before you continue" textFill="#263757">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <Button layoutX="441.0" layoutY="332.0" prefHeight="32.0" prefWidth="33.0" styleClass="field-icon-container" />
-      <Button layoutX="441.0" layoutY="267.0" prefHeight="32.0" prefWidth="33.0" styleClass="field-icon-container" />
-      <ImageView fitHeight="21.0" fitWidth="72.0" layoutX="448.0" layoutY="337.0" pickOnBounds="true" preserveRatio="true" styleClass="field-icon-container">
-         <image>
-            <Image url="@images/iconLock.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="21.0" fitWidth="120.0" layoutX="447.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true" styleClass="field-icon-container">
-         <image>
-            <Image url="@images/iconProfile.png" />
-         </image>
-      </ImageView>
       <Line endY="24.0" layoutX="474.0" layoutY="271.0" stroke="#e76d8a" styleClass="field-icon-container" />
       <Line endY="24.0" layoutX="474.0" layoutY="336.0" stroke="#e76d8a" styleClass="field-icon-container" />
+      <Label fx:id="errorMessage" layoutX="441.0" layoutY="209.0" prefHeight="32.0" prefWidth="225.0" textAlignment="CENTER" textFill="#e76d8a">
+         <font>
+            <Font size="10.0" />
+         </font>
+         <styleClass>
+            <String fx:value="poppins-semibold" />
+            <String fx:value="text-center" />
+         </styleClass>
+      </Label>
+      <PasswordField fx:id="passwordField" layoutX="475.0" layoutY="332.0" prefHeight="32.0" prefWidth="192.0" styleClass="text-field" />
    </children>
 </AnchorPane>
