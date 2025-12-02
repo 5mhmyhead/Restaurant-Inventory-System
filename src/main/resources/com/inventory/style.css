@@ -257,6 +257,54 @@
   -fx-border-color: #F5A1A1;
 }
 
+.button-purple {
+  font-family: "Poppins", sans-serif;
+  -fx-font-family: "Poppins", sans-serif;
+  
+  font-weight: 900;
+  -fx-font-weight: 900;
+  
+  font-style: normal;
+  -fx-font-style: normal;
+
+  -fx-text-fill: #f8e9e5;
+
+  background-color: #693C5B;
+  -fx-background-color: #693C5B;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+}
+
+.button-purple:hover {
+  outline: none;
+  -fx-outline: none;
+
+  cursor: hand;
+  -fx-cursor: hand;
+
+  -fx-text-fill: #693C5B;
+
+  background-color: #f8e9e5;
+  -fx-background-color: #f8e9e5;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-color: #693C5B;
+  -fx-border-color: #693C5B;
+}
+
 .button-inventory {
   font-family: "Poppins", sans-serif;
   -fx-font-family: "Poppins", sans-serif;
@@ -303,6 +351,54 @@
 
   border-color: #f8e9e5;
   -fx-border-color: #f8e9e5;
+}
+
+.button-white-purple-border {
+  font-family: "Poppins", sans-serif;
+  -fx-font-family: "Poppins", sans-serif;
+  
+  font-weight: 900;
+  -fx-font-weight: 900;
+  
+  font-style: normal;
+  -fx-font-style: normal;
+
+  -fx-text-fill: #693C5B;
+
+  background-color: #f8e9e5;
+  -fx-background-color: #f8e9e5;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-color: #693C5B;
+  -fx-border-color: #693C5B;
+}
+
+.button-white-purple-border:hover {
+  outline: none;
+  -fx-outline: none;
+
+  cursor: hand;
+  -fx-cursor: hand;
+
+  -fx-text-fill: #f8e9e5;
+
+  background-color: #693C5B;
+  -fx-background-color: #693C5B;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
 }
 
 .button-login {
@@ -598,8 +694,6 @@
 }
 
 .table-row-cell {
-
-  
   background-color: #FFD6B7;
   -fx-background-color: #FFD6B7;
 }

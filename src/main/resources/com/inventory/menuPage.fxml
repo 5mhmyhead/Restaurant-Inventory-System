@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle fill="#f8e9e5" height="720.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="poppins-bold" width="1280.0" />
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="700.0" prefWidth="264.0">
+         <children>
+            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#e76d8a" height="700.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="264.0" />
+            <ImageView fitHeight="38.0" fitWidth="200.0" layoutX="70.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/kawaiiCountTextLight.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="50.0" layoutX="14.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/helloKittyIconLight.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="10.0" layoutY="662.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="244.0" styleClass="button-pink" stylesheets="@style.css" text="Sign Out" />
+            <Label layoutX="78.0" layoutY="44.0" styleClass="poppins-regular" stylesheets="@style.css" text="Welcome, user!" textFill="#f8e9e5" />
+            <Label layoutX="76.0" layoutY="187.0" styleClass="poppins-bold" stylesheets="@style.css" text="Inventory" textFill="#f8e9e5">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="150.0" fitWidth="32.0" layoutX="31.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/fridgeWhite.png" />
+               </image>
+            </ImageView>
+            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f8e9e5" height="116.0" layoutX="26.0" layoutY="242.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="238.0" />
+            <ImageView fitHeight="150.0" fitWidth="32.0" layoutX="31.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/chickenWhite.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="76.0" layoutY="387.0" styleClass="poppins-bold" stylesheets="@style.css" text="Orders" textFill="#f8e9e5">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="76.0" layoutY="487.0" styleClass="poppins-bold" stylesheets="@style.css" text="Analytics" textFill="#f8e9e5">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="52.0" layoutX="245.0" layoutY="274.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
+            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#e76d8a" height="32.0" layoutY="242.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="264.0" />
+            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#e76d8a" height="32.0" layoutY="326.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="264.0" />
+            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f8e9e5" height="52.0" layoutX="13.0" layoutY="274.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
+            <ImageView fitHeight="150.0" fitWidth="32.0" layoutX="31.0" layoutY="483.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/hatWhite.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="32.0" layoutX="31.0" layoutY="283.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/cutleryPink.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="76.0" layoutY="287.0" styleClass="poppins-bold" stylesheets="@style.css" text="Menu" textFill="#e76d8a">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label layoutX="350.0" layoutY="17.0" styleClass="poppins-bold" text="Menu">
+         <font>
+            <Font size="45.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="38.0" fitWidth="38.0" layoutX="300.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/cutleryBlue.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="284.0" layoutY="144.0" prefHeight="562.0" prefWidth="600.0">
+         <children>
+            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f5a1a1" height="562.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="542.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="580.0" />
+         </children>
+      </AnchorPane>
+      <Button layoutX="284.0" layoutY="96.0" prefHeight="37.0" prefWidth="40.0" styleClass="search-icon-container" />
+      <ImageView fitHeight="23.0" fitWidth="44.0" layoutX="292.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/searchOrange.png" />
+         </image>
+      </ImageView>
+      <TextField layoutX="324.0" layoutY="96.0" prefHeight="37.0" prefWidth="350.0" styleClass="search-field" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="10.0" layoutX="296.0" layoutY="93.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="100.0" />
+      <Label layoutX="299.0" layoutY="89.0" styleClass="poppins-regular" text="Search for an item" textFill="#f5a1a1">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Button layoutX="684.0" layoutY="96.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="200.0" styleClass="button-orange" text="Filter Menu" />
+      <ImageView fitHeight="87.0" fitWidth="376.0" layoutX="894.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/circlesPurpleRow.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="894.0" layoutY="10.0" prefHeight="658.0" prefWidth="376.0">
+         <children>
+            <ImageView fitHeight="658.0" fitWidth="376.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/receiptPane.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="193.0" layoutY="593.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Remove" />
+            <Button layoutX="33.0" layoutY="593.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Pay" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

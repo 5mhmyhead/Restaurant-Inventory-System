@@ -32,25 +32,32 @@ public class LoginPageController
     }
 
     @FXML
-    private void Login() throws IOException {
+    private void Login() throws IOException 
+    {
         String user = usernameField.getText();
         String pw = passwordField.getText();
 
         try (Connection conn = SQLite_Connection.connect();
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Account WHERE username = ? AND password = ?")) {
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Account WHERE username = ? AND password = ?")) 
+            {
                 stmt.setString(1, user);
                 stmt.setString(2, pw);
 
-                try (ResultSet rs = stmt.executeQuery()) {
-                    if (rs.next()) {
+                try (ResultSet rs = stmt.executeQuery()) 
+                {
+                    if (rs.next()) 
+                    {
                         System.out.println("Login successful!");
                         App.setRoot("inventoryPage");
                     }
-                    else {
+                    else 
+                    {
                         System.out.println("Invalid username or password");
                     }
                 }
-            } catch (SQLException e) {
+            } 
+            catch (SQLException e) 
+            {
                 e.printStackTrace();
                 System.out.println("Database error: " + e.getMessage());
             }
