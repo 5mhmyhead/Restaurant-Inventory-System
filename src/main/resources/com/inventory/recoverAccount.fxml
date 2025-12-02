@@ -46,7 +46,7 @@
       <Button layoutX="431.0" layoutY="444.0" prefHeight="28.0" prefWidth="120.0" styleClass="button-login" text="Reset Password" />
       <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="556.0" prefWidth="297.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e76d8a" height="556.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="298.0" />
+            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#e76d8a" height="556.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="298.0" />
             <Circle centerX="163.5" centerY="163.5" layoutX="-42.0" layoutY="23.0" radius="163.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                <fill>
                   <LinearGradient endX="0.5118483412322274" endY="1.0" startX="0.7962085308056872">

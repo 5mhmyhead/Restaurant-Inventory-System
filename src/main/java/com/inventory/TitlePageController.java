@@ -6,5 +6,8 @@ import javafx.fxml.FXML;
 public class TitlePageController 
 {
     @FXML
-    private void switchToLoginPage() throws IOException { App.setRoot("loginPage"); }
+    private void switchToLoginPage() throws IOException 
+    { 
+        App.setRoot("loginPage"); 
+    }
 }

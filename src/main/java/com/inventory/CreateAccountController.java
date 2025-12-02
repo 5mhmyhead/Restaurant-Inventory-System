@@ -25,13 +25,21 @@ public class CreateAccountController
 
     // Navigation Methods
     @FXML
-    private void switchToLoginPage() throws IOException {App.setRoot("loginPage");}
+    private void switchToLoginPage() throws IOException 
+    {
+        App.setRoot("loginPage");
+    }
 
     @FXML
-    private void switchToManagerView() throws IOException {App.setRoot("createAccount_ManagerView");}
+    private void switchToManagerView() throws IOException 
+    {
+        App.setRoot("createAccount_ManagerView");}
 
     @FXML
-    private void switchToWorkerView() throws IOException {App.setRoot("createAccount_WorkerView");}
+    private void switchToWorkerView() throws IOException 
+    {
+        App.setRoot("createAccount_WorkerView");
+    }
 
     // Database connection helper
     private Connection connect() throws SQLException 
