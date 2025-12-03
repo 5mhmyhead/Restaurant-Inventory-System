@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -22,6 +23,7 @@ public class CreateAccountController
     @FXML private PasswordField passwordField;
     @FXML private TextField emailField;
     @FXML private PasswordField managerPasswordField;
+    @FXML private Label errorMessage;
 
     // navigation Methods
     @FXML
@@ -67,7 +69,7 @@ public class CreateAccountController
             // validate against hardcoded secret
             if (!managerProvidedPW.equals(managerPassword)) 
             {
-                System.out.println("Invalid manager password! Account not created.");
+                errorMessage.setText("Invalid Manager Password. Account cannot be created.");
                 return;
             }
 
@@ -91,16 +93,16 @@ public class CreateAccountController
             {
                 if (rs.next() && rs.getInt(1) > 0)
                 {
-                    System.out.println("Username already exists!");
+                    errorMessage.setText("Uername already exists!");
                     return;
                 }
             }
         }
 
         //checks if input is empty
-        if (username.isEmpty() || password.isEmpty())
+        if (username.isEmpty() || password.isEmpty() || email.isEmpty())
         {
-            System.out.println("Invalid Input!");
+            errorMessage.setText("Please enter all the required fields.");
         }
         else
         {
@@ -129,7 +131,7 @@ public class CreateAccountController
                     if (rs.next()) 
                     {
                         int newUserId = rs.getInt(1);
-                        System.out.println("Account created: " + username + " (" + account_type + "), user_id=" + newUserId);
+                        System.out.println("Account created: " + username + " (" + account_type + "), user_id = " + newUserId);
                     }
                 }
 
@@ -139,8 +141,6 @@ public class CreateAccountController
             {
                 e.printStackTrace();
             }
-        }
-
-        
+        }    
     }
 }
