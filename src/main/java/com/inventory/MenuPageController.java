@@ -4,27 +4,14 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 
-public class InventoryPageController {
-    @FXML ComboBox<String> typeDrop;
-    @FXML ComboBox<String> statusDrop;
+public class MenuPageController {
     @FXML Button signOutButton;
 
     @FXML
-    public void initialize ()
+    private void switchToInventory() throws IOException 
     {
-        typeDrop.getItems().addAll("Breakfast", "Lunch", "Dinner");
-        statusDrop.getItems().addAll("Available", "Unavailable");
-
-        typeDrop.setValue("Breakfast");
-        statusDrop.setValue("Available");
-    }
-
-    @FXML
-    private void switchToMenu() throws IOException 
-    {
-        App.setRoot("menuPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
+        App.setRoot("inventoryPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
     }
 
     @FXML

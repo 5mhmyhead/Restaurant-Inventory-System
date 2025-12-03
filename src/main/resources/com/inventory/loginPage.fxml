@@ -44,7 +44,11 @@
       <Circle centerX="39.5" centerY="39.5" fill="#e76d8a" layoutX="268.0" layoutY="407.0" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
       <Circle centerX="39.5" centerY="39.5" fill="#e76d8a" layoutX="268.0" layoutY="487.0" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
       <Button fx:id="cancelButton" layoutX="561.0" layoutY="423.0" onAction="#switchToTitlePage" prefHeight="28.0" prefWidth="105.0" styleClass="button-login" text="Cancel" />
-      <Button fx:id="loginButton" layoutX="441.0" layoutY="423.0" onAction="#Login" prefHeight="28.0" prefWidth="105.0" styleClass="button-login" text="Log in" />
+      <Button fx:id="loginButton" layoutX="441.0" layoutY="423.0" onAction="#Login" prefHeight="28.0" prefWidth="105.0" text="Log in">
+         <styleClass>
+            <String fx:value="button-login" />
+            <String fx:value="poppins-bold" />
+         </styleClass></Button>
       <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="556.0" prefWidth="297.0">
          <children>
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#e76d8a" height="556.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="298.0" />
@@ -102,14 +106,10 @@
          </children></AnchorPane>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="200.0" layoutX="-1.0" layoutY="35.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="11.0" />
       <Label layoutX="452.0" layoutY="463.0" prefHeight="18.0" prefWidth="146.0" styleClass="poppins-regular" text="Don't have an account?" textFill="#253657" />
-      <Label fx:id="register" layoutX="601.0" layoutY="463.0" onMouseClicked="#switchToCreateAccount" prefHeight="18.0" prefWidth="53.0" text="Register" textAlignment="CENTER" textFill="#e76d8a">
+      <Label fx:id="register" layoutX="601.0" layoutY="463.0" onMouseClicked="#switchToCreateAccount" prefHeight="18.0" prefWidth="53.0" styleClass="poppins-black" text="Register" textAlignment="CENTER" textFill="#e76d8a">
          <font>
             <Font name="System Bold" size="12.0" />
-         </font>
-         <styleClass>
-            <String fx:value="pink-text" />
-            <String fx:value="poppins-black" />
-         </styleClass></Label>
+         </font></Label>
       <AnchorPane layoutX="441.0" layoutY="267.0" prefHeight="32.0" prefWidth="225.0">
          <children>
             <TextField fx:id="usernameField" layoutX="33.0" prefHeight="32.0" prefWidth="192.0" />
