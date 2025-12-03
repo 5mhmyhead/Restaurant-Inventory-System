@@ -3,7 +3,6 @@ package com.inventory;
 import java.io.IOException;
 import java.sql.*;
 
-import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
@@ -77,17 +76,6 @@ public class LoginPageController
                     else 
                     {
                         errorMessage.setText("Invalid username or password.");
-                        // the error message waits for 2 seconds
-                        PauseTransition delay = new PauseTransition(Duration.seconds(3));
-                        // then it fades out
-                        FadeTransition fade = new FadeTransition(Duration.seconds(2), errorMessage);
-                        fade.setFromValue(1);
-                        fade.setToValue(0);
-                        // the fade plays after the delay
-                        SequentialTransition transition = new SequentialTransition(errorMessage, delay, fade);
-                        transition.jumpTo(Duration.ZERO);
-                        transition.stop();
-                        transition.play();
                     }
                 }
             } 
