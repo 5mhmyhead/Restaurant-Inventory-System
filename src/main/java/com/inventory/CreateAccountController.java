@@ -97,40 +97,50 @@ public class CreateAccountController
             }
         }
 
-        //inserts new user's data to database
-        try (Connection conn = connect();
-        PreparedStatement insert = conn.prepareStatement(insertSql, PreparedStatement.RETURN_GENERATED_KEYS);) 
+        //checks if input is empty
+        if (username.isEmpty() || password.isEmpty())
         {
-            insert.setString(1, username);
-            insert.setString(2, password);
-            insert.setString(3, email);
-            insert.setString(4, account_type);
-            insert.executeUpdate();
-
-            try (Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT last_insert_rowid()")) 
-            {
-                if (rs.next()) 
-                {
-                    int newUserId = rs.getInt(1);
-                    System.out.println("Account created: " + username + " (" + account_type + "), user_id=" + newUserId);
-                }
-            }
-
-            try (ResultSet rs = insert.getGeneratedKeys()) 
-            {
-                if (rs.next()) 
-                {
-                    int newUserId = rs.getInt(1);
-                    System.out.println("Account created: " + username + " (" + account_type + "), user_id=" + newUserId);
-                }
-            }
-
-            switchToLoginPage(); // go back to login after creation
-        } 
-        catch (SQLException | IOException e) 
-        {
-            e.printStackTrace();
+            System.out.println("Invalid Input!");
         }
+        else
+        {
+            //inserts new user's data to database
+            try (Connection conn = connect();
+            PreparedStatement insert = conn.prepareStatement(insertSql, PreparedStatement.RETURN_GENERATED_KEYS);) 
+            {
+                insert.setString(1, username);
+                insert.setString(2, password);
+                insert.setString(3, email);
+                insert.setString(4, account_type);
+                insert.executeUpdate();
+
+                try (Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT last_insert_rowid()")) 
+                {
+                    if (rs.next()) 
+                    {
+                        int newUserId = rs.getInt(1);
+                        System.out.println("Account created: " + username + " (" + account_type + "), user_id=" + newUserId);
+                    }
+                }
+
+                try (ResultSet rs = insert.getGeneratedKeys()) 
+                {
+                    if (rs.next()) 
+                    {
+                        int newUserId = rs.getInt(1);
+                        System.out.println("Account created: " + username + " (" + account_type + "), user_id=" + newUserId);
+                    }
+                }
+
+                switchToLoginPage(); // go back to login after creation
+            } 
+            catch (SQLException | IOException e) 
+            {
+                e.printStackTrace();
+            }
+        }
+
+        
     }
 }

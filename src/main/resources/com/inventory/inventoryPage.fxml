@@ -123,16 +123,16 @@
          <children>
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f5a1a1" height="275.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="963.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="255.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="943.0" />
-            <TableView layoutX="20.0" layoutY="19.0" prefHeight="235.0" prefWidth="923.0" stylesheets="@style.css">
+            <TableView fx:id="inventoryTable" layoutX="20.0" layoutY="19.0" prefHeight="235.0" prefWidth="923.0" stylesheets="@style.css">
               <columns>
-                <TableColumn prefWidth="75.0" text="Product ID" />
-                <TableColumn prefWidth="182.0" text="Product Name" />
-                  <TableColumn minWidth="8.0" prefWidth="105.0" text="Type" />
-                  <TableColumn minWidth="8.0" prefWidth="105.0" text="Category" />
-                  <TableColumn minWidth="8.0" prefWidth="105.0" text="Stock" />
-                  <TableColumn minWidth="8.0" prefWidth="105.0" text="Price" />
-                  <TableColumn minWidth="8.0" prefWidth="105.0" text="Discount" />
-                  <TableColumn minWidth="8.0" prefWidth="139.0" text="Status" />
+                  <TableColumn fx:id="inventoryProductID" prefWidth="75.0" text="Product ID" />
+                  <TableColumn fx:id="inventoryProductName" prefWidth="182.0" text="Product Name" />
+                  <TableColumn fx:id="inventoryType" minWidth="8.0" prefWidth="105.0" text="Type" />
+                  <TableColumn fx:id="inventoryCategory" minWidth="8.0" prefWidth="105.0" text="Category" />
+                  <TableColumn fx:id="inventoryStock" minWidth="8.0" prefWidth="105.0" text="Stock" />
+                  <TableColumn fx:id="inventoryPrice" minWidth="8.0" prefWidth="105.0" text="Price" />
+                  <TableColumn fx:id="inventoryDiscount" minWidth="8.0" prefWidth="105.0" text="Discount" />
+                  <TableColumn fx:id="inventoryStatus" minWidth="8.0" prefWidth="139.0" text="Status" />
               </columns>
             </TableView>
          </children>
