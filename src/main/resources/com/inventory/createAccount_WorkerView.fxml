@@ -14,9 +14,21 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="768.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inventory.CreateAccountController">
    <children>
       <Rectangle arcWidth="5.0" fill="#f8e9e5" height="576.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="768.0" />
-      <Button layoutX="219.0" layoutY="190.0" mnemonicParsing="false" onAction="#switchToManagerView" prefHeight="35.0" prefWidth="225.0" styleClass="button-accountcreate_default" text="Manager" />
-      <Button layoutX="473.0" layoutY="190.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="225.0" styleClass="button-accountcreate_active" text="Worker" />
-      <Button fx:id="register" layoutX="225.0" layoutY="452.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="35.0" prefWidth="463.0" styleClass="button-createaccount" text="Create Account" />
+      <Button layoutX="225.0" layoutY="190.0" mnemonicParsing="false" onAction="#switchToManagerView" prefHeight="32.0" prefWidth="225.0" text="Manager">
+         <styleClass>
+            <String fx:value="button-accountcreate_default" />
+            <String fx:value="poppins-black" />
+         </styleClass></Button>
+      <Button layoutX="464.0" layoutY="190.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="225.0" text="Worker">
+         <styleClass>
+            <String fx:value="button-accountcreate_active" />
+            <String fx:value="poppins-black" />
+         </styleClass></Button>
+      <Button fx:id="register" layoutX="225.0" layoutY="452.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="36.0" prefWidth="463.0" text="Create Account">
+         <styleClass>
+            <String fx:value="button-createaccount" />
+            <String fx:value="poppins-black" />
+         </styleClass></Button>
       <ImageView fitHeight="556.0" fitWidth="139.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/Sidebar.png" />
@@ -32,9 +44,9 @@
             <Image url="@images/CreateAccountTexxt.png" />
          </image>
       </ImageView>
-      <TextField fx:id="usernameField" layoutX="243.0" layoutY="256.0" prefHeight="39.0" prefWidth="207.0" />
-      <Button layoutX="225.0" layoutY="256.0" prefHeight="39.0" prefWidth="19.0" styleClass="field-icon-container" />
-      <Label layoutX="234.0" layoutY="247.0" prefHeight="18.0" prefWidth="60.0" text="Username" textAlignment="CENTER" textFill="#263757cc">
+      <TextField fx:id="usernameField" layoutX="243.0" layoutY="256.0" prefHeight="32.0" prefWidth="206.0" />
+      <Button layoutX="225.0" layoutY="256.0" prefHeight="32.0" prefWidth="19.0" styleClass="field-icon-container" />
+      <Label layoutX="234.0" layoutY="247.0" prefHeight="18.0" prefWidth="60.0" text="Username" textAlignment="CENTER" textFill="#e76d8acc">
          <font>
             <Font size="10.0" />
          </font>
@@ -44,9 +56,9 @@
             <String fx:value="text-background" />
          </styleClass>
       </Label>
-      <Button layoutX="464.0" layoutY="256.0" prefHeight="39.0" prefWidth="19.0" styleClass="field-icon-container" />
-      <PasswordField fx:id="passwordField" layoutX="482.0" layoutY="256.0" prefHeight="39.0" prefWidth="207.0" />
-      <Label layoutX="470.0" layoutY="247.0" prefHeight="18.0" prefWidth="60.0" text="Password" textAlignment="CENTER" textFill="#263757cc">
+      <Button layoutX="464.0" layoutY="256.0" prefHeight="32.0" prefWidth="19.0" styleClass="field-icon-container" />
+      <PasswordField fx:id="passwordField" layoutX="482.0" layoutY="256.0" prefHeight="32.0" prefWidth="206.0" />
+      <Label layoutX="470.0" layoutY="247.0" prefHeight="18.0" prefWidth="60.0" text="Password" textAlignment="CENTER" textFill="#e76d8acc">
          <font>
             <Font size="10.0" />
          </font>
@@ -56,14 +68,14 @@
             <String fx:value="text-background" />
          </styleClass>
       </Label>
-      <Label layoutX="227.0" layoutY="303.0" prefHeight="18.0" styleClass="poppins-regular" text="In case you forget your password, please enter your email address." textFill="#263757cc">
+      <Label layoutX="227.0" layoutY="300.0" prefHeight="18.0" styleClass="poppins-regular" text="In case you forget your password, please enter your email address." textFill="#263757cc">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <TextField fx:id="emailField" layoutX="243.0" layoutY="330.0" prefHeight="39.0" prefWidth="451.0" />
-      <Button layoutX="225.0" layoutY="330.0" prefHeight="39.0" prefWidth="19.0" styleClass="field-icon-container" />
-      <Label layoutX="234.0" layoutY="321.0" prefHeight="18.0" prefWidth="83.0" text="Email Address" textAlignment="CENTER" textFill="#263757cc">
+      <TextField fx:id="emailField" layoutX="243.0" layoutY="332.0" prefHeight="32.0" prefWidth="446.0" />
+      <Button layoutX="225.0" layoutY="332.0" prefHeight="32.0" prefWidth="19.0" styleClass="field-icon-container" />
+      <Label layoutX="234.0" layoutY="323.0" prefHeight="18.0" prefWidth="83.0" text="Email Address" textAlignment="CENTER" textFill="#e76d8acc">
          <font>
             <Font size="10.0" />
          </font>
@@ -73,14 +85,20 @@
             <String fx:value="text-background" />
          </styleClass>
       </Label>
-      <Label layoutX="331.0" layoutY="500.0" prefHeight="18.0" prefWidth="158.0" styleClass="poppins-regular" text="Already have an account?" textFill="#253657" />
-      <Label fx:id="register" layoutX="488.0" layoutY="500.0" onMouseClicked="#switchToLoginPage" prefHeight="18.0" prefWidth="38.0" text="Login" textAlignment="CENTER" textFill="#e76d8a">
+      <Label layoutX="350.0" layoutY="500.0" prefHeight="18.0" prefWidth="158.0" styleClass="poppins-regular" text="Already have an account?" textFill="#253657" />
+      <Label fx:id="register" layoutX="515.0" layoutY="500.0" onMouseClicked="#switchToLoginPage" prefHeight="18.0" prefWidth="38.0" text="Login" textAlignment="CENTER" textFill="#e76d8a">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
          <styleClass>
             <String fx:value="pink-text" />
             <String fx:value="poppins-black" />
+            <String fx:value="text-center" />
+         </styleClass>
+      </Label>
+      <Label fx:id="errorMessage" alignment="CENTER" layoutX="295.0" layoutY="162.0" prefHeight="17.0" prefWidth="323.0" textFill="#e76d8a">
+         <styleClass>
+            <String fx:value="poppins-bold" />
             <String fx:value="text-center" />
          </styleClass>
       </Label>

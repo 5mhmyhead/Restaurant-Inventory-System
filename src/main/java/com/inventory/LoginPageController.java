@@ -3,7 +3,6 @@ package com.inventory;
 import java.io.IOException;
 import java.sql.*;
 
-import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
@@ -38,6 +37,12 @@ public class LoginPageController
     }
 
     @FXML
+    private void switchToInventory() throws IOException 
+    {
+        App.setRoot("inventoryPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
+    }
+
+    @FXML
     private void Login() throws IOException 
     {
         String user = usernameField.getText();
@@ -46,19 +51,18 @@ public class LoginPageController
         if (user.isEmpty() || pass.isEmpty())
         {
             errorMessage.setText("Username or password is empty!");
-                        // the error message waits for 2 seconds
-                        PauseTransition delay = new PauseTransition(Duration.seconds(3));
-                        // then it fades out
-                        FadeTransition fade = new FadeTransition(Duration.seconds(2), errorMessage);
-                        fade.setFromValue(1);
-                        fade.setToValue(0);
-                        // the fade plays after the delay
-                        SequentialTransition transition = new SequentialTransition(errorMessage, delay, fade);
-                        transition.jumpTo(Duration.ZERO);
-                        transition.stop();
-                        transition.play();
+            // the error message waits for 2 seconds
+            PauseTransition delay = new PauseTransition(Duration.seconds(3));
+            // then it fades out
+            FadeTransition fade = new FadeTransition(Duration.seconds(2), errorMessage);
+            fade.setFromValue(1);
+            fade.setToValue(0);
+            // the fade plays after the delay
+            SequentialTransition transition = new SequentialTransition(errorMessage, delay, fade);
+            transition.jumpTo(Duration.ZERO);
+            transition.stop();
+            transition.play();
         }
-
         else
         {
             try (Connection conn = SQLite_Connection.connect();
@@ -72,7 +76,7 @@ public class LoginPageController
                     if (rs.next()) 
                     {
                         System.out.println("Login successful!");
-                        App.setRoot("inventoryPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
+                        switchToInventory();
                     }
                     else 
                     {

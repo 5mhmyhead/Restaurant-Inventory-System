@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -22,6 +23,7 @@ public class CreateAccountController
     @FXML private PasswordField passwordField;
     @FXML private TextField emailField;
     @FXML private PasswordField managerPasswordField;
+    @FXML private Label errorMessage;
 
     // navigation Methods
     @FXML
@@ -67,7 +69,7 @@ public class CreateAccountController
             // validate against hardcoded secret
             if (!managerProvidedPW.equals(managerPassword)) 
             {
-                System.out.println("Invalid manager password! Account not created.");
+                errorMessage.setText("Invalid Manager Password. Account cannot be created.");
                 return;
             }
 
@@ -91,46 +93,54 @@ public class CreateAccountController
             {
                 if (rs.next() && rs.getInt(1) > 0)
                 {
-                    System.out.println("Username already exists!");
+                    errorMessage.setText("Uername already exists!");
                     return;
                 }
             }
         }
 
-        //inserts new user's data to database
-        try (Connection conn = connect();
-        PreparedStatement insert = conn.prepareStatement(insertSql, PreparedStatement.RETURN_GENERATED_KEYS);) 
+        //checks if input is empty
+        if (username.isEmpty() || password.isEmpty() || email.isEmpty())
         {
-            insert.setString(1, username);
-            insert.setString(2, password);
-            insert.setString(3, email);
-            insert.setString(4, account_type);
-            insert.executeUpdate();
-
-            try (Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT last_insert_rowid()")) 
-            {
-                if (rs.next()) 
-                {
-                    int newUserId = rs.getInt(1);
-                    System.out.println("Account created: " + username + " (" + account_type + "), user_id=" + newUserId);
-                }
-            }
-
-            try (ResultSet rs = insert.getGeneratedKeys()) 
-            {
-                if (rs.next()) 
-                {
-                    int newUserId = rs.getInt(1);
-                    System.out.println("Account created: " + username + " (" + account_type + "), user_id=" + newUserId);
-                }
-            }
-
-            switchToLoginPage(); // go back to login after creation
-        } 
-        catch (SQLException | IOException e) 
-        {
-            e.printStackTrace();
+            errorMessage.setText("Please enter all the required fields.");
         }
+        else
+        {
+            //inserts new user's data to database
+            try (Connection conn = connect();
+            PreparedStatement insert = conn.prepareStatement(insertSql, PreparedStatement.RETURN_GENERATED_KEYS);) 
+            {
+                insert.setString(1, username);
+                insert.setString(2, password);
+                insert.setString(3, email);
+                insert.setString(4, account_type);
+                insert.executeUpdate();
+
+                try (Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT last_insert_rowid()")) 
+                {
+                    if (rs.next()) 
+                    {
+                        int newUserId = rs.getInt(1);
+                        System.out.println("Account created: " + username + " (" + account_type + "), user_id=" + newUserId);
+                    }
+                }
+
+                try (ResultSet rs = insert.getGeneratedKeys()) 
+                {
+                    if (rs.next()) 
+                    {
+                        int newUserId = rs.getInt(1);
+                        System.out.println("Account created: " + username + " (" + account_type + "), user_id = " + newUserId);
+                    }
+                }
+
+                switchToLoginPage(); // go back to login after creation
+            } 
+            catch (SQLException | IOException e) 
+            {
+                e.printStackTrace();
+            }
+        }    
     }
 }

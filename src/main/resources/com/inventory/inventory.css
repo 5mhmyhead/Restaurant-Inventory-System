@@ -1,0 +1,80 @@
+/*
+ *  COLORS:
+ *  off-white: #f8e9e5
+ *  light pink: #e76d8a
+ *  soft red: #F5A1A1
+ *  pale orange: #FFD6B7
+ *  dark blue: #253657
+ *  purple: #693C5B
+ *  very light pink: #F1B8C0
+ */
+
+.menu-text {
+  font-family: "Poppins Bold", sans-serif;
+  -fx-font-family: "Poppins Bold", sans-serif;
+    
+  font-size: 16px;
+  -fx-font-size: 16px;
+
+  font-weight: 700;
+  -fx-font-weight: 700;
+  
+  font-style: normal;
+  -fx-font-style: normal;
+
+  -fx-alignment: CENTER_LEFT;
+
+  padding: 0 0 0 56px;
+  -fx-padding: 0 0 0 58px;
+}
+
+.menu-text-selected {
+  font-family: "Poppins Black", sans-serif;
+  -fx-font-family: "Poppins Black", sans-serif;
+    
+  font-size: 16px;
+  -fx-font-size: 16px;
+
+  font-weight: 900;
+  -fx-font-weight: 900;
+  
+  font-style: normal;
+  -fx-font-style: normal;
+
+  -fx-alignment: CENTER_LEFT;
+
+  padding: 0 0 0 58px;
+  -fx-padding: 0 0 0 58px;
+}
+
+.invisible-button {
+  background-color: transparent;
+  -fx-background-color: transparent;
+
+  border-radius: 10px 0 0 10px;
+  -fx-border-radius: 10px 0 0 10px;
+
+  -fx-background-radius: 10px 0 0 10px;
+}
+
+.invisible-button:hover {
+  background-color: #F1B8C0;
+  -fx-background-color: #F1B8C0;
+
+  cursor: hand;
+  -fx-cursor: hand;
+
+  -fx-underline: true;
+}
+
+.invisible-button-active {
+  background-color: transparent;
+  -fx-background-color: transparent;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+}
+
+
