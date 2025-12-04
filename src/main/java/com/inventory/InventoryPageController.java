@@ -1,19 +1,154 @@
 package com.inventory;
+import com.inventory.Product;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+
+import java.io.Serial;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn;
 
 public class InventoryPageController {
     @FXML ComboBox<String> typeDrop;
     @FXML ComboBox<String> statusDrop;
+    @FXML ComboBox<String> categoryDrop;
 
+    @FXML TableView <Product> inventoryTable;
+    @FXML TableColumn <Product, Number> inventoryProductID;
+    @FXML TableColumn <Product, String> inventoryProductName;
+    @FXML TableColumn <Product, String> inventoryType;
+    @FXML TableColumn <Product, String> inventoryCategory;
+    @FXML TableColumn <Product, Number> inventoryStock;
+    @FXML TableColumn <Product, Number> inventoryPrice;
+    @FXML TableColumn <Product, Number> inventoryDiscount;
+    @FXML TableColumn <Product, String> inventoryStatus;
+
+    @FXML private TextField prodIDField;
+    @FXML private TextField prodNameField;
+    @FXML private TextField prodPriceField;
+    @FXML private TextField prodStockField;
+
+    private Connection conn;
+
+    //initializes the dropdown buttons
     @FXML
     public void initialize ()
     {
-        typeDrop.getItems().addAll("Breakfast", "Lunch", "Dinner");
+        categoryDrop.getItems().addAll("Breakfast", "Lunch", "Dinner", "Appetizer");
+        typeDrop.getItems().addAll("Vegetarian", "Non-Vegetarian");
         statusDrop.getItems().addAll("Available", "Unavailable");
+        categoryDrop.setPromptText("Select Category");
+        typeDrop.setPromptText("Select Type");
+        statusDrop.setPromptText("Set Status");
+        
 
-        typeDrop.setValue("Breakfast");
-        statusDrop.setValue("Available");
+        // Bind columns to Meal properties
+        inventoryProductID.setCellValueFactory(cellData -> cellData.getValue().prodIdProperty());
+        inventoryProductName.setCellValueFactory(cellData -> cellData.getValue().prodNameProperty());
+        inventoryCategory.setCellValueFactory(cellData -> cellData.getValue().prodCategoryProperty());
+        inventoryType.setCellValueFactory(cellData -> cellData.getValue().prodTypeProperty());
+        inventoryStock.setCellValueFactory(cellData -> cellData.getValue().amountStockProperty());
+        inventoryPrice.setCellValueFactory(cellData -> cellData.getValue().prodPriceProperty());
+        inventoryDiscount.setCellValueFactory(cellData -> cellData.getValue().amountDiscountProperty());
+        inventoryStatus.setCellValueFactory(cellData -> cellData.getValue().prodStatusProperty());
+    }
+
+    // Allow main app to inject DB connection
+    public void setConnection(Connection conn) {
+        this.conn = conn;
+    }
+
+    // Load products from database
+    public void loadItems() {
+        ObservableList<Product> data = FXCollections.observableArrayList();
+        String sql = "SELECT meal_id, meal_name, category, type, price, amount_sold, amount_stock, amount_discount, status FROM Meal";
+
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                data.add(new Product(
+                    rs.getInt("meal_id"),
+                    rs.getString("meal_name"),
+                    rs.getString("category"),
+                    rs.getString("type"),
+                    rs.getDouble("price"),
+                    rs.getInt("amount_sold"),
+                    rs.getInt("amount_stock"),
+                    rs.getInt("amount_discount"),
+                    rs.getString("status")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        inventoryTable.setItems(data);
+    }
+
+    @FXML
+    private void addItem() {
+        // Validation
+        if (prodNameField.getText().trim().isEmpty() ||prodPriceField.getText().trim().isEmpty() || prodStockField.getText().trim().isEmpty() || categoryDrop.getValue().trim().isEmpty() || typeDrop.getValue().trim().isEmpty() ||statusDrop.getValue().trim().isEmpty()) 
+        {
+            System.out.println("Please fill in all fields before adding a product.");
+            return; // stop execution
+        }
+        
+        String sql = "INSERT INTO MEAL (meal_name, category, type, price, amount_sold, amount_stock, amount_discount, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            String name = prodNameField.getText();
+            double price = Double.parseDouble(prodPriceField.getText());
+            int stock = Integer.parseInt(prodStockField.getText());
+            String type = typeDrop.getValue();
+            String status = statusDrop.getValue();
+            String category = categoryDrop.getValue();
+
+            // Set parameters
+            ps.setString(1, name);
+            ps.setString(2, category);
+            ps.setString(3, type);
+            ps.setDouble(4, price);
+            ps.setInt(5, 0);
+            ps.setInt(6, stock);
+            ps.setInt(7, 0);
+            ps.setString(8, status);
+
+            ps.executeUpdate();
+
+            // Get auto-generated prod_id
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) {
+                    int newId = rs.getInt("meal_id");
+                    System.out.println("Inserted product with ID: " + newId);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Refresh table
+        loadItems();
+    }
+
+    @FXML
+    private void deleteItem ()
+    {
+
     }
 }

@@ -1,6 +1,7 @@
 package com.inventory;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -39,10 +40,26 @@ public class App extends Application
     static void setRoot(String fxml, int width, int height) throws IOException 
     { 
         Stage stage = (Stage) scene.getWindow();
-        // sets a new scene with the specified height and width
-        Parent root = loadFXML(fxml);
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        Parent root = fxmlLoader.load();
+
+        // If this is the inventory page, inject DB connection
+        if ("inventoryPage".equals(fxml)) 
+            {
+                InventoryPageController controller = fxmlLoader.getController();
+                try 
+                {
+                    Connection conn = SQLite_Connection.connect();
+                    controller.setConnection(conn);
+                    controller.loadItems();
+                } 
+                catch (Exception e) 
+                {
+                    e.printStackTrace();
+                }
+            }
+
         scene = new Scene(root, width, height);
-        
         stage.setScene(scene);
         stage.sizeToScene();
         stage.centerOnScreen();
