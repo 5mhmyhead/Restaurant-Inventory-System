@@ -1,109 +1,103 @@
-package com.inventory;
+    package com.inventory;
 
-import java.io.IOException;
-import java.sql.*;
-import javafx.animation.FadeTransition;
-import javafx.animation.PauseTransition;
-import javafx.animation.SequentialTransition;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.util.Duration;
+    import java.io.IOException;
+    import java.sql.*;
+    import javafx.animation.FadeTransition;
+    import javafx.animation.PauseTransition;
+    import javafx.animation.SequentialTransition;
+    import javafx.fxml.FXML;
+    import javafx.scene.control.Label;
+    import javafx.scene.control.PasswordField;
+    import javafx.scene.control.TextField;
+    import javafx.util.Duration;
 
-public class RecoverAccountController {
+    public class RecoverAccountController {
 
-    @FXML private TextField emailField;
-    @FXML private PasswordField passField;
-    @FXML private PasswordField confirmField;
-    @FXML private Label errMessage;
+        @FXML private TextField emailField;
+        @FXML private PasswordField passField;
+        @FXML private PasswordField confirmField;
+        @FXML private Label errorMes;
 
-    @FXML
-    private void switchToLoginPage() throws IOException {
-        App.setRoot("loginPage", App.WIDTH, App.HEIGHT);
-    }
-
-    // database connection helper
-    private Connection connect() throws SQLException 
-    {
-        String url = "jdbc:sqlite:src/main/database/Restaurant.db";
-        return DriverManager.getConnection(url);
-    }
-
-    @FXML
-    private void resetPassword() throws IOException {
-
-        String email = emailField.getText().trim();
-        String pass = passField.getText().trim();
-        String check = confirmField.getText().trim();
-
-        // Basic validation
-        if (email.isEmpty() || pass.isEmpty() || check.isEmpty()) {
-            showError("Please fill out all fields.");
-            return;
+        @FXML
+        private void switchToLoginPage() throws IOException {
+            App.setRoot("loginPage", App.WIDTH, App.HEIGHT);
         }
 
-        if (!pass.equals(check)) {
-            showError("Passwords do not match.");
-            return;
-        }
+        @FXML
+        private void resetPassword() throws IOException {
+            String email = emailField.getText().trim();
+            String pass  = passField.getText().trim();
+            String check = confirmField.getText().trim();
 
-        try (Connection conn = connect();
-             PreparedStatement stmt = conn.prepareStatement(
-                     "SELECT * FROM Account WHERE email = ?")) {
+            // ---- VALIDATIONS ----
+            if (email.isEmpty() || pass.isEmpty() || check.isEmpty()) {
+                showError("Fields are empty!");
+                return;
+            }
+            if (!pass.equals(check)) {
+                showError("Password does not match!");
+                return;
+            }
+            if (!email.contains("@") || !email.contains(".")) {
+                showError("Invalid Email format!");
+                return;
+            }
 
-            stmt.setString(1, email);
+            // ---- CHECK IF EMAIL EXISTS ----
+            try (Connection conn = SQLite_Connection.connect();
+                PreparedStatement stmt = conn.prepareStatement(
+                        "SELECT 1 FROM Account WHERE email = ?")) {
 
-            try (ResultSet rs = stmt.executeQuery()) {
+                stmt.setString(1, email);
 
-                if (rs.next()) {
-                    // Email exists — update password
-                    updatePassword(email, pass);
-                    System.out.println("Successfully updated password!");
-                    App.setRoot("loginPage", App.WIDTH, App.HEIGHT);
-                } else {
-                    showError("Email not found.");
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        updatePassword(email, pass);
+                        System.out.println("Successfully updated password!");
+                        App.setRoot("loginPage", App.WIDTH, App.HEIGHT);
+                    } else {
+                        showError("Email not found");
+                    }
                 }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                showError("Database error.");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            showError("Database error: " + e.getMessage());
+        }
+
+        // ---- UPDATE PASSWORD ----
+        private void updatePassword(String email, String newPass) {
+            try (Connection conn = SQLite_Connection.connect();
+                PreparedStatement prep = conn.prepareStatement(
+                        "UPDATE Account SET password = ? WHERE email = ?")) {
+
+                prep.setString(1, newPass);  
+                prep.setString(2, email);
+
+                int rows = prep.executeUpdate();
+                if (rows > 0) {
+                    System.out.println("Password updated for: " + email);
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                showError("Database error during update.");
+            }
+        }
+
+        // ---- ERROR MESSAGE HELPER ----
+        private void showError(String message) {
+            errorMes.setText(message);
+
+            PauseTransition delay = new PauseTransition(Duration.seconds(3));
+            FadeTransition fade = new FadeTransition(Duration.seconds(2), errorMes);
+            fade.setFromValue(1);
+            fade.setToValue(0);
+
+            SequentialTransition transition = new SequentialTransition(errorMes, delay, fade);
+            transition.jumpTo(Duration.ZERO);
+            transition.stop();
+            transition.play();
         }
     }
-
-    // ---------------------------------------
-    // Update Password
-    // ---------------------------------------
-    private void updatePassword(String email, String newPass) {
-        try (Connection conn2 = connect();
-             PreparedStatement prep = conn2.prepareStatement(
-                     "UPDATE Account SET password = ? WHERE email = ?")) {
-
-            prep.setString(1, newPass);
-            prep.setString(2, email);
-
-            int rows = prep.executeUpdate();   // <<--- FIXED
-
-            if (rows > 0) {
-                System.out.println("Password updated for: " + email);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // ---------------------------------------
-    // Error label animation
-    // ---------------------------------------
-    private void showError(String message) {
-        errMessage.setOpacity(1);
-        errMessage.setText(message);
-
-        PauseTransition delay = new PauseTransition(Duration.seconds(2));
-        FadeTransition fade = new FadeTransition(Duration.seconds(1), errMessage);
-        fade.setFromValue(1);
-        fade.setToValue(0);
-
-        new SequentialTransition(delay, fade).play();
-    }
-}
