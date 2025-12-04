@@ -1,7 +1,8 @@
 module com.inventory {
-    requires java.sql;
+    requires transitive java.sql;
     requires transitive javafx.graphics;
     requires transitive javafx.controls;
+    requires java.desktop;
     requires javafx.fxml;
 
     opens com.inventory to javafx.fxml;

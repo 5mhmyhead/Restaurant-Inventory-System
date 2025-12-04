@@ -25,7 +25,7 @@ public class RecoverAccountController {
     }
 
     @FXML
-    private void resetPasssword() throws IOException {
+    private void resetPassword() throws IOException {
 
         String email = emailField.getText().trim();
         String pass = passField.getText().trim();

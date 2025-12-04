@@ -94,9 +94,12 @@ public class CreateAccountController
                 if (rs.next() && rs.getInt(1) > 0)
                 {
                     errorMessage.setText("Uername already exists!");
+                    conn.close();
                     return;
                 }
             }
+
+            conn.close();
         }
 
         //checks if input is empty
@@ -134,7 +137,8 @@ public class CreateAccountController
                         System.out.println("Account created: " + username + " (" + account_type + "), user_id = " + newUserId);
                     }
                 }
-
+                
+                conn.close();
                 switchToLoginPage(); // go back to login after creation
             } 
             catch (SQLException | IOException e) 
