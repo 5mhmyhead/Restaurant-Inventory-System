@@ -113,9 +113,9 @@
             <String fx:value="text-background" />
          </styleClass>
       </Label>
-      <Label fx:id="errorMessage" alignment="CENTER" layoutX="294.0" layoutY="162.0" prefHeight="17.0" prefWidth="323.0" textFill="#e76d8a">
+      <Label fx:id="errorMessage" alignment="CENTER" layoutX="254.0" layoutY="162.0" prefHeight="17.0" prefWidth="404.0" textFill="#e76d8a">
          <styleClass>
-            <String fx:value="poppins-bold" />
+            <String fx:value="poppins-semibold" />
             <String fx:value="text-center" />
          </styleClass>
       </Label>

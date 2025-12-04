@@ -1,19 +1,26 @@
 package com.inventory;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ResourceBundle;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
+import javafx.animation.SequentialTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.util.Duration;
 
-public class CreateAccountController 
+public class CreateAccountController implements Initializable
 {   
     // hardcoded manager provided password
     private static final String managerProvidedPW = "vivii";
@@ -24,6 +31,24 @@ public class CreateAccountController
     @FXML private TextField emailField;
     @FXML private PasswordField managerPasswordField;
     @FXML private Label errorMessage;
+
+    // animations for the error message
+    PauseTransition delay;
+    FadeTransition fade;
+    SequentialTransition transition;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) 
+    {
+        // the error message waits for 2 seconds
+        delay = new PauseTransition(Duration.seconds(3));
+        // then it fades out
+        fade = new FadeTransition(Duration.seconds(2), errorMessage);
+        fade.setFromValue(1);
+        fade.setToValue(0);
+        // the fade plays after the delay
+        transition = new SequentialTransition(errorMessage, delay, fade);
+    }    
 
     // navigation Methods
     @FXML
@@ -70,6 +95,9 @@ public class CreateAccountController
             if (!managerProvidedPW.equals(managerPassword)) 
             {
                 errorMessage.setText("Invalid Manager Password. Account cannot be created.");
+                transition.jumpTo(Duration.ZERO);
+                transition.stop();
+                transition.play();
                 return;
             }
 
@@ -93,7 +121,10 @@ public class CreateAccountController
             {
                 if (rs.next() && rs.getInt(1) > 0)
                 {
-                    errorMessage.setText("Uername already exists!");
+                    errorMessage.setText("Username already exists!");
+                    transition.jumpTo(Duration.ZERO);
+                    transition.stop();
+                    transition.play();
                     conn.close();
                     return;
                 }
@@ -106,6 +137,9 @@ public class CreateAccountController
         if (username.isEmpty() || password.isEmpty() || email.isEmpty())
         {
             errorMessage.setText("Please enter all the required fields.");
+            transition.jumpTo(Duration.ZERO);
+            transition.stop();
+            transition.play();
         }
         else
         {
