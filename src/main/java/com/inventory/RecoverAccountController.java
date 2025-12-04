@@ -2,7 +2,6 @@ package com.inventory;
 
 import java.io.IOException;
 import java.sql.*;
-
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
@@ -24,6 +23,13 @@ public class RecoverAccountController {
         App.setRoot("loginPage", App.WIDTH, App.HEIGHT);
     }
 
+    // database connection helper
+    private Connection connect() throws SQLException 
+    {
+        String url = "jdbc:sqlite:src/main/database/Restaurant.db";
+        return DriverManager.getConnection(url);
+    }
+
     @FXML
     private void resetPassword() throws IOException {
 
@@ -42,7 +48,7 @@ public class RecoverAccountController {
             return;
         }
 
-        try (Connection conn = SQLite_Connection.connect();
+        try (Connection conn = connect();
              PreparedStatement stmt = conn.prepareStatement(
                      "SELECT * FROM Account WHERE email = ?")) {
 
@@ -54,7 +60,7 @@ public class RecoverAccountController {
                     // Email exists — update password
                     updatePassword(email, pass);
                     System.out.println("Successfully updated password!");
-                    App.setRoot("loginPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
+                    App.setRoot("loginPage", App.WIDTH, App.HEIGHT);
                 } else {
                     showError("Email not found.");
                 }
@@ -69,7 +75,7 @@ public class RecoverAccountController {
     // Update Password
     // ---------------------------------------
     private void updatePassword(String email, String newPass) {
-        try (Connection conn2 = SQLite_Connection.connect();
+        try (Connection conn2 = connect();
              PreparedStatement prep = conn2.prepareStatement(
                      "UPDATE Account SET password = ? WHERE email = ?")) {
 
