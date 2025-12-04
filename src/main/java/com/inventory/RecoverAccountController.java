@@ -58,7 +58,7 @@ public class RecoverAccountController {
 
                 if (rs.next()) {
                     // Email exists — update password
-                    updatePassword(email, pass);
+                    updatePassword(conn, email, pass);
                     System.out.println("Successfully updated password!");
                     App.setRoot("loginPage", App.WIDTH, App.HEIGHT);
                 } else {
@@ -74,9 +74,8 @@ public class RecoverAccountController {
     // ---------------------------------------
     // Update Password
     // ---------------------------------------
-    private void updatePassword(String email, String newPass) {
-        try (Connection conn2 = connect();
-             PreparedStatement prep = conn2.prepareStatement(
+    private void updatePassword(Connection conn, String email, String newPass) throws SQLException{
+        try (PreparedStatement prep = conn.prepareStatement(
                      "UPDATE Account SET password = ? WHERE email = ?")) {
 
             prep.setString(1, newPass);
