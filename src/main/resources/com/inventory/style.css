@@ -105,8 +105,12 @@
   -fx-font-style: normal;
 }
 
-.text-center{
-  -fx-alignment: center;
+.text-center {
+  -fx-alignment: CENTER;
+}
+
+.text-left {
+  -fx-alignment: CENTER_LEFT;
 }
 
 .text-background {

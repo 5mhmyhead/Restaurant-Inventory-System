@@ -5,7 +5,7 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-public class OrdersPageController {
+public class AnalyticsPageController {
     @FXML Button signOutButton;
 
     @FXML
@@ -21,9 +21,9 @@ public class OrdersPageController {
     }
 
     @FXML
-    private void switchToAnalytics() throws IOException 
+    private void switchToOrders() throws IOException 
     {
-        App.setRoot("analyticsPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
+        App.setRoot("ordersPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
     }
 
     @FXML

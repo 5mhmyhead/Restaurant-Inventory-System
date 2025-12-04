@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -139,7 +140,16 @@
                </font>
             </Label>
             <Button fx:id="enterInventory" layoutX="45.0" layoutY="437.0" mnemonicParsing="false" onAction="#switchToLoginPage" prefHeight="28.0" prefWidth="175.0" styleClass="button-white" stylesheets="@style.css" text="Enter Inventory" textFill="#e76d8a" />
-            <Button layoutX="232.0" layoutY="437.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="175.0" styleClass="button-pink" stylesheets="@style.css" text="See How It Works" textFill="#f8e9e5" />
+            <Button layoutX="232.0" layoutY="437.0" mnemonicParsing="false" onAction="#openDocumentation" prefHeight="28.0" prefWidth="175.0" styleClass="button-pink" stylesheets="@style.css" text="See How It Works" textFill="#f8e9e5" />
+            <Label fx:id="errorMessage" layoutX="77.0" layoutY="470.0" prefHeight="32.0" prefWidth="297.0" textAlignment="CENTER" textFill="#f8e9e5">
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="poppins-semibold" />
+                  <String fx:value="text-center" />
+               </styleClass>
+            </Label>
          </children></AnchorPane>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="12.0" layoutX="296.0" layoutY="566.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="12.0" layoutX="433.0" layoutY="-2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="313.0" />

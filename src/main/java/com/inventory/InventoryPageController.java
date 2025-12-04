@@ -1,4 +1,6 @@
 package com.inventory;
+
+import java.io.IOException;
 import com.inventory.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,34 +19,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 
 public class InventoryPageController {
+    @FXML ComboBox<String> categoryDrop;
     @FXML ComboBox<String> typeDrop;
     @FXML ComboBox<String> statusDrop;
-    @FXML ComboBox<String> categoryDrop;
+    @FXML Button signOutButton;
 
-    @FXML TableView <Product> inventoryTable;
-    @FXML TableColumn <Product, Number> inventoryProductID;
-    @FXML TableColumn <Product, String> inventoryProductName;
-    @FXML TableColumn <Product, String> inventoryType;
-    @FXML TableColumn <Product, String> inventoryCategory;
-    @FXML TableColumn <Product, Number> inventoryStock;
-    @FXML TableColumn <Product, Number> inventoryPrice;
-    @FXML TableColumn <Product, Number> inventoryDiscount;
-    @FXML TableColumn <Product, String> inventoryStatus;
-
-    @FXML private TextField prodIDField;
-    @FXML private TextField prodNameField;
-    @FXML private TextField prodPriceField;
-    @FXML private TextField prodStockField;
-
-    private Connection conn;
-
-    //initializes the dropdown buttons
     @FXML
     public void initialize ()
     {
@@ -150,5 +135,29 @@ public class InventoryPageController {
     private void deleteItem ()
     {
 
+    }
+
+    @FXML
+    private void switchToMenu() throws IOException 
+    {
+        App.setRoot("menuPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
+    }
+
+    @FXML
+    private void switchToOrders() throws IOException 
+    {
+        App.setRoot("ordersPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
+    }
+
+    @FXML
+    private void switchToAnalytics() throws IOException 
+    {
+        App.setRoot("analyticsPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
+    }
+
+    @FXML
+    private void signOut() throws IOException 
+    {
+        App.setRoot("titlePage", App.WIDTH, App.HEIGHT);
     }
 }
