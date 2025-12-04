@@ -1,25 +1,48 @@
 package com.inventory;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.*;
+import java.util.ResourceBundle;
+
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
-public class RecoverAccountController {
-
+public class RecoverAccountController implements Initializable
+{
     @FXML private TextField emailField;
     @FXML private PasswordField passField;
     @FXML private PasswordField confirmField;
-    @FXML private Label errMessage;
+    @FXML private Label errorMessage;
+
+    // animations for the error message
+    PauseTransition delay;
+    FadeTransition fade;
+    SequentialTransition transition;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) 
+    {
+        // the error message waits for 2 seconds
+        delay = new PauseTransition(Duration.seconds(3));
+        // then it fades out
+        fade = new FadeTransition(Duration.seconds(2), errorMessage);
+        fade.setFromValue(1);
+        fade.setToValue(0);
+        // the fade plays after the delay
+        transition = new SequentialTransition(errorMessage, delay, fade);
+    }
 
     @FXML
-    private void switchToLoginPage() throws IOException {
+    private void switchToLoginPage() throws IOException 
+    {
         App.setRoot("loginPage", App.WIDTH, App.HEIGHT);
     }
 
@@ -31,79 +54,82 @@ public class RecoverAccountController {
     }
 
     @FXML
-    private void resetPassword() throws IOException {
+    private void resetPassword() throws IOException
+    {
 
         String email = emailField.getText().trim();
         String pass = passField.getText().trim();
         String check = confirmField.getText().trim();
 
-        // Basic validation
-        if (email.isEmpty() || pass.isEmpty() || check.isEmpty()) {
-            showError("Please fill out all fields.");
+        // basic validation
+        if (email.isEmpty() || pass.isEmpty() || check.isEmpty()) 
+        {
+            errorMessage.setText("Please fill out all fields.");
+            transition.jumpTo(Duration.ZERO);
+            transition.stop();
+            transition.play();
             return;
         }
 
-        if (!pass.equals(check)) {
-            showError("Passwords do not match.");
+        if (!pass.equals(check)) 
+        {
+            errorMessage.setText("Passwords do not match.");
+            transition.jumpTo(Duration.ZERO);
+            transition.stop();
+            transition.play();
             return;
         }
 
         try (Connection conn = connect();
-             PreparedStatement stmt = conn.prepareStatement(
-                     "SELECT * FROM Account WHERE email = ?")) {
-
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Account WHERE email = ?")) 
+        {
             stmt.setString(1, email);
 
-            try (ResultSet rs = stmt.executeQuery()) {
-
-                if (rs.next()) {
-                    // Email exists — update password
+            try (ResultSet rs = stmt.executeQuery()) 
+            {
+                if (rs.next()) 
+                {
+                    // if email exists, update password
                     updatePassword(email, pass);
                     System.out.println("Successfully updated password!");
-                    App.setRoot("loginPage", App.WIDTH, App.HEIGHT);
-                } else {
-                    showError("Email not found.");
+                    switchToLoginPage();
+                } 
+                else 
+                {
+                    errorMessage.setText("Email was not found.");
+                    transition.jumpTo(Duration.ZERO);
+                    transition.stop();
+                    transition.play();
                 }
             }
-        } catch (SQLException e) {
+        } 
+        catch (SQLException e) 
+        {
             e.printStackTrace();
-            showError("Database error: " + e.getMessage());
         }
     }
 
     // ---------------------------------------
     // Update Password
     // ---------------------------------------
-    private void updatePassword(String email, String newPass) {
+    private void updatePassword(String email, String newPass) 
+    {
         try (Connection conn2 = connect();
-             PreparedStatement prep = conn2.prepareStatement(
-                     "UPDATE Account SET password = ? WHERE email = ?")) {
-
+        PreparedStatement prep = conn2.prepareStatement("UPDATE Account SET password = ? WHERE email = ?")) 
+        {
             prep.setString(1, newPass);
             prep.setString(2, email);
 
             int rows = prep.executeUpdate();   // <<--- FIXED
 
-            if (rows > 0) {
+            if (rows > 0) 
+            {
                 System.out.println("Password updated for: " + email);
             }
-        } catch (SQLException e) {
+        } 
+        catch (SQLException e) 
+        {
             e.printStackTrace();
         }
-    }
-
-    // ---------------------------------------
-    // Error label animation
-    // ---------------------------------------
-    private void showError(String message) {
-        errMessage.setOpacity(1);
-        errMessage.setText(message);
-
-        PauseTransition delay = new PauseTransition(Duration.seconds(2));
-        FadeTransition fade = new FadeTransition(Duration.seconds(1), errMessage);
-        fade.setFromValue(1);
-        fade.setToValue(0);
-
-        new SequentialTransition(delay, fade).play();
     }
 }

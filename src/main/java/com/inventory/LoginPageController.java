@@ -1,21 +1,46 @@
 package com.inventory;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
+import javafx.animation.SequentialTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.util.Duration;
 
-public class LoginPageController 
+public class LoginPageController implements Initializable
 {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private Label errorMessage;
+
+    // animations for the error message
+    PauseTransition delay;
+    FadeTransition fade;
+    SequentialTransition transition;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) 
+    {
+        // the error message waits for 2 seconds
+        delay = new PauseTransition(Duration.seconds(3));
+        // then it fades out
+        fade = new FadeTransition(Duration.seconds(2), errorMessage);
+        fade.setFromValue(1);
+        fade.setToValue(0);
+        // the fade plays after the delay
+        transition = new SequentialTransition(errorMessage, delay, fade);
+    }
 
     @FXML
     private void switchToTitlePage() throws IOException 
@@ -50,6 +75,9 @@ public class LoginPageController
         if (user.isEmpty() || pass.isEmpty())
         {
             errorMessage.setText("Username or password is empty!");
+            transition.jumpTo(Duration.ZERO);
+            transition.stop();
+            transition.play();
         }
         else
         {
@@ -63,12 +91,16 @@ public class LoginPageController
                 {
                     if (rs.next()) 
                     {
-                        System.out.println("Login successful!");
+                        errorMessage.setText("Login successful!");
+                        transition.stop();
                         switchToInventory();
                     }
                     else 
                     {
                         errorMessage.setText("Invalid username or password.");
+                        transition.jumpTo(Duration.ZERO);
+                        transition.stop();
+                        transition.play();
                     }
                 }
             } 

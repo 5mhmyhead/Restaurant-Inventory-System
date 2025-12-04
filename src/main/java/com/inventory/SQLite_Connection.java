@@ -12,7 +12,8 @@ public class SQLite_Connection {
         return DriverManager.getConnection(url);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
         try(Connection conn = DriverManager.getConnection(url))
         {
             if (conn != null) System.out.println("Connected to database!");

@@ -107,7 +107,7 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="200.0" layoutX="-1.0" layoutY="35.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="11.0" />
       <PasswordField fx:id="passField" layoutX="417.0" layoutY="317.0" prefHeight="32.0" prefWidth="315.0" />
       <TextField fx:id="emailField" layoutX="417.0" layoutY="242.0" prefHeight="32.0" prefWidth="315.0" />
-      <ImageView fitHeight="38.0" fitWidth="60.0" layoutX="529.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="38.0" fitWidth="60.0" layoutX="529.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/helloKittyIconDark.png" />
          </image>
@@ -122,7 +122,7 @@
             <Font size="10.0" />
          </font>
       </Label>
-      <Label layoutX="448.0" layoutY="181.0" prefHeight="18.0" styleClass="poppins-regular" text="Forgot your password? Don't worry!" textFill="#263757" />
+      <Label layoutX="447.0" layoutY="152.0" prefHeight="18.0" styleClass="poppins-medium" text="Forgot your password? Don't worry!" textFill="#263757" />
       <Button layoutX="384.0" layoutY="317.0" prefHeight="32.0" prefWidth="33.0" styleClass="field-icon-container" />
       <Button layoutX="384.0" layoutY="242.0" prefHeight="32.0" prefWidth="33.0" styleClass="field-icon-container" />
       <ImageView fitHeight="21.0" fitWidth="72.0" layoutX="391.0" layoutY="322.0" pickOnBounds="true" preserveRatio="true" styleClass="field-icon-container">
@@ -137,7 +137,7 @@
       </ImageView>
       <Line endY="24.0" layoutX="417.0" layoutY="246.0" stroke="#e76d8a" styleClass="field-icon-container" />
       <Line endY="24.0" layoutX="417.0" layoutY="321.0" stroke="#e76d8a" styleClass="field-icon-container" />
-      <ImageView fitHeight="67.0" fitWidth="360.0" layoutX="375.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="67.0" fitWidth="360.0" layoutX="375.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/recoverAccount.png" />
          </image>
@@ -154,6 +154,12 @@
          <font>
             <Font size="10.0" />
          </font>
+      </Label>
+      <Label fx:id="errorMessage" layoutX="434.0" layoutY="177.0" prefHeight="32.0" prefWidth="243.0" textAlignment="CENTER" textFill="#e76d8a">
+         <styleClass>
+            <String fx:value="poppins-semibold" />
+            <String fx:value="text-center" />
+         </styleClass>
       </Label>
    </children>
 </AnchorPane>
