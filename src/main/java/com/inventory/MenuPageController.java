@@ -6,7 +6,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 public class MenuPageController {
+    @FXML Button inventoryButton;
+    @FXML Button menuButton;
+    @FXML Button analyticsButton;
     @FXML Button signOutButton;
+    @FXML Button filterMenuButton;
 
     @FXML
     private void switchToInventory() throws IOException 
@@ -30,5 +34,11 @@ public class MenuPageController {
     private void signOut() throws IOException 
     {
         App.setRoot("titlePage", App.WIDTH, App.HEIGHT);
+    }
+
+    @FXML
+    private void switchToFilterMenu() throws IOException 
+    { 
+        App.setRoot("filterMenu", App.WIDTH, App.HEIGHT);
     }
 }
