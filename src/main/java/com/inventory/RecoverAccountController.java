@@ -38,7 +38,7 @@
                 showError("Password does not match!");
                 return;
             }
-            if (!email.contains("@") || !email.contains(".")) {
+            if (!email.contains("@") || !email.contains(".email")) {
                 showError("Invalid Email format!");
                 return;
             }
