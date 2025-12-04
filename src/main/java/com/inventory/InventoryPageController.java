@@ -1,6 +1,7 @@
 package com.inventory;
 
 import java.io.IOException;
+
 import com.inventory.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,12 +24,30 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
 
 public class InventoryPageController {
+    @FXML private TableView<Product> inventoryTable;
+    @FXML private TableColumn<Product, Number> inventoryProductID;
+    @FXML private TableColumn<Product, String> inventoryProductName;
+    @FXML private TableColumn<Product, String> inventoryCategory;
+    @FXML private TableColumn<Product, String> inventoryType;
+    @FXML private TableColumn<Product, Number> inventoryStock;
+    @FXML private TableColumn<Product, Number> inventoryPrice;
+    @FXML private TableColumn<Product, Number> inventoryDiscount;
+    @FXML private TableColumn<Product, String> inventoryStatus;
+
+    @FXML TextField prodNameField;
+    @FXML TextField prodStockField;
+    @FXML TextField prodPriceField;
+
+
     @FXML ComboBox<String> categoryDrop;
     @FXML ComboBox<String> typeDrop;
     @FXML ComboBox<String> statusDrop;
     @FXML Button signOutButton;
+
+    private Connection conn;
 
     @FXML
     public void initialize ()
