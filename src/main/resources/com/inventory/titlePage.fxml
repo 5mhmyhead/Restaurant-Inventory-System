@@ -126,9 +126,9 @@
                   <Font name="Poppins Regular" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="titleLabel" layoutX="55.0" layoutY="195.0" prefHeight="38.0" prefWidth="359.0" text="The best way" textFill="#f8e9e5" wrapText="true" />
-            <Label fx:id="titleLabel" layoutX="55.0" layoutY="245.0" prefHeight="38.0" prefWidth="359.0" text="to organize" textFill="#f8e9e5" wrapText="true" />
-            <Label fx:id="titleLabel" layoutX="55.0" layoutY="295.0" prefHeight="38.0" prefWidth="359.0" text="your business." textFill="#f8e9e5" wrapText="true" />
+            <Label fx:id="titleLabel" layoutX="55.0" layoutY="195.0" prefHeight="38.0" prefWidth="359.0" styleClass="poppins-black" text="The best way" textFill="#f8e9e5" wrapText="true" />
+            <Label fx:id="titleLabel" layoutX="55.0" layoutY="245.0" prefHeight="38.0" prefWidth="359.0" styleClass="poppins-black" text="to organize" textFill="#f8e9e5" wrapText="true" />
+            <Label fx:id="titleLabel" layoutX="55.0" layoutY="295.0" prefHeight="38.0" prefWidth="359.0" styleClass="poppins-black" text="your business." textFill="#f8e9e5" wrapText="true" />
             <Label layoutX="55.0" layoutY="369.0" prefHeight="17.0" prefWidth="219.0" styleClass="poppins-regular" text="From pantry to plate, we make sure " textAlignment="CENTER" textFill="#f8e9e5">
                <font>
                   <Font name="Poppins Regular" size="12.0" />

@@ -16,7 +16,8 @@ public class TitlePageController
 
     @FXML
     private void switchToLoginPage() throws IOException 
-    { 
+    {
+        LoginPageController controller = new LoginPageController(); 
         App.setRoot("loginPage", App.WIDTH, App.HEIGHT); 
     }
 
