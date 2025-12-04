@@ -85,12 +85,11 @@ public class RecoverAccountController implements Initializable
         {
             stmt.setString(1, email);
 
-            try (ResultSet rs = stmt.executeQuery()) 
-            {
-                if (rs.next()) 
-                {
-                    // if email exists, update password
-                    updatePassword(email, pass);
+            try (ResultSet rs = stmt.executeQuery()) {
+
+                if (rs.next()) {
+                    // Email exists — update password
+                    updatePassword(conn, email, pass);
                     System.out.println("Successfully updated password!");
                     switchToLoginPage();
                 } 
@@ -112,11 +111,10 @@ public class RecoverAccountController implements Initializable
     // ---------------------------------------
     // Update Password
     // ---------------------------------------
-    private void updatePassword(String email, String newPass) 
-    {
-        try (Connection conn2 = connect();
-        PreparedStatement prep = conn2.prepareStatement("UPDATE Account SET password = ? WHERE email = ?")) 
-        {
+    private void updatePassword(Connection conn, String email, String newPass) throws SQLException{
+        try (PreparedStatement prep = conn.prepareStatement(
+                     "UPDATE Account SET password = ? WHERE email = ?")) {
+
             prep.setString(1, newPass);
             prep.setString(2, email);
 
