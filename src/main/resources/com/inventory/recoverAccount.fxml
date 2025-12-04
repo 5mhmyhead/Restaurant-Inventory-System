@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -45,8 +46,8 @@
       <Button fx:id="cancelButton" layoutX="561.0" layoutY="444.0" onAction="#switchToLoginPage" prefHeight="28.0" prefWidth="120.0" styleClass="button-login" text="Cancel" />
       <Button layoutX="431.0" layoutY="444.0" onAction="#resetPassword" prefHeight="28.0" prefWidth="120.0" text="Reset Password">
          <styleClass>
-            <String fx:value="button-login" />
             <String fx:value="poppins-bold" />
+            <String fx:value="button-login" />
          </styleClass></Button>
       <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="556.0" prefWidth="297.0">
          <children>
