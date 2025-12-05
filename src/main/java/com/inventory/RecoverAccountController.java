@@ -74,44 +74,28 @@ public class RecoverAccountController implements Initializable
             return;
         }
 
-        // check if the email exists
+       //check if the email exists
         try (Connection conn = SQLite_Connection.connect();
         PreparedStatement stmt = conn.prepareStatement("SELECT 1 FROM Account WHERE email = ?")) 
         {
             stmt.setString(1, email);
 
-<<<<<<< HEAD
-                stmt.setString(1, email);
-
-                if (rs.next()) {
-                    // Email exists — update password
-=======
             try (ResultSet rs = stmt.executeQuery()) 
             {
                 if (rs.next()) 
                 {
->>>>>>> fb93b9f9979d03eef4f170d18f6c53a601c1374a
                     updatePassword(conn, email, pass);
                     System.out.println("Successfully updated password!");
                     switchToLoginPage();
                 } 
                 else 
                 {
-<<<<<<< HEAD
-                    errorMessage.setText("Email was not found.");
-                    transition.jumpTo(Duration.ZERO);
-                    transition.stop();
-                    transition.play();
-=======
                     errorMessage.setText("The email was not found.");
                     playAnimation();
->>>>>>> fb93b9f9979d03eef4f170d18f6c53a601c1374a
                 }
 
                 conn.close();
             }
-<<<<<<< HEAD
-=======
             catch (SQLException e) 
             {
                 e.printStackTrace();
@@ -119,7 +103,6 @@ public class RecoverAccountController implements Initializable
                 playAnimation();
                 conn.close();
             }
->>>>>>> fb93b9f9979d03eef4f170d18f6c53a601c1374a
         } 
         catch (SQLException e) 
         {
