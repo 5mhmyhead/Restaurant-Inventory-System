@@ -1,4 +1,4 @@
-    package com.inventory;
+package com.inventory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -45,92 +45,115 @@ public class RecoverAccountController implements Initializable
         App.setRoot("loginPage", App.WIDTH, App.HEIGHT);
     }
 
-    // database connection helper
-    private Connection connect() throws SQLException 
-    {
-        String url = "jdbc:sqlite:src/main/database/Restaurant.db";
-        return DriverManager.getConnection(url);
-    }
-
     @FXML
-    private void resetPassword() throws IOException
+    private void resetPassword() throws IOException 
     {
-
         String email = emailField.getText().trim();
-        String pass = passField.getText().trim();
+        String pass  = passField.getText().trim();
         String check = confirmField.getText().trim();
 
-        // basic validation
+        // validation
         if (email.isEmpty() || pass.isEmpty() || check.isEmpty()) 
         {
-            errorMessage.setText("Please fill out all fields.");
-            transition.jumpTo(Duration.ZERO);
-            transition.stop();
-            transition.play();
+            errorMessage.setText("Please enter all fields.");
+            playAnimation();
             return;
         }
 
         if (!pass.equals(check)) 
         {
-            errorMessage.setText("Passwords do not match.");
-            transition.jumpTo(Duration.ZERO);
-            transition.stop();
-            transition.play();
+            errorMessage.setText("The passwords do not match!");
+            playAnimation();
+            return;
+        }
+        
+        if (!email.contains("@") || !email.contains(".")) 
+        {
+            errorMessage.setText("Invalid email format!");
+            playAnimation();
             return;
         }
 
-        try (Connection conn = connect();
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Account WHERE email = ?")) 
+        // check if the email exists
+        try (Connection conn = SQLite_Connection.connect();
+        PreparedStatement stmt = conn.prepareStatement("SELECT 1 FROM Account WHERE email = ?")) 
         {
             stmt.setString(1, email);
 
+<<<<<<< HEAD
                 stmt.setString(1, email);
 
                 if (rs.next()) {
                     // Email exists — update password
+=======
+            try (ResultSet rs = stmt.executeQuery()) 
+            {
+                if (rs.next()) 
+                {
+>>>>>>> fb93b9f9979d03eef4f170d18f6c53a601c1374a
                     updatePassword(conn, email, pass);
                     System.out.println("Successfully updated password!");
                     switchToLoginPage();
                 } 
                 else 
                 {
+<<<<<<< HEAD
                     errorMessage.setText("Email was not found.");
                     transition.jumpTo(Duration.ZERO);
                     transition.stop();
                     transition.play();
+=======
+                    errorMessage.setText("The email was not found.");
+                    playAnimation();
+>>>>>>> fb93b9f9979d03eef4f170d18f6c53a601c1374a
                 }
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-                showError("Database error.");
+                conn.close();
             }
+<<<<<<< HEAD
+=======
+            catch (SQLException e) 
+            {
+                e.printStackTrace();
+                errorMessage.setText("Failed to update password.");
+                playAnimation();
+                conn.close();
+            }
+>>>>>>> fb93b9f9979d03eef4f170d18f6c53a601c1374a
         } 
         catch (SQLException e) 
         {
             e.printStackTrace();
+            errorMessage.setText("Database error.");
+            playAnimation();
         }
     }
 
-    // ---------------------------------------
-    // Update Password
-    // ---------------------------------------
-    private void updatePassword(Connection conn, String email, String newPass) throws SQLException{
-        try (PreparedStatement prep = conn.prepareStatement(
-                     "UPDATE Account SET password = ? WHERE email = ?")) {
-
-            prep.setString(1, newPass);
+    // update password function
+    private void updatePassword(Connection conn, String email, String newPass) throws SQLException
+    {
+        try (PreparedStatement prep = conn.prepareStatement("UPDATE Account SET password = ? WHERE email = ?")) 
+        {
+            prep.setString(1, newPass);  
             prep.setString(2, email);
 
-            int rows = prep.executeUpdate();   // <<--- FIXED
-
-            if (rows > 0) 
-            {
-                System.out.println("Password updated for: " + email);
-            }
+            int rows = prep.executeUpdate();
+            if (rows > 0) System.out.println("Password updated for: " + email);
+            conn.close();
         } 
         catch (SQLException e) 
         {
             e.printStackTrace();
+            errorMessage.setText("Database error during update.");
+            playAnimation();
         }
+    }
+
+    // error message animation helper
+    private void playAnimation() 
+    {
+        transition.jumpTo(Duration.ZERO);
+        transition.stop();
+        transition.play();
     }
 }

@@ -5,7 +5,8 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-public class AnalyticsPageController {
+public class AnalyticsPageController 
+{
     @FXML Button signOutButton;
 
     @FXML

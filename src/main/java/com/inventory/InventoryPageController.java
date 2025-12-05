@@ -2,31 +2,25 @@ package com.inventory;
 
 import java.io.IOException;
 
-import com.inventory.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 
-import java.io.Serial;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
+
 import javafx.scene.control.TextField;
 
-public class InventoryPageController {
+public class InventoryPageController 
+{
     @FXML private TableView<Product> inventoryTable;
     @FXML private TableColumn<Product, Number> inventoryProductID;
     @FXML private TableColumn<Product, String> inventoryProductName;
@@ -40,7 +34,6 @@ public class InventoryPageController {
     @FXML TextField prodNameField;
     @FXML TextField prodStockField;
     @FXML TextField prodPriceField;
-
 
     @FXML ComboBox<String> categoryDrop;
     @FXML ComboBox<String> typeDrop;
@@ -59,8 +52,7 @@ public class InventoryPageController {
         typeDrop.setPromptText("Select Type");
         statusDrop.setPromptText("Set Status");
         
-
-        // Bind columns to Meal properties
+        // bind columns to Meal properties
         inventoryProductID.setCellValueFactory(cellData -> cellData.getValue().prodIdProperty());
         inventoryProductName.setCellValueFactory(cellData -> cellData.getValue().prodNameProperty());
         inventoryCategory.setCellValueFactory(cellData -> cellData.getValue().prodCategoryProperty());
@@ -71,20 +63,23 @@ public class InventoryPageController {
         inventoryStatus.setCellValueFactory(cellData -> cellData.getValue().prodStatusProperty());
     }
 
-    // Allow main app to inject DB connection
-    public void setConnection(Connection conn) {
+    // allow main app to inject DB connection
+    public void setConnection(Connection conn) 
+    {
         this.conn = conn;
     }
 
-    // Load products from database
-    public void loadItems() {
+    // load products from database
+    public void loadItems() 
+    {
         ObservableList<Product> data = FXCollections.observableArrayList();
         String sql = "SELECT meal_id, meal_name, category, type, price, amount_sold, amount_stock, amount_discount, status FROM Meal";
 
         try (Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-
-            while (rs.next()) {
+        ResultSet rs = stmt.executeQuery(sql)) 
+        {
+            while (rs.next()) 
+            {
                 data.add(new Product(
                     rs.getInt("meal_id"),
                     rs.getString("meal_name"),
@@ -97,7 +92,9 @@ public class InventoryPageController {
                     rs.getString("status")
                 ));
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) 
+        {
             e.printStackTrace();
         }
 
@@ -105,9 +102,15 @@ public class InventoryPageController {
     }
 
     @FXML
-    private void addItem() {
-        // Validation
-        if (prodNameField.getText().trim().isEmpty() ||prodPriceField.getText().trim().isEmpty() || prodStockField.getText().trim().isEmpty() || categoryDrop.getValue().trim().isEmpty() || typeDrop.getValue().trim().isEmpty() ||statusDrop.getValue().trim().isEmpty()) 
+    private void addItem() 
+    {
+        // validation check
+        if (prodNameField.getText().trim().isEmpty() 
+            || prodPriceField.getText().trim().isEmpty() 
+            || prodStockField.getText().trim().isEmpty() 
+            || categoryDrop.getValue().trim().isEmpty() 
+            || typeDrop.getValue().trim().isEmpty() 
+            || statusDrop.getValue().trim().isEmpty()) 
         {
             System.out.println("Please fill in all fields before adding a product.");
             return; // stop execution
@@ -115,7 +118,8 @@ public class InventoryPageController {
         
         String sql = "INSERT INTO MEAL (meal_name, category, type, price, amount_sold, amount_stock, amount_discount, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) 
+        {
             String name = prodNameField.getText();
             double price = Double.parseDouble(prodPriceField.getText());
             int stock = Integer.parseInt(prodStockField.getText());
@@ -123,7 +127,7 @@ public class InventoryPageController {
             String status = statusDrop.getValue();
             String category = categoryDrop.getValue();
 
-            // Set parameters
+            // set parameters
             ps.setString(1, name);
             ps.setString(2, category);
             ps.setString(3, type);
@@ -135,18 +139,23 @@ public class InventoryPageController {
 
             ps.executeUpdate();
 
-            // Get auto-generated prod_id
-            try (ResultSet rs = ps.getGeneratedKeys()) {
-                if (rs.next()) {
+            // get auto-generated prod_id
+            try (ResultSet rs = ps.getGeneratedKeys()) 
+            {
+                if (rs.next()) 
+                {
                     int newId = rs.getInt("meal_id");
                     System.out.println("Inserted product with ID: " + newId);
                 }
             }
-        } catch (SQLException e) {
+
+        } 
+        catch (SQLException e) 
+        {
             e.printStackTrace();
         }
 
-        // Refresh table
+        // refresh table
         loadItems();
     }
 
