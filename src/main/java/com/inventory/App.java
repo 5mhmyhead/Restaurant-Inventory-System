@@ -24,7 +24,7 @@ public class App extends Application
     @Override
     public void start(Stage stage) throws IOException 
     {
-        scene = new Scene(loadFXML("titlePage"), WIDTH, HEIGHT);
+        scene = new Scene(loadFXML("openingAnimation"), WIDTH, HEIGHT);
 
         stage.setTitle("Kawaii Count");
         stage.setResizable(false);
@@ -44,7 +44,7 @@ public class App extends Application
         Parent root = fxmlLoader.load();
 
         // if this is the inventory page, inject DB connection
-        if ("inventoryPage".equals(fxml)) 
+        if (fxml.equals("inventoryPage")) 
         {
             InventoryPageController controller = fxmlLoader.getController();
             try 
@@ -65,7 +65,7 @@ public class App extends Application
         stage.centerOnScreen();
     }
 
-    private static Parent loadFXML(String fxml) throws IOException 
+    public static Parent loadFXML(String fxml) throws IOException 
     {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
