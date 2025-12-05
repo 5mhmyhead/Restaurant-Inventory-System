@@ -95,9 +95,7 @@ public class CreateAccountController implements Initializable
             if (!managerProvidedPW.equals(managerPassword)) 
             {
                 errorMessage.setText("Invalid Manager Password. Account cannot be created.");
-                transition.jumpTo(Duration.ZERO);
-                transition.stop();
-                transition.play();
+                playAnimation();
                 return;
             }
 
@@ -112,7 +110,7 @@ public class CreateAccountController implements Initializable
         String checkSql = "SELECT * FROM Account WHERE username = ?";
         String insertSql = "INSERT INTO Account (username, password, email, account_type) VALUES(?,?,?,?)";
 
-        //checks database if username already exists
+        // checks database if username already exists
         try (Connection conn = connect();
         PreparedStatement check = conn.prepareStatement(checkSql))
         {
@@ -122,9 +120,7 @@ public class CreateAccountController implements Initializable
                 if (rs.next() && rs.getInt(1) > 0)
                 {
                     errorMessage.setText("Username already exists!");
-                    transition.jumpTo(Duration.ZERO);
-                    transition.stop();
-                    transition.play();
+                    playAnimation();
                     conn.close();
                     return;
                 }
@@ -133,17 +129,20 @@ public class CreateAccountController implements Initializable
             conn.close();
         }
 
-        //checks if input is empty
+        // checks if input is empty
         if (username.isEmpty() || password.isEmpty() || email.isEmpty())
         {
             errorMessage.setText("Please enter all the required fields.");
-            transition.jumpTo(Duration.ZERO);
-            transition.stop();
-            transition.play();
+            playAnimation();
+        }
+        else if(!email.contains("@") || !email.contains(".")) 
+        {
+            errorMessage.setText("Invalid email format!");
+            playAnimation();
         }
         else
         {
-            //inserts new user's data to database
+            // inserts new user's data to database
             try (Connection conn = connect();
             PreparedStatement insert = conn.prepareStatement(insertSql, PreparedStatement.RETURN_GENERATED_KEYS);) 
             {
@@ -180,5 +179,13 @@ public class CreateAccountController implements Initializable
                 e.printStackTrace();
             }
         }    
+    }
+
+    // error message animation helper
+    private void playAnimation() 
+    {
+        transition.jumpTo(Duration.ZERO);
+        transition.stop();
+        transition.play();
     }
 }

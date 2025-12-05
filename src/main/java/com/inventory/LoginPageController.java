@@ -75,9 +75,7 @@ public class LoginPageController implements Initializable
         if (user.isEmpty() || pass.isEmpty())
         {
             errorMessage.setText("Username or password is empty!");
-            transition.jumpTo(Duration.ZERO);
-            transition.stop();
-            transition.play();
+            playAnimation();
         }
         else
         {
@@ -92,17 +90,17 @@ public class LoginPageController implements Initializable
                     if (rs.next()) 
                     {
                         errorMessage.setText("Login successful!");
-                        transition.stop();
+                        playAnimation();
                         switchToInventory();
                     }
                     else 
                     {
                         errorMessage.setText("Invalid username or password.");
-                        transition.jumpTo(Duration.ZERO);
-                        transition.stop();
-                        transition.play();
+                        playAnimation();
                     }
                 }
+
+                conn.close();
             } 
             catch (SQLException e) 
             {
@@ -110,5 +108,13 @@ public class LoginPageController implements Initializable
                 System.out.println("Database error: " + e.getMessage());
             }
         }
+    }
+
+    // error message animation helper
+    private void playAnimation() 
+    {
+        transition.jumpTo(Duration.ZERO);
+        transition.stop();
+        transition.play();
     }
 }

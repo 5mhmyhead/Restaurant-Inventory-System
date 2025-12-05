@@ -43,21 +43,21 @@ public class App extends Application
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         Parent root = fxmlLoader.load();
 
-        // If this is the inventory page, inject DB connection
+        // if this is the inventory page, inject DB connection
         if ("inventoryPage".equals(fxml)) 
+        {
+            InventoryPageController controller = fxmlLoader.getController();
+            try 
             {
-                InventoryPageController controller = fxmlLoader.getController();
-                try 
-                {
-                    Connection conn = SQLite_Connection.connect();
-                    controller.setConnection(conn);
-                    controller.loadItems();
-                } 
-                catch (Exception e) 
-                {
-                    e.printStackTrace();
-                }
+                Connection conn = SQLite_Connection.connect();
+                controller.setConnection(conn);
+                controller.loadItems();
+            } 
+            catch (Exception e) 
+            {
+                e.printStackTrace();
             }
+        }
 
         scene = new Scene(root, width, height);
         stage.setScene(scene);

@@ -4,7 +4,8 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class Product {
+public class Product 
+{
     private final SimpleIntegerProperty prodId;
     private final SimpleStringProperty prodName;
     private final SimpleStringProperty prodCategory;
@@ -15,7 +16,7 @@ public class Product {
     private final SimpleIntegerProperty amountDiscount;
     private final SimpleStringProperty prodStatus;
 
-    // Constructor
+    // constructor
     public Product(int prodId, String prodName, String prodCategory, String prodType, double prodPrice, int amountSold, int amountStock, int amountDiscount, String prodStatus) 
     {
         this.prodId = new SimpleIntegerProperty(prodId);
@@ -29,7 +30,7 @@ public class Product {
         this.prodStatus = new SimpleStringProperty(prodStatus);
     }
 
-    // Getters
+    // getters
     public int getProdId() { return prodId.get(); }
     public String getProdName() { return prodName.get(); }
     public String getProdCategory() { return prodCategory.get(); }
@@ -40,7 +41,7 @@ public class Product {
     public int getAmountDiscount() { return amountDiscount.get(); }
     public String getProdStatus() { return prodStatus.get(); }
 
-    // Property getters (needed for TableView binding)
+    // property getters (needed for TableView binding)
     public SimpleIntegerProperty prodIdProperty() { return prodId; }
     public SimpleStringProperty prodNameProperty() { return prodName; }
     public SimpleStringProperty prodCategoryProperty() { return prodCategory; }
