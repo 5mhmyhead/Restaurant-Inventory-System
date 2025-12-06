@@ -12,14 +12,21 @@ import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class LoginPageController implements Initializable
 {
+    @FXML private AnchorPane loginPane;
+
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private Label errorMessage;
@@ -61,9 +68,26 @@ public class LoginPageController implements Initializable
     }
 
     @FXML
-    private void switchToInventory() throws IOException 
+    private void switchToInventory(String user) throws IOException 
     {
-        App.setRoot("inventoryPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
+        FadeTransition fade = new FadeTransition();
+        fade.setDelay(Duration.millis(300));
+        fade.setDuration(Duration.millis(700));
+        fade.setNode(loginPane);
+        fade.setFromValue(1);
+        fade.setToValue(0);
+
+        fade.play();
+        fade.setOnFinished(event -> {
+            try 
+            {
+                App.setRoot("inventoryPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
+            }
+            catch(IOException e)
+            {
+                e.printStackTrace();
+            }
+        });
     }
 
     @FXML
@@ -91,7 +115,7 @@ public class LoginPageController implements Initializable
                     {
                         errorMessage.setText("Login successful!");
                         playAnimation();
-                        switchToInventory();
+                        switchToInventory(user);
                     }
                     else 
                     {

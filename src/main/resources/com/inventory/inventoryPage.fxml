@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inventory.InventoryPageController">
+<AnchorPane fx:id="parentContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inventory.InventoryPageController">
    <children>
       <Rectangle fill="#f8e9e5" height="720.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="poppins-bold" width="1280.0" />
       <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="700.0" prefWidth="264.0">
@@ -30,20 +30,20 @@
                </image>
             </ImageView>
             <Button fx:id="signOutButton" alignment="CENTER" layoutX="10.0" layoutY="662.0" mnemonicParsing="false" onAction="#signOut" prefHeight="28.0" prefWidth="244.0" styleClass="button-pink" stylesheets="@style.css" text="Sign Out" />
-            <Label layoutX="78.0" layoutY="44.0" styleClass="poppins-regular" stylesheets="@style.css" text="Welcome, user!" textFill="#f8e9e5" />
+            <Label fx:id="welcomeMessage" layoutX="78.0" layoutY="44.0" styleClass="poppins-regular" stylesheets="@style.css" text="Welcome, user!" textFill="#f8e9e5" />
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f8e9e5" height="116.0" layoutX="26.0" layoutY="142.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="238.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="52.0" layoutX="246.0" layoutY="174.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#e76d8a" height="32.0" layoutY="142.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="264.0" />
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#e76d8a" height="32.0" layoutY="226.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="264.0" />
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f8e9e5" height="52.0" layoutX="14.0" layoutY="174.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
-            <Button fx:id="inventoryButton" layoutX="13.0" layoutY="174.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="251.0" stylesheets="@inventory.css" text="Inventory" textAlignment="CENTER" textFill="#e76d8a">
+            <Button fx:id="inventoryButton" layoutX="13.0" layoutY="174.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="251.0" stylesheets="@inventory.css" text="Inventory" textAlignment="CENTER" textFill="#f8e9e5">
                <font>
                   <Font size="16.0" />
                </font>
                <styleClass>
-                  <String fx:value="invisible-button-active" />
+                  <String fx:value="invisible-button" />
                   <String fx:value="text-left" />
-                  <String fx:value="menu-text-selected" />
+                  <String fx:value="menu-text" />
                </styleClass>
             </Button>
             <Button fx:id="menuButton" layoutX="13.0" layoutY="273.0" mnemonicParsing="false" onAction="#switchToMenu" prefHeight="52.0" prefWidth="251.0" stylesheets="@inventory.css" text="Menu" textFill="#f8e9e5">
@@ -55,13 +55,13 @@
                   <String fx:value="menu-text" />
                </styleClass>
             </Button>
-            <Button fx:id="ordersButton" layoutX="13.0" layoutY="373.0" mnemonicParsing="false" onAction="#switchToOrders" prefHeight="52.0" prefWidth="251.0" stylesheets="@inventory.css" text="Orders" textFill="#f8e9e5">
+            <Button fx:id="inventoryButton" layoutX="13.0" layoutY="173.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="251.0" stylesheets="@inventory.css" text="Inventory" textFill="#e76d8a">
                <font>
                   <Font size="16.0" />
                </font>
                <styleClass>
-                  <String fx:value="invisible-button" />
-                  <String fx:value="menu-text" />
+                  <String fx:value="invisible-button-active" />
+                  <String fx:value="menu-text-selected" />
                </styleClass>
             </Button>
             <Button fx:id="analyticsButton" layoutX="13.0" layoutY="473.0" mnemonicParsing="false" onAction="#switchToAnalytics" prefHeight="52.0" prefWidth="251.0" stylesheets="@inventory.css" text="Analytics" textFill="#f8e9e5">
@@ -93,6 +93,15 @@
                   <Image url="@images/fridgePink.png" />
                </image>
             </ImageView>
+            <Button fx:id="ordersButton" layoutX="13.0" layoutY="373.0" mnemonicParsing="false" onAction="#switchToOrders" prefHeight="52.0" prefWidth="251.0" stylesheets="@inventory.css" text="Orders" textFill="#f8e9e5">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="invisible-button" />
+                  <String fx:value="menu-text" />
+               </styleClass>
+            </Button>
          </children>
       </AnchorPane>
       <Label layoutX="350.0" layoutY="25.0" styleClass="poppins-bold" text="Inventory" textFill="#253657">

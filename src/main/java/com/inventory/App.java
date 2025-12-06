@@ -71,7 +71,9 @@ public class App extends Application
             String fileName = caller.getFileName();
 
             if(fileName.equals("InventoryPageController.java") ||
-               fileName.equals("AnalyticsPageController.java")) 
+               fileName.equals("AnalyticsPageController.java") ||
+               fileName.equals("OrdersPageController.java") ||
+               fileName.equals("MenuPageController.java")) 
             {
                 stage.centerOnScreen();
             }

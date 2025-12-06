@@ -16,145 +16,155 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="768.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inventory.LoginPageController">
+
+<AnchorPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inventory.LoginPageController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="576.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="768.0" />
-      <Circle centerX="70.0" centerY="70.0" layoutX="86.0" layoutY="354.0" radius="70.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
-         <fill>
-            <LinearGradient endX="0.6872037914691943" endY="0.919431279620853" startX="0.7772511848341233" startY="0.5450236966824644">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="0.8899999856948853" green="0.4361000061035156" blue="0.5722699761390686" opacity="0.0" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="0.8899999856948853" green="0.4361000061035156" blue="0.5571399927139282" opacity="0.30000001192092896" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </fill></Circle>
-      <Circle centerX="39.5" centerY="39.5" fill="#e76d8a" layoutX="268.0" layoutY="10.0" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Circle centerX="39.5" centerY="39.5" fill="#e76d8a" layoutX="268.0" layoutY="89.0" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Circle centerX="39.5" centerY="39.5" fill="#e76d8a" layoutX="268.0" layoutY="169.0" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Circle centerX="39.5" centerY="39.5" fill="#e76d8a" layoutX="268.0" layoutY="248.0" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Circle centerX="39.5" centerY="39.5" fill="#e76d8a" layoutX="268.0" layoutY="328.0" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Circle centerX="39.5" centerY="39.5" fill="#e76d8a" layoutX="268.0" layoutY="407.0" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Circle centerX="39.5" centerY="39.5" fill="#e76d8a" layoutX="268.0" layoutY="487.0" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Button fx:id="cancelButton" layoutX="561.0" layoutY="423.0" onAction="#switchToTitlePage" prefHeight="28.0" prefWidth="105.0" styleClass="button-login" text="Cancel" />
-      <Button fx:id="loginButton" layoutX="441.0" layoutY="423.0" onAction="#Login" prefHeight="28.0" prefWidth="105.0" text="Log in">
-         <styleClass>
-            <String fx:value="button-login" />
-            <String fx:value="poppins-bold" />
-         </styleClass></Button>
-      <AnchorPane layoutY="10.0" prefHeight="556.0" prefWidth="307.0">
+      <AnchorPane fx:id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="768.0" stylesheets="@style.css">
          <children>
-            <Rectangle fill="#e76d8a" height="556.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="307.0" />
-            <ImageView fitHeight="327.0" fitWidth="327.0" layoutX="-32.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/ellipse05.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="287.0" fitWidth="274.0" layoutX="19.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/helloKittyCute.png" />
-               </image>
-            </ImageView>
-            <Circle centerX="91.5" centerY="91.5" layoutX="81.0" layoutY="338.0" radius="91.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="576.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="768.0" />
+            <Circle centerX="70.0" centerY="70.0" layoutX="86.0" layoutY="354.0" radius="70.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
                <fill>
-                  <LinearGradient endX="0.1327014218009478" endY="1.0" startX="0.6492890995260664">
+                  <LinearGradient endX="0.6872037914691943" endY="0.919431279620853" startX="0.7772511848341233" startY="0.5450236966824644">
                      <stops>
                         <Stop>
                            <color>
-                              <Color red="0.949999988079071" green="0.6650000214576721" blue="0.7267500162124634" opacity="0.800000011920929" />
-                           </color>
-                        </Stop>
-                        <Stop offset="0.006711409395973154">
-                           <color>
-                              <Color red="0.9399999976158142" green="0.676800012588501" blue="0.7382133603096008" opacity="0.0" />
+                              <Color red="0.8899999856948853" green="0.4361000061035156" blue="0.5722699761390686" opacity="0.0" />
                            </color>
                         </Stop>
                         <Stop offset="1.0">
                            <color>
-                              <Color red="0.9300000071525574" green="0.6789000034332275" blue="0.7333049774169922" opacity="0.5" />
+                              <Color red="0.8899999856948853" green="0.4361000061035156" blue="0.5571399927139282" opacity="0.30000001192092896" />
                            </color>
                         </Stop>
                      </stops>
                   </LinearGradient>
                </fill>
             </Circle>
-         </children></AnchorPane>
-      <Label layoutX="452.0" layoutY="463.0" prefHeight="18.0" prefWidth="146.0" styleClass="poppins-regular" text="Don't have an account?" textFill="#253657" />
-      <Label fx:id="register" layoutX="601.0" layoutY="463.0" onMouseClicked="#switchToCreateAccount" prefHeight="18.0" prefWidth="53.0" text="Register" textAlignment="CENTER" textFill="#e76d8a">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-         <styleClass>
-            <String fx:value="poppins-black" />
-            <String fx:value="pink-text" />
-         </styleClass></Label>
-      <AnchorPane layoutX="441.0" layoutY="267.0" prefHeight="32.0" prefWidth="225.0">
-         <children>
-            <TextField fx:id="usernameField" layoutX="33.0" prefHeight="32.0" prefWidth="192.0" />
-            <Button prefHeight="32.0" prefWidth="33.0" styleClass="field-icon-container" />
-            <ImageView fitHeight="21.0" fitWidth="120.0" layoutX="6.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" styleClass="field-icon-container">
+            <Circle centerX="39.5" centerY="39.5" fill="#e76d8a" layoutX="268.0" layoutY="10.0" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Circle centerX="39.5" centerY="39.5" fill="#e76d8a" layoutX="268.0" layoutY="89.0" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Circle centerX="39.5" centerY="39.5" fill="#e76d8a" layoutX="268.0" layoutY="169.0" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Circle centerX="39.5" centerY="39.5" fill="#e76d8a" layoutX="268.0" layoutY="248.0" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Circle centerX="39.5" centerY="39.5" fill="#e76d8a" layoutX="268.0" layoutY="328.0" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Circle centerX="39.5" centerY="39.5" fill="#e76d8a" layoutX="268.0" layoutY="407.0" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Circle centerX="39.5" centerY="39.5" fill="#e76d8a" layoutX="268.0" layoutY="487.0" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Button fx:id="cancelButton" layoutX="561.0" layoutY="423.0" onAction="#switchToTitlePage" prefHeight="28.0" prefWidth="105.0" styleClass="button-login" text="Cancel" />
+            <Button fx:id="loginButton" layoutX="441.0" layoutY="423.0" onAction="#Login" prefHeight="28.0" prefWidth="105.0" text="Log in">
+               <styleClass>
+                  <String fx:value="button-login" />
+                  <String fx:value="poppins-bold" />
+               </styleClass>
+            </Button>
+            <AnchorPane layoutY="10.0" prefHeight="556.0" prefWidth="307.0">
+               <children>
+                  <Rectangle fill="#e76d8a" height="556.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="307.0" />
+                  <ImageView fitHeight="327.0" fitWidth="327.0" layoutX="-32.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/ellipse05.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="287.0" fitWidth="274.0" layoutX="19.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/helloKittyCute.png" />
+                     </image>
+                  </ImageView>
+                  <Circle centerX="91.5" centerY="91.5" layoutX="81.0" layoutY="338.0" radius="91.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                     <fill>
+                        <LinearGradient endX="0.1327014218009478" endY="1.0" startX="0.6492890995260664">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.949999988079071" green="0.6650000214576721" blue="0.7267500162124634" opacity="0.800000011920929" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="0.006711409395973154">
+                                 <color>
+                                    <Color red="0.9399999976158142" green="0.676800012588501" blue="0.7382133603096008" opacity="0.0" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.9300000071525574" green="0.6789000034332275" blue="0.7333049774169922" opacity="0.5" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                  </Circle>
+               </children>
+            </AnchorPane>
+            <Label layoutX="452.0" layoutY="463.0" prefHeight="18.0" prefWidth="146.0" styleClass="poppins-regular" text="Don't have an account?" textFill="#253657" />
+            <Label fx:id="register" layoutX="601.0" layoutY="463.0" onMouseClicked="#switchToCreateAccount" prefHeight="18.0" prefWidth="53.0" text="Register" textAlignment="CENTER" textFill="#e76d8a">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="poppins-black" />
+                  <String fx:value="pink-text" />
+               </styleClass>
+            </Label>
+            <AnchorPane layoutX="441.0" layoutY="267.0" prefHeight="32.0" prefWidth="225.0">
+               <children>
+                  <TextField fx:id="usernameField" layoutX="33.0" prefHeight="32.0" prefWidth="192.0" />
+                  <Button prefHeight="32.0" prefWidth="33.0" styleClass="field-icon-container" />
+                  <ImageView fitHeight="21.0" fitWidth="120.0" layoutX="6.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" styleClass="field-icon-container">
+                     <image>
+                        <Image url="@images/iconProfile.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="441.0" layoutY="332.0" prefHeight="32.0" prefWidth="225.0">
+               <children>
+                  <Button prefHeight="32.0" prefWidth="33.0" styleClass="field-icon-container" />
+                  <ImageView fitHeight="21.0" fitWidth="72.0" layoutX="7.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" styleClass="field-icon-container">
+                     <image>
+                        <Image url="@images/iconLock.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <ImageView fitHeight="38.0" fitWidth="60.0" layoutX="527.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/iconProfile.png" />
+                  <Image url="@images/helloKittyIconDark.png" />
                </image>
             </ImageView>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="441.0" layoutY="332.0" prefHeight="32.0" prefWidth="225.0">
-         <children>
-            <Button prefHeight="32.0" prefWidth="33.0" styleClass="field-icon-container" />
-            <ImageView fitHeight="21.0" fitWidth="72.0" layoutX="7.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" styleClass="field-icon-container">
+            <ImageView fitHeight="72.0" fitWidth="327.0" layoutX="390.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/iconLock.png" />
+                  <Image url="@images/kawaiiCountTextDark.png" />
                </image>
             </ImageView>
+            <Label layoutX="444.0" layoutY="247.0" prefHeight="18.0" styleClass="poppins-regular" text="Username" textFill="#263757cc">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label layoutX="444.0" layoutY="312.0" prefHeight="18.0" styleClass="poppins-regular" text="Password" textFill="#263757cc">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label layoutX="558.0" layoutY="371.0" onMouseClicked="#switchToRecoverAccount" prefHeight="18.0" text="Forgot Password?" textFill="#e76d8a">
+               <styleClass>
+                  <String fx:value="pink-text" />
+                  <String fx:value="poppins-regular" />
+               </styleClass>
+            </Label>
+            <Label layoutX="488.0" layoutY="183.0" prefHeight="18.0" styleClass="poppins-regular" text="Log in before you continue" textFill="#263757">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Line endY="24.0" layoutX="474.0" layoutY="271.0" stroke="#e76d8a" styleClass="field-icon-container" />
+            <Line endY="24.0" layoutX="474.0" layoutY="336.0" stroke="#e76d8a" styleClass="field-icon-container" />
+            <Label fx:id="errorMessage" layoutX="427.0" layoutY="209.0" prefHeight="32.0" prefWidth="255.0" textAlignment="CENTER" textFill="#e76d8a">
+               <styleClass>
+                  <String fx:value="poppins-semibold" />
+                  <String fx:value="text-center" />
+               </styleClass>
+            </Label>
+            <PasswordField fx:id="passwordField" layoutX="475.0" layoutY="332.0" prefHeight="32.0" prefWidth="192.0" styleClass="text-field" />
          </children>
       </AnchorPane>
-      <ImageView fitHeight="38.0" fitWidth="60.0" layoutX="527.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/helloKittyIconDark.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="72.0" fitWidth="327.0" layoutX="390.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/kawaiiCountTextDark.png" />
-         </image>
-      </ImageView>
-      <Label layoutX="444.0" layoutY="247.0" prefHeight="18.0" styleClass="poppins-regular" text="Username" textFill="#263757cc">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Label>
-      <Label layoutX="444.0" layoutY="312.0" prefHeight="18.0" styleClass="poppins-regular" text="Password" textFill="#263757cc">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Label>
-      <Label layoutX="558.0" layoutY="371.0" onMouseClicked="#switchToRecoverAccount" prefHeight="18.0" text="Forgot Password?" textFill="#e76d8a">
-         <styleClass>
-            <String fx:value="pink-text" />
-            <String fx:value="poppins-regular" />
-         </styleClass>
-      </Label>
-      <Label layoutX="488.0" layoutY="183.0" prefHeight="18.0" styleClass="poppins-regular" text="Log in before you continue" textFill="#263757">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Label>
-      <Line endY="24.0" layoutX="474.0" layoutY="271.0" stroke="#e76d8a" styleClass="field-icon-container" />
-      <Line endY="24.0" layoutX="474.0" layoutY="336.0" stroke="#e76d8a" styleClass="field-icon-container" />
-      <Label fx:id="errorMessage" layoutX="427.0" layoutY="209.0" prefHeight="32.0" prefWidth="255.0" textAlignment="CENTER" textFill="#e76d8a">
-         <styleClass>
-            <String fx:value="poppins-semibold" />
-            <String fx:value="text-center" />
-         </styleClass>
-      </Label>
-      <PasswordField fx:id="passwordField" layoutX="475.0" layoutY="332.0" prefHeight="32.0" prefWidth="192.0" styleClass="text-field" />
    </children>
 </AnchorPane>

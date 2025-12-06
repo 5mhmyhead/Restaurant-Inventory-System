@@ -26,7 +26,7 @@
                </image>
             </ImageView>
             <Button layoutX="10.0" layoutY="662.0" mnemonicParsing="false" onAction="#signOut" prefHeight="28.0" prefWidth="244.0" styleClass="button-pink" stylesheets="@style.css" text="Sign Out" />
-            <Label layoutX="78.0" layoutY="44.0" styleClass="poppins-regular" stylesheets="@style.css" text="Welcome, user!" textFill="#f8e9e5" />
+            <Label fx:id="welcomeMessage" layoutX="78.0" layoutY="44.0" styleClass="poppins-regular" stylesheets="@style.css" text="Welcome, user!" textFill="#f8e9e5" />
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f8e9e5" height="116.0" layoutX="26.0" layoutY="441.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="238.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="52.0" layoutX="245.0" layoutY="473.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#e76d8a" height="32.0" layoutY="441.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="264.0" />
