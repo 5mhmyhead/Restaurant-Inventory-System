@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -74,6 +75,12 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e76d8a" height="28.0" layoutX="713.1" layoutY="403.0" stroke="#e76d8a" strokeType="INSIDE" strokeWidth="0.0" width="35.0" />
             <Button fx:id="filterButton" layoutX="181.0" layoutY="345.0" mnemonicParsing="false" onAction="#filter" prefHeight="27.64" prefWidth="175.0" styleClass="button-white" text="Filter Order" />
             <Button fx:id="prevButton" layoutX="380.0" layoutY="346.0" mnemonicParsing="false" onAction="#SwitchToOrder" prefHeight="27.64" prefWidth="175.0" styleClass="button-pink" text="Previous" />
+            <Label fx:id="errMsg" layoutX="241.0" layoutY="303.0" prefHeight="32.0" prefWidth="255.0" text="Label" textFill="#e76d8a">
+               <styleClass>
+                  <String fx:value="poppins-semibold" />
+                  <String fx:value="text-center" />
+               </styleClass>
+            </Label>
          </children>
       </AnchorPane>
       <Label alignment="TOP_CENTER" layoutX="24.0" layoutY="113.0" prefHeight="43.0" prefWidth="214.0" styleClass="poppins-bold" stylesheets="@style.css" text="Filter By Cashier" textAlignment="CENTER" textFill="#f8e9e5">
