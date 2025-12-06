@@ -16,7 +16,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="768.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inventory.LoginPageController">
+<AnchorPane fx:id="parentContainer" layoutY="-576.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="768.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inventory.transitions.TransCreateToLoginController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="576.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="768.0" />
       <Circle centerX="70.0" centerY="70.0" layoutX="86.0" layoutY="354.0" radius="70.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
@@ -43,8 +43,8 @@
       <Circle centerX="39.5" centerY="39.5" fill="#e76d8a" layoutX="268.0" layoutY="328.0" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
       <Circle centerX="39.5" centerY="39.5" fill="#e76d8a" layoutX="268.0" layoutY="407.0" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
       <Circle centerX="39.5" centerY="39.5" fill="#e76d8a" layoutX="268.0" layoutY="487.0" radius="39.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Button fx:id="cancelButton" layoutX="561.0" layoutY="423.0" onAction="#switchToTitlePage" prefHeight="28.0" prefWidth="105.0" styleClass="button-login" text="Cancel" />
-      <Button fx:id="loginButton" layoutX="441.0" layoutY="423.0" onAction="#Login" prefHeight="28.0" prefWidth="105.0" text="Log in">
+      <Button layoutX="561.0" layoutY="423.0" prefHeight="28.0" prefWidth="105.0" styleClass="button-login" text="Cancel" />
+      <Button layoutX="441.0" layoutY="423.0" prefHeight="28.0" prefWidth="105.0" text="Log in">
          <styleClass>
             <String fx:value="button-login" />
             <String fx:value="poppins-bold" />
@@ -87,7 +87,7 @@
             </Circle>
          </children></AnchorPane>
       <Label layoutX="452.0" layoutY="463.0" prefHeight="18.0" prefWidth="146.0" styleClass="poppins-regular" text="Don't have an account?" textFill="#253657" />
-      <Label fx:id="register" layoutX="601.0" layoutY="463.0" onMouseClicked="#switchToCreateAccount" prefHeight="18.0" prefWidth="53.0" text="Register" textAlignment="CENTER" textFill="#e76d8a">
+      <Label layoutX="601.0" layoutY="463.0" prefHeight="18.0" prefWidth="53.0" text="Register" textAlignment="CENTER" textFill="#e76d8a">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -136,7 +136,7 @@
             <Font size="10.0" />
          </font>
       </Label>
-      <Label layoutX="558.0" layoutY="371.0" onMouseClicked="#switchToRecoverAccount" prefHeight="18.0" text="Forgot Password?" textFill="#e76d8a">
+      <Label layoutX="558.0" layoutY="371.0" prefHeight="18.0" text="Forgot Password?" textFill="#e76d8a">
          <styleClass>
             <String fx:value="pink-text" />
             <String fx:value="poppins-regular" />
@@ -156,5 +156,118 @@
          </styleClass>
       </Label>
       <PasswordField fx:id="passwordField" layoutX="475.0" layoutY="332.0" prefHeight="32.0" prefWidth="192.0" styleClass="text-field" />
+      <AnchorPane layoutY="576.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="768.0" stylesheets="@style.css">
+         <children>
+            <Rectangle arcWidth="5.0" fill="#f8e9e5" height="576.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="768.0" />
+            <Button layoutX="225.0" layoutY="190.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="225.0" text="Manager">
+               <styleClass>
+                  <String fx:value="button-accountcreate_active" />
+                  <String fx:value="poppins-black" />
+               </styleClass>
+            </Button>
+            <Button layoutX="464.0" layoutY="190.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="225.0" text="Worker">
+               <styleClass>
+                  <String fx:value="button-accountcreate_default" />
+                  <String fx:value="poppins-black" />
+               </styleClass>
+            </Button>
+            <Button layoutX="225.0" layoutY="452.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="463.0" text="Create Account">
+               <styleClass>
+                  <String fx:value="button-createaccount" />
+                  <String fx:value="poppins-black" />
+               </styleClass>
+            </Button>
+            <ImageView fitHeight="556.0" fitWidth="139.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/Sidebar.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="41.0" fitWidth="58.0" layoutX="427.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/helloKittyIconDark.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="91.0" fitWidth="360.0" layoutX="271.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/CreateAccountTexxt.png" />
+               </image>
+            </ImageView>
+            <PasswordField layoutX="243.0" layoutY="266.0" prefHeight="32.0" prefWidth="446.0" />
+            <Button layoutX="225.0" layoutY="266.0" prefHeight="32.0" prefWidth="19.0" styleClass="field-icon-container" />
+            <Label layoutX="234.0" layoutY="256.0" prefHeight="18.0" prefWidth="156.0" text="Manager Provided Password" textAlignment="CENTER" textFill="#e76d8acc">
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="poppins-regular" />
+                  <String fx:value="text-center" />
+                  <String fx:value="text-background" />
+               </styleClass>
+            </Label>
+            <Label layoutX="227.0" layoutY="231.0" prefHeight="18.0" styleClass="poppins-regular" text="Please enter the provided manager password to create this account." textFill="#263757cc">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label layoutX="350.0" layoutY="500.0" prefHeight="18.0" prefWidth="158.0" styleClass="poppins-regular" text="Already have an account?" textFill="#253657" />
+            <Label layoutX="515.0" layoutY="500.0" prefHeight="18.0" prefWidth="38.0" text="Login" textAlignment="CENTER" textFill="#e76d8a">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="pink-text" />
+                  <String fx:value="poppins-black" />
+                  <String fx:value="text-center" />
+               </styleClass>
+            </Label>
+            <TextField layoutX="242.0" layoutY="320.0" prefHeight="32.0" prefWidth="206.0" />
+            <Button layoutX="224.0" layoutY="320.0" prefHeight="32.0" prefWidth="19.0" styleClass="field-icon-container" />
+            <Label layoutX="233.0" layoutY="311.0" prefHeight="18.0" prefWidth="60.0" text="Username" textAlignment="CENTER" textFill="#e76d8acc">
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="poppins-regular" />
+                  <String fx:value="text-center" />
+                  <String fx:value="text-background" />
+               </styleClass>
+            </Label>
+            <Button layoutX="463.0" layoutY="320.0" prefHeight="32.0" prefWidth="19.0" styleClass="field-icon-container" />
+            <PasswordField layoutX="481.0" layoutY="320.0" prefHeight="32.0" prefWidth="206.0" />
+            <Label layoutX="469.0" layoutY="311.0" prefHeight="18.0" prefWidth="60.0" text="Password" textAlignment="CENTER" textFill="#e76d8acc">
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="poppins-regular" />
+                  <String fx:value="text-center" />
+                  <String fx:value="text-background" />
+               </styleClass>
+            </Label>
+            <Label layoutX="226.0" layoutY="364.0" prefHeight="18.0" styleClass="poppins-regular" text="In case you forget your password, please enter your email address." textFill="#263757cc">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <TextField layoutX="242.0" layoutY="396.0" prefHeight="32.0" prefWidth="446.0" />
+            <Button layoutX="224.0" layoutY="396.0" prefHeight="32.0" prefWidth="19.0" styleClass="field-icon-container" />
+            <Label layoutX="233.0" layoutY="387.0" prefHeight="18.0" prefWidth="83.0" text="Email Address" textAlignment="CENTER" textFill="#e76d8acc">
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="poppins-regular" />
+                  <String fx:value="text-center" />
+                  <String fx:value="text-background" />
+               </styleClass>
+            </Label>
+            <Label fx:id="errorMessage1" alignment="CENTER" layoutX="254.0" layoutY="162.0" prefHeight="17.0" prefWidth="404.0" textFill="#e76d8a">
+               <styleClass>
+                  <String fx:value="poppins-semibold" />
+                  <String fx:value="text-center" />
+               </styleClass>
+            </Label>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

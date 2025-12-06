@@ -24,7 +24,7 @@ public class App extends Application
     @Override
     public void start(Stage stage) throws IOException 
     {
-        scene = new Scene(loadFXML("titlePage"), WIDTH, HEIGHT);
+        scene = new Scene(loadFXML("openingAnimation"), WIDTH, HEIGHT);
 
         stage.setTitle("Kawaii Count");
         stage.setResizable(false);
@@ -37,14 +37,14 @@ public class App extends Application
         stage.show();
     }
 
-    static void setRoot(String fxml, int width, int height) throws IOException 
+    public static void setRoot(String fxml, int width, int height) throws IOException 
     { 
         Stage stage = (Stage) scene.getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         Parent root = fxmlLoader.load();
 
         // if this is the inventory page, inject DB connection
-        if ("inventoryPage".equals(fxml)) 
+        if (fxml.equals("inventoryPage")) 
         {
             InventoryPageController controller = fxmlLoader.getController();
             try 
@@ -62,10 +62,29 @@ public class App extends Application
         scene = new Scene(root, width, height);
         stage.setScene(scene);
         stage.sizeToScene();
-        stage.centerOnScreen();
+        // centers the window on screen depending on who called this function
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        // this part looks for who called the setRoot function
+        if (stackTrace.length > 2) 
+        {
+            StackTraceElement caller = stackTrace[2];
+            String fileName = caller.getFileName();
+
+            if(fileName.equals("InventoryPageController.java") ||
+               fileName.equals("AnalyticsPageController.java")) 
+            {
+                stage.centerOnScreen();
+            }
+        }
+
+        if(fxml.equals("inventoryPage")) 
+        {
+            // center on stage if it switches to the inventory page
+            stage.centerOnScreen();
+        }
     }
 
-    private static Parent loadFXML(String fxml) throws IOException 
+    public static Parent loadFXML(String fxml) throws IOException 
     {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();

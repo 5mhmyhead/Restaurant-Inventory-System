@@ -54,7 +54,7 @@ public class CreateAccountController implements Initializable
     @FXML
     private void switchToLoginPage() throws IOException 
     {
-        App.setRoot("loginPage", App.WIDTH, App.HEIGHT);
+        App.setRoot("transitionFromCreateToLogin", App.WIDTH, App.HEIGHT);
     }
 
     @FXML
@@ -117,6 +117,13 @@ public class CreateAccountController implements Initializable
             check.setString(1, username);
             try (ResultSet rs = check.executeQuery())
             {
+                if (username.isEmpty()) 
+                {
+                    errorMessage.setText("Please enter all the required fields.");
+                    playAnimation();
+                    return;
+                }
+
                 if (rs.next() && rs.getInt(1) > 0)
                 {
                     errorMessage.setText("Username already exists!");
