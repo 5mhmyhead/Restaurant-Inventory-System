@@ -180,6 +180,7 @@ public class CreateAccountController implements Initializable
             }
         }    
     }
+    
 
     // error message animation helper
     private void playAnimation() 
