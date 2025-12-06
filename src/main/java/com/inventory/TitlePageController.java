@@ -6,18 +6,11 @@ import java.awt.Desktop;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
 
 public class TitlePageController
 {
@@ -35,33 +28,7 @@ public class TitlePageController
     @FXML
     private void switchToLoginPage() throws IOException 
     {
-        // disables the button
-        enterInventory.setDisable(true);
-        enterInventory.setStyle("-fx-opacity: 1;");
-        // manually sets the root in order to play an animation to the next scene
-        Parent root = App.loadFXML("loginPage");
-        Scene scene = enterInventory.getScene();
-
-        root.translateXProperty().set(scene.getWidth());
-        parentContainer.getChildren().add(root);
-
-        Timeline timeline = new Timeline();
-        Timeline timeline2 = new Timeline();
-
-        KeyValue kv = new KeyValue(root.translateXProperty(), 0, Interpolator.SPLINE(0.70, 0.0, 0.30, 1.0));
-        KeyFrame kf = new KeyFrame(Duration.seconds(1), kv);
-
-        KeyValue kv2 = new KeyValue(root.translateXProperty(), 0, Interpolator.SPLINE(0.70, 0.0, 0.30, 1.0));
-        KeyFrame kf2 = new KeyFrame(Duration.seconds(1), kv2);
-        
-        timeline.getKeyFrames().add(kf);
-        timeline2.getKeyFrames().add(kf2);
-
-        timeline.setOnFinished(event -> {
-            parentContainer.getChildren().remove(parentContainer);    
-        });
-
-        timeline.play();
+        App.setRoot("transitionFromTitleToLogin", App.WIDTH, App.HEIGHT);
     }
 
     @FXML

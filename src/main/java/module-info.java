@@ -6,5 +6,6 @@ module com.inventory {
     requires javafx.fxml;
 
     opens com.inventory to javafx.fxml;
+    opens com.inventory.transitions to javafx.fxml;
     exports com.inventory;
 }

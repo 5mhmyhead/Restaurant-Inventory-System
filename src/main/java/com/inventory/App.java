@@ -37,7 +37,7 @@ public class App extends Application
         stage.show();
     }
 
-    static void setRoot(String fxml, int width, int height) throws IOException 
+    public static void setRoot(String fxml, int width, int height) throws IOException 
     { 
         Stage stage = (Stage) scene.getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
@@ -62,7 +62,26 @@ public class App extends Application
         scene = new Scene(root, width, height);
         stage.setScene(scene);
         stage.sizeToScene();
-        stage.centerOnScreen();
+        // centers the window on screen depending on who called this function
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        // this part looks for who called the setRoot function
+        if (stackTrace.length > 2) 
+        {
+            StackTraceElement caller = stackTrace[2];
+            String fileName = caller.getFileName();
+
+            if(fileName.equals("InventoryPageController.java") ||
+               fileName.equals("AnalyticsPageController.java")) 
+            {
+                stage.centerOnScreen();
+            }
+        }
+
+        if(fxml.equals("inventoryPage")) 
+        {
+            // center on stage if it switches to the inventory page
+            stage.centerOnScreen();
+        }
     }
 
     public static Parent loadFXML(String fxml) throws IOException 

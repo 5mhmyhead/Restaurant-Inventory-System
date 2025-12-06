@@ -42,7 +42,7 @@ public class RecoverAccountController implements Initializable
     @FXML
     private void switchToLoginPage() throws IOException 
     {
-        App.setRoot("loginPage", App.WIDTH, App.HEIGHT);
+        App.setRoot("transitionFromRecoverToLogin", App.WIDTH, App.HEIGHT);
     }
 
     @FXML

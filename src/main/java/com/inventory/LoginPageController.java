@@ -45,19 +45,19 @@ public class LoginPageController implements Initializable
     @FXML
     private void switchToTitlePage() throws IOException 
     {
-        App.setRoot("titlePage", App.WIDTH, App.HEIGHT);
+        App.setRoot("transitionFromLoginToTitle", App.WIDTH, App.HEIGHT);
     }
 
     @FXML
     private void switchToCreateAccount() throws IOException 
     {
-        App.setRoot("createAccount_ManagerView", App.WIDTH, App.HEIGHT);
+        App.setRoot("transitionFromLoginToCreate", App.WIDTH, App.HEIGHT);
     }
 
     @FXML
     private void switchToRecoverAccount() throws IOException 
     {
-        App.setRoot("recoverAccount", App.WIDTH, App.HEIGHT);
+        App.setRoot("transitionFromLoginToRecover", App.WIDTH, App.HEIGHT);
     }
 
     @FXML

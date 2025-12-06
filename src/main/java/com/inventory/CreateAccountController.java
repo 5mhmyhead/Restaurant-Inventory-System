@@ -54,7 +54,7 @@ public class CreateAccountController implements Initializable
     @FXML
     private void switchToLoginPage() throws IOException 
     {
-        App.setRoot("loginPage", App.WIDTH, App.HEIGHT);
+        App.setRoot("transitionFromCreateToLogin", App.WIDTH, App.HEIGHT);
     }
 
     @FXML
