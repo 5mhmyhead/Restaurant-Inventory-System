@@ -15,11 +15,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
@@ -53,12 +56,56 @@ public class InventoryPageController implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
+        // populate all combo boxes
         categoryDrop.getItems().addAll("Breakfast", "Lunch", "Dinner", "Appetizer");
         typeDrop.getItems().addAll("Vegetarian", "Non-Vegetarian");
         statusDrop.getItems().addAll("Available", "Unavailable");
         categoryDrop.setPromptText("Select Category");
         typeDrop.setPromptText("Select Type");
         statusDrop.setPromptText("Set Status");
+
+        // configure custom button cells so placeholder text shows when value is null
+        categoryDrop.setButtonCell(new ListCell<>() 
+        {
+            @Override
+            protected void updateItem(String item, boolean empty) 
+            {
+                super.updateItem(item, empty);
+                if (empty || item == null) 
+                setText("Select Category");
+
+                else 
+                setText(item);
+            }
+        });
+
+        typeDrop.setButtonCell(new ListCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) 
+            {
+                super.updateItem(item, empty);
+                if (empty || item == null) 
+                setText("Select Type");
+
+                else 
+                setText(item);
+                
+            }
+        });
+
+        statusDrop.setButtonCell(new ListCell<>() 
+        {
+            @Override
+            protected void updateItem(String item, boolean empty) 
+            {
+                super.updateItem(item, empty);
+                if (empty || item == null) 
+                setText("Set Status");
+                
+                else 
+                setText(item);
+            }
+        });
         
         // bind columns to Meal properties
         inventoryProductID.setCellValueFactory(cellData -> cellData.getValue().prodIdProperty());
@@ -127,9 +174,6 @@ public class InventoryPageController implements Initializable
         categoryDrop.setValue(null);
         typeDrop.setValue(null);
         statusDrop.setValue(null);
-        categoryDrop.setPromptText("Select Category");
-        typeDrop.setPromptText("Select Type");
-        statusDrop.setPromptText("Set Status");
     }
 
     // adds items into the inventory
@@ -205,48 +249,87 @@ public class InventoryPageController implements Initializable
     private void updateItem ()
     {
        // validation check
-        if (prodIDField.getText().trim().isEmpty() || prodNameField.getText().trim().isEmpty() || prodPriceField.getText().trim().isEmpty() || prodStockField.getText().trim().isEmpty() || categoryDrop.getValue().trim().isEmpty() || typeDrop.getValue().trim().isEmpty() || statusDrop.getValue().trim().isEmpty()) 
+        if (prodIDField.getText().trim().isEmpty()) 
         {
-            System.out.println("Please fill in all fields before updating a product.");
+            System.out.println("Please fill in product ID before updating a product.");
             return; // stop execution
         }
 
-        try (Connection conn = SQLite_Connection.connect()) 
+        // collect values
+        String prodID = prodIDField.getText().trim();
+        String prodName = prodNameField.getText().trim();
+        String prodPrice = prodPriceField.getText().trim();
+        String prodStock = prodStockField.getText().trim();
+        String category = categoryDrop.getValue() != null ? categoryDrop.getValue().trim() : "";
+        String type = typeDrop.getValue() != null ? typeDrop.getValue().trim() : "";
+        String status = statusDrop.getValue() != null ? statusDrop.getValue().trim() : "";
+
+        // makes query statement based on what values are present (keep in mind that category, type, and drop still need to be filled)
+        StringBuilder sql = new StringBuilder("UPDATE Meal SET ");
+        List<Object> params = new ArrayList<>();
+
+        if (!prodName.isEmpty()) 
         {
-            try (PreparedStatement updateStmt = conn.prepareStatement("UPDATE Meal SET meal_name = ?, price = ?, amount_stock = ?, category = ?, type = ?, status = ? WHERE meal_id = ?")) 
+            sql.append("meal_name = ?, ");
+            params.add(prodName);
+        }
+        if (!prodPrice.isEmpty()) {
+            sql.append("price = ?, ");
+            params.add(Double.parseDouble(prodPrice));
+        }
+        if (!prodStock.isEmpty()) {
+            sql.append("amount_stock = ?, ");
+            params.add(Integer.parseInt(prodStock));
+        }
+        if (!category.isEmpty()) {
+            sql.append("category = ?, ");
+            params.add(category);
+        }
+        if (!type.isEmpty()) {
+            sql.append("type = ?, ");
+            params.add(type);
+        }
+        if (!status.isEmpty()) {
+            sql.append("status = ?, ");
+            params.add(status);
+        }
+
+        if (params.isEmpty()) 
+        {
+            System.out.println("No changes provided. Update aborted.");
+            return;
+        }
+
+        sql.setLength(sql.length() - 2);
+        sql.append(" WHERE meal_id = ?");
+        params.add(prodID);
+
+        try (Connection conn = SQLite_Connection.connect();
+        PreparedStatement updateStmt = conn.prepareStatement(sql.toString())) 
+        {
+            // updates parameters
+            for (int i = 0; i < params.size(); i++) 
             {
-                // collect values
-                String prodID = prodIDField.getText().trim();
-                String prodName = prodNameField.getText().trim();
-                double prodPrice = Double.parseDouble(prodPriceField.getText().trim());
-                int prodStock = Integer.parseInt(prodStockField.getText().trim());
-                String category = categoryDrop.getValue().trim();
-                String type = typeDrop.getValue().trim();
-                String status = statusDrop.getValue().trim();
-
-                // update parameters
-                updateStmt.setString(1, prodName);
-                updateStmt.setDouble(2, prodPrice);
-                updateStmt.setInt(3, prodStock);
-                updateStmt.setString(4, category);
-                updateStmt.setString(5, type);
-                updateStmt.setString(6, status);
-                updateStmt.setString(7, prodID);
-
-                // refresh table and clears all fields
-                int dataTouched = updateStmt.executeUpdate();
-                if (dataTouched == 0) 
-                {
-                    System.out.println("Item not found!");
-                } 
-                else 
-                {
-                    System.out.println("Item updated successfully!");
-                    loadItems();
-                    clearFields();
-                }
+                Object value = params.get(i);
+                if (value instanceof String) updateStmt.setString(i + 1, (String) value);
+                else if (value instanceof Integer) updateStmt.setInt(i + 1, (Integer) value);
+                else if (value instanceof Double) updateStmt.setDouble(i + 1, (Double) value);
+                else updateStmt.setObject(i + 1, value);
             }
-        } 
+
+            // refresh table and clears all fields
+            int dataTouched = updateStmt.executeUpdate();
+            if (dataTouched == 0) 
+            {
+                System.out.println("Item not found!");
+            } 
+            else 
+            {
+                System.out.println("Item updated successfully!");
+                loadItems();
+                clearFields();
+            }
+        }
         catch (SQLException e) 
         {
             e.printStackTrace();
