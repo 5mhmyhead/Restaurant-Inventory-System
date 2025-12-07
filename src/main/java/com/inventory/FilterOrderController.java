@@ -13,7 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
-public class FilterOrderController {
+public class FilterOrderController{
     @FXML private TextField CashierUser;
     @FXML private TextField endDate;
     @FXML private TextField enterProd;
@@ -41,13 +41,32 @@ public class FilterOrderController {
 
     @FXML
     void SwitchToOrder(ActionEvent event)   throws IOException {
-        App.setRoot("switchToFilterMenu", App.WIDTH, App.HEIGHT);
+        App.setRoot("ordersPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
     }
     
 
     @FXML
-    void filter(ActionEvent event) {
+    void filter(ActionEvent event)  throws IOException {
+        String cashier = CashierUser.getText().trim();
+        String productID = enterProd.getText().trim();
+        String start = startDate.getText().trim();
+        String end = endDate.getText().trim();
+
+        //function if any  field is empty
+        if (cashier.isEmpty() && productID.isEmpty() && start.isEmpty() && end.isEmpty()){
+        
+        errMsg.setText("Please enter atleast one filter");
+        return;
+        }
+        //missing both dates
+        if(!start.isEmpty() && !end.isEmpty()){
+
+            errMsg.setText("Date is empty");
+        }
+           
+
+
+    
 
     }
-
-}
+        }
