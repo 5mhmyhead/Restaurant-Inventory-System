@@ -8,12 +8,13 @@ import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
-public class FilterOrderController{
+public class FilterOrderController implements Initializable{
     @FXML private TextField CashierUser;
     @FXML private TextField endDate;
     @FXML private TextField enterProd;
@@ -27,12 +28,13 @@ public class FilterOrderController{
     FadeTransition fade;
     SequentialTransition transition;
 
+    @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
         // the error message waits for 2 seconds
         delay = new PauseTransition(Duration.seconds(3));
         // then it fades out
-        fade = new FadeTransition();
+        fade = new FadeTransition(Duration.seconds(2), errMsg);
         fade.setFromValue(1);
         fade.setToValue(0);
         // the fade plays after the delay
@@ -56,17 +58,33 @@ public class FilterOrderController{
         if (cashier.isEmpty() && productID.isEmpty() && start.isEmpty() && end.isEmpty()){
         
         errMsg.setText("Please enter atleast one filter");
+        playAnimation();
         return;
         }
         //missing both dates
-        if(!start.isEmpty() && !end.isEmpty()){
+        if(start.isEmpty() && end.isEmpty()){
 
             errMsg.setText("Date is empty");
+            playAnimation();
+            return;
         }
-           
+        
+        if(!start.isEmpty() && end.isEmpty() || start.isEmpty() && !end.isEmpty()){
 
+            errMsg.setText("Please enter both start and end dates");
+            playAnimation();
+            return;
+        }
+    }
 
     
-
+ // error message animation helper
+    private void playAnimation() 
+    {
+        transition.jumpTo(Duration.ZERO);
+        transition.stop();
+        transition.play();
     }
+    
+    
         }
