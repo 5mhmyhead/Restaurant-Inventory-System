@@ -6,6 +6,7 @@ import java.net.URL;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -19,12 +20,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class InventoryPageController implements Initializable
 {
@@ -41,6 +45,7 @@ public class InventoryPageController implements Initializable
     @FXML private TableColumn<Product, Number> inventoryDiscount;
     @FXML private TableColumn<Product, String> inventoryStatus;
 
+    @FXML TextField searchBar;
     @FXML TextField prodIDField;
     @FXML TextField prodNameField;
     @FXML TextField prodStockField;
@@ -50,9 +55,17 @@ public class InventoryPageController implements Initializable
     @FXML ComboBox<String> typeDrop;
     @FXML ComboBox<String> statusDrop;
     @FXML Button signOutButton;
+    @FXML Button filterButton;
 
     private Connection conn;
 
+    // master list of products
+    private ObservableList<Product> data = FXCollections.observableArrayList();
+
+    // stores the last state of filter buttons
+    private boolean breakfastFilter, lunchFilter, dinnerFilter, appetizerFilter, vegetarianFilter, nonVegetarianFilter;
+
+    // initializes combo boxes and the table
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
@@ -116,6 +129,12 @@ public class InventoryPageController implements Initializable
         inventoryPrice.setCellValueFactory(cellData -> cellData.getValue().prodPriceProperty());
         inventoryDiscount.setCellValueFactory(cellData -> cellData.getValue().amountDiscountProperty());
         inventoryStatus.setCellValueFactory(cellData -> cellData.getValue().prodStatusProperty());
+    
+        // listener for search bar
+        searchBar.textProperty().addListener((observable, oldValue, newValue) ->
+        {
+            filterTable(newValue, breakfastFilter, lunchFilter, dinnerFilter, appetizerFilter, vegetarianFilter, nonVegetarianFilter);
+        });
     }
 
     // TODO: make this work
@@ -134,7 +153,7 @@ public class InventoryPageController implements Initializable
     // load products from database
     public void loadItems() 
     {
-        ObservableList<Product> data = FXCollections.observableArrayList();
+        data.clear();
         String sql = "SELECT meal_id, meal_name, category, type, price, amount_sold, amount_stock, amount_discount, status FROM Meal";
 
         try (Statement stmt = conn.createStatement();
@@ -160,7 +179,51 @@ public class InventoryPageController implements Initializable
             e.printStackTrace();
         }
 
+        // shows items in the table
         inventoryTable.setItems(data);
+
+        // reapplies any search if user has typed something
+        String currentSearch = searchBar.getText();
+        if(currentSearch != null && !currentSearch.isEmpty())
+        {
+            filterTable(currentSearch, breakfastFilter, lunchFilter, dinnerFilter, appetizerFilter, nonVegetarianFilter, nonVegetarianFilter);
+        }
+    }
+
+    // applies filters to the table to show/hide different data
+    public void filterTable(String keyword, boolean breakfast, boolean lunch, boolean dinner, boolean appetizer, boolean nonVegetarian, boolean vegetarian)
+    {
+        ObservableList<Product> filtered = FXCollections.observableArrayList();
+
+        for (Product p : data) 
+            {
+                String name = p.getProdName() != null ? p.getProdName().trim() : "";
+                
+                // filters by case-sensitive keyword on search bar
+                boolean matchesSearch =
+                    (keyword == null || keyword.trim().isEmpty() || name.contains(keyword.trim()));
+                
+                // filters by category
+                boolean matchesCategory =
+                    (!breakfast && !lunch && !dinner && !appetizer) ||
+                    (breakfast && "Breakfast".equals(p.getProdCategory())) ||
+                    (lunch && "Lunch".equals(p.getProdCategory())) ||
+                    (dinner && "Dinner".equals(p.getProdCategory())) ||
+                    (appetizer && "Appetizer".equals(p.getProdCategory()));
+
+                // filters by type
+                boolean matchesType =
+                    (!vegetarian && !nonVegetarian) ||
+                    (vegetarian && "Vegetarian".equals(p.getProdType())) ||
+                    (nonVegetarian && "Non-Vegetarian".equals(p.getProdType()));
+
+
+                if (matchesSearch && matchesCategory && matchesType) 
+                {
+                    filtered.add(p);
+                }
+            }
+        inventoryTable.setItems(filtered);
     }
 
     @FXML
@@ -373,6 +436,31 @@ public class InventoryPageController implements Initializable
         } 
     
         catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+    }
+
+    // opens the filter menu for inventory
+    @FXML
+    private void openFilterMenu()
+    {
+        try 
+        {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("filterInventory.fxml"));
+            Parent root = loader.load();
+
+            filterInventoryController popupController = loader.getController();
+            popupController.setController(this);
+
+            Stage popupStage = new Stage();
+            popupStage.setTitle("Filter Inventory");
+            popupStage.setResizable(false);
+            popupStage.setScene(new Scene(root));
+            popupStage.initOwner(parentContainer.getScene().getWindow());
+            popupStage.show();
+        } 
+        catch (IOException e) 
         {
             e.printStackTrace();
         }
