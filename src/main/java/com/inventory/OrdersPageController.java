@@ -2,43 +2,43 @@ package com.inventory;
 
 import java.io.IOException;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 public class OrdersPageController {
-    @FXML Button inventoryButton;
-    @FXML Button menuButton;
-    @FXML Button analyticsButton;
-    @FXML Button signOutButton;
-    @FXML Button filterMenuButton;
+    @FXML private Button analyticsButton;
+    @FXML private Button filterMenuButton;
+    @FXML private Button inventoryButton;
+    @FXML private Button menuButton;
+    @FXML private Button ordersButton;
+    @FXML private Button signOutButton;
+    @FXML private Label welcomeMessage;
 
     @FXML
-    private void switchToInventory() throws IOException 
-    { 
-        App.setRoot("inventoryPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
-    }
-
-    @FXML
-    private void switchToMenu() throws IOException 
-    { 
-        App.setRoot("menuPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
-    }
-
-    @FXML
-    private void switchToAnalytics() throws IOException 
-    { 
-        App.setRoot("analyticsPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
-    }
-
-    @FXML
-    private void signOut() throws IOException 
-    { 
+    void signOut(ActionEvent event) throws IOException {
         App.setRoot("titlePage", App.WIDTH, App.HEIGHT);
     }
 
     @FXML
-    private void switchToFilterMenu() throws IOException 
-    { 
-        App.setRoot("filterMenu", App.WIDTH, App.HEIGHT);
+    void switchToAnalytics(ActionEvent event) throws IOException {
+        App.setRoot("analyticsPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
     }
+
+    @FXML
+    void switchToFilterOrder(ActionEvent event) throws IOException {
+        App.setRoot("filterOrders", App.WIDTH, App.HEIGHT);
+    }
+
+    @FXML
+    void switchToInventory(ActionEvent event) throws IOException {
+        App.setRoot("inventoryPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
+    }
+
+    @FXML
+    void switchToMenu(ActionEvent event) throws IOException {
+        App.setRoot("menuPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
+    }
+
 }
