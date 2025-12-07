@@ -75,7 +75,7 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e76d8a" height="28.0" layoutX="713.1" layoutY="403.0" stroke="#e76d8a" strokeType="INSIDE" strokeWidth="0.0" width="35.0" />
             <Button fx:id="filterButton" layoutX="181.0" layoutY="345.0" mnemonicParsing="false" onAction="#filter" prefHeight="27.64" prefWidth="175.0" styleClass="button-white" text="Filter Order" />
             <Button fx:id="prevButton" layoutX="380.0" layoutY="346.0" mnemonicParsing="false" onAction="#SwitchToOrder" prefHeight="27.64" prefWidth="175.0" styleClass="button-pink" text="Previous" />
-            <Label fx:id="errMsg" layoutX="241.0" layoutY="303.0" prefHeight="32.0" prefWidth="255.0" text="Label" textFill="#e76d8a">
+            <Label fx:id="errMsg" layoutX="247.0" layoutY="305.0" prefHeight="32.0" prefWidth="255.0">
                <styleClass>
                   <String fx:value="poppins-semibold" />
                   <String fx:value="text-center" />
@@ -107,6 +107,11 @@
       <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="26.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/filterBlue.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="430.0" fitWidth="748.0" layoutX="11.0" layoutY="478.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/circlesPink.png" />
          </image>
       </ImageView>
    </children>

@@ -22,9 +22,6 @@ import javafx.util.Duration;
 
 public class CreateAccountController implements Initializable
 {   
-    // hardcoded manager provided password
-    private static final String managerProvidedPW = "vivii";
-
     // text and password fields
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
@@ -92,7 +89,7 @@ public class CreateAccountController implements Initializable
             String managerPassword = managerPasswordField.getText();
 
             // validate against hardcoded secret
-            if (!managerProvidedPW.equals(managerPassword)) 
+            if (!Session.getManagerPassword().equals(managerPassword)) 
             {
                 errorMessage.setText("Invalid Manager Password. Account cannot be created.");
                 playAnimation();
