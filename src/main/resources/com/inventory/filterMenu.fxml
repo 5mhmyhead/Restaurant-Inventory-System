@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
@@ -7,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -19,7 +19,7 @@
       </Label>
       <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="27.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/filter.png" />
+            <Image url="@images/filterBlue.png" />
          </image>
       </ImageView>
       <AnchorPane layoutX="10.0" layoutY="88.0" prefHeight="430.0" prefWidth="748.0">
@@ -73,6 +73,9 @@
             <ToggleButton layoutX="561.0" layoutY="69.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="170.0" styleClass="button-pink" stylesheets="@style.css" text="Appetizer" />
             <ToggleButton layoutX="27.0" layoutY="180.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="170.0" styleClass="button-pink" stylesheets="@style.css" text="Vegetarian" />
             <ToggleButton layoutX="207.0" layoutY="181.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="170.0" styleClass="button-pink" stylesheets="@style.css" text="Non-Vegetarian" />
+            <CheckBox layoutX="200.0" layoutY="236.0" mnemonicParsing="false" />
+            <CheckBox layoutX="200.0" layoutY="269.0" mnemonicParsing="false" />
+            <CheckBox layoutX="488.0" layoutY="235.0" mnemonicParsing="false" />
          </children>
       </AnchorPane>
       <ImageView fitHeight="430.0" fitWidth="748.0" layoutX="11.0" layoutY="478.0" pickOnBounds="true" preserveRatio="true">
