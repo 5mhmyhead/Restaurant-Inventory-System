@@ -261,7 +261,7 @@ public class InventoryPageController implements Initializable
     @FXML
     private void signOut() throws IOException 
     {
-        App.setRoot("titlePage", App.WIDTH, App.HEIGHT);
+        App.setRoot("openingAnimation", App.WIDTH, App.HEIGHT);
     }
 
     // TODO: make this work

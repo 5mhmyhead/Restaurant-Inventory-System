@@ -24,8 +24,7 @@ public class App extends Application
     @Override
     public void start(Stage stage) throws IOException 
     {
-        //scene = new Scene(loadFXML("openingAnimation"), WIDTH, HEIGHT);
-        scene = new Scene(loadFXML("inventoryPage"), MAIN_WIDTH, MAIN_HEIGHT);
+        scene = new Scene(loadFXML("openingAnimation"), WIDTH, HEIGHT);
 
         stage.setTitle("Kawaii Count");
         stage.setResizable(false);

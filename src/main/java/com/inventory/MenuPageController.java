@@ -14,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -74,7 +73,7 @@ public class MenuPageController implements Initializable
 
             fadeFridge.play();
             fadeCutlery.play();
-            // switch to menu
+            // switch to inventory
             try { switchToInventory(); }
             catch (IOException e2) { e2.printStackTrace(); }
         });
@@ -167,7 +166,7 @@ public class MenuPageController implements Initializable
     @FXML
     private void signOut() throws IOException 
     {
-        App.setRoot("titlePage", App.WIDTH, App.HEIGHT);
+        App.setRoot("openingAnimation", App.WIDTH, App.HEIGHT);
     }
 
     @FXML
