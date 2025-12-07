@@ -258,7 +258,7 @@ public class InventoryPageController implements Initializable
     @FXML
     private void switchToAnalytics() throws IOException 
     {
-        playAnimation("analyticsPage", 400, 300);
+        playAnimation("analyticsPage_IncomeView", 400, 300);
     }
 
     @FXML

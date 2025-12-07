@@ -30,6 +30,9 @@ public class AnalyticsPageController implements Initializable
     @FXML private Button ordersButton;
     @FXML private Button analyticsButton;
 
+    @FXML private Button customerButton;
+    @FXML private Button incomeButton;
+
     @FXML private ImageView fridgeWhite;
     @FXML private ImageView cutleryWhite;
     @FXML private ImageView chickenWhite;
@@ -145,6 +148,18 @@ public class AnalyticsPageController implements Initializable
             try { App.setRoot(fxml, App.MAIN_WIDTH, App.MAIN_HEIGHT); }
             catch (IOException e) { e.printStackTrace(); }
         });
+    }
+
+    @FXML
+    private void switchToCustomerView() throws IOException 
+    {
+        App.setRoot("analyticsPage_CustomerView", App.MAIN_WIDTH, App.MAIN_HEIGHT);
+    }
+
+    @FXML
+    private void switchToIncomeView() throws IOException 
+    {
+        App.setRoot("analyticsPage_IncomeView", App.MAIN_WIDTH, App.MAIN_HEIGHT);
     }
 
     @FXML

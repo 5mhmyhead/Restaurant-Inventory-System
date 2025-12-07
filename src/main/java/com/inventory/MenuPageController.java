@@ -163,7 +163,7 @@ public class MenuPageController implements Initializable
     @FXML
     private void switchToAnalytics() throws IOException 
     {
-       playAnimation("analyticsPage", 350, 200);
+       playAnimation("analyticsPage_IncomeView", 350, 200);
     }
 
     @FXML

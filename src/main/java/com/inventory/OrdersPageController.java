@@ -163,7 +163,7 @@ public class OrdersPageController implements Initializable
     @FXML
     void switchToAnalytics() throws IOException 
     {
-        playAnimation("analyticsPage", 300, 100);
+        playAnimation("analyticsPage_IncomeView", 300, 100);
     }
 
     @FXML
