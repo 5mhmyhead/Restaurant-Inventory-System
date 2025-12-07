@@ -31,21 +31,15 @@
             </ImageView>
             <Button fx:id="signOutButton" alignment="CENTER" layoutX="10.0" layoutY="662.0" mnemonicParsing="false" onAction="#signOut" prefHeight="28.0" prefWidth="244.0" styleClass="button-pink" stylesheets="@style.css" text="Sign Out" />
             <Label fx:id="welcomeMessage" layoutX="78.0" layoutY="44.0" styleClass="poppins-regular" stylesheets="@style.css" text="Welcome, user!" textFill="#f8e9e5" />
-            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f8e9e5" height="116.0" layoutX="26.0" layoutY="142.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="238.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="52.0" layoutX="246.0" layoutY="174.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
-            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#e76d8a" height="32.0" layoutY="142.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="264.0" />
-            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#e76d8a" height="32.0" layoutY="226.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="264.0" />
-            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f8e9e5" height="52.0" layoutX="14.0" layoutY="174.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
-            <Button fx:id="inventoryButton" layoutX="13.0" layoutY="174.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="251.0" stylesheets="@inventory.css" text="Inventory" textAlignment="CENTER" textFill="#f8e9e5">
-               <font>
-                  <Font size="16.0" />
-               </font>
-               <styleClass>
-                  <String fx:value="invisible-button" />
-                  <String fx:value="text-left" />
-                  <String fx:value="menu-text" />
-               </styleClass>
-            </Button>
+            <AnchorPane fx:id="selectedBar" layoutY="142.0">
+               <children>
+                  <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f8e9e5" height="116.0" layoutX="26.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="238.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="52.0" layoutX="246.0" layoutY="32.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
+                  <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#e76d8a" height="38.0" layoutY="-6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="264.0" />
+                  <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#e76d8a" height="38.0" layoutY="84.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="264.0" />
+                  <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f8e9e5" height="52.0" layoutX="14.0" layoutY="32.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="20.0" />
+               </children>
+            </AnchorPane>
             <Button fx:id="menuButton" layoutX="13.0" layoutY="273.0" mnemonicParsing="false" onAction="#switchToMenu" prefHeight="52.0" prefWidth="251.0" stylesheets="@inventory.css" text="Menu" textFill="#f8e9e5">
                <font>
                   <Font size="16.0" />
@@ -73,26 +67,6 @@
                   <String fx:value="menu-text" />
                </styleClass>
             </Button>
-            <ImageView fitHeight="150.0" fitWidth="32.0" layoutX="31.0" layoutY="283.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/cutleryWhite.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="32.0" layoutX="31.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/chickenWhite.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="32.0" layoutX="31.0" layoutY="483.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/hatWhite.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="32.0" layoutX="31.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@images/fridgePink.png" />
-               </image>
-            </ImageView>
             <Button fx:id="ordersButton" layoutX="13.0" layoutY="373.0" mnemonicParsing="false" onAction="#switchToOrders" prefHeight="52.0" prefWidth="251.0" stylesheets="@inventory.css" text="Orders" textFill="#f8e9e5">
                <font>
                   <Font size="16.0" />
@@ -102,6 +76,46 @@
                   <String fx:value="menu-text" />
                </styleClass>
             </Button>
+            <ImageView fitHeight="150.0" fitWidth="32.0" layoutX="31.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/chickenPink.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="cutleryPink" fitHeight="150.0" fitWidth="32.0" layoutX="31.0" layoutY="283.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/cutleryPink.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="cutleryWhite" fitHeight="150.0" fitWidth="32.0" layoutX="31.0" layoutY="283.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/cutleryWhite.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="chickenWhite" fitHeight="150.0" fitWidth="32.0" layoutX="31.0" layoutY="383.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/chickenWhite.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="32.0" layoutX="31.0" layoutY="483.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/hatPink.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="hatWhite" fitHeight="150.0" fitWidth="32.0" layoutX="31.0" layoutY="483.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/hatWhite.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="fridgeWhite" fitHeight="150.0" fitWidth="32.0" layoutX="31.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/fridgeWhite.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="fridgePink" fitHeight="150.0" fitWidth="32.0" layoutX="31.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/fridgePink.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
       <Label layoutX="350.0" layoutY="25.0" styleClass="poppins-bold" text="Inventory" textFill="#253657">
