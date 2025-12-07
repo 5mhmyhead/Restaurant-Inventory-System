@@ -114,7 +114,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <Label layoutX="350.0" layoutY="17.0" styleClass="poppins-bold" text="Analytics" textFill="#253657">
+      <Label layoutX="350.0" layoutY="17.0" styleClass="poppins-black" text="Analytics" textFill="#253657">
          <font>
             <Font size="45.0" />
          </font>

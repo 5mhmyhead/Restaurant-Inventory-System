@@ -41,6 +41,9 @@ public class MenuPageController implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
+        // gets the username of the person from the session
+        welcomeMessage.setText("Welcome, " + Session.getUsername() + "!");
+
         // below is the code for animating the sidebar slide
         Color fromColor = new Color(0.906, 0.427, 0.541, 1.0);
         Color toColor = new Color(0.973, 0.914, 0.898, 1.0);
