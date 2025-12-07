@@ -135,6 +135,9 @@ public class InventoryPageController implements Initializable
         inventoryDiscount.setCellValueFactory(cellData -> cellData.getValue().amountDiscountProperty());
         inventoryStatus.setCellValueFactory(cellData -> cellData.getValue().prodStatusProperty());
 
+        // gets the username of the person from the session
+        welcomeMessage.setText("Welcome, " + Session.getUsername() + "!");
+
         // below is the code for animating the sidebar slide
         Color fromColor = new Color(0.906, 0.427, 0.541, 1.0);
         Color toColor = new Color(0.973, 0.914, 0.898, 1.0);
@@ -262,13 +265,6 @@ public class InventoryPageController implements Initializable
     private void signOut() throws IOException 
     {
         App.setRoot("openingAnimation", App.WIDTH, App.HEIGHT);
-    }
-
-    // TODO: make this work
-    // change the welcome message to the user
-    public void setUsername(String user)
-    {
-        welcomeMessage.setText("Welcome, " + user + "!");
     }
 
     // allow main app to inject DB connection

@@ -34,7 +34,7 @@
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#e76d8a" height="32.0" layoutY="422.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="264.0" />
          </children>
       </AnchorPane>
-      <Label layoutX="350.0" layoutY="25.0" styleClass="poppins-bold" text="Orders">
+      <Label layoutX="350.0" layoutY="25.0" styleClass="poppins-black" text="Orders" textFill="#253657">
          <font>
             <Font size="45.0" />
          </font>

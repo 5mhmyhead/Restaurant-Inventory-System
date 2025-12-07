@@ -64,8 +64,9 @@ public class LoginPageController implements Initializable
     }
 
     @FXML
-    private void switchToInventory(String user) throws IOException 
+    private void switchToInventory() throws IOException 
     {
+        // a fade animation before it switches to the inventory
         FadeTransition fade = new FadeTransition();
         fade.setDelay(Duration.millis(300));
         fade.setDuration(Duration.millis(700));
@@ -75,14 +76,8 @@ public class LoginPageController implements Initializable
 
         fade.play();
         fade.setOnFinished(event -> {
-            try 
-            {
-                App.setRoot("inventoryPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
-            }
-            catch(IOException e)
-            {
-                e.printStackTrace();
-            }
+            try { App.setRoot("inventoryPage", App.MAIN_WIDTH, App.MAIN_HEIGHT); }
+            catch(IOException e) { e.printStackTrace(); }
         });
     }
 
@@ -110,8 +105,10 @@ public class LoginPageController implements Initializable
                     if (rs.next()) 
                     {
                         errorMessage.setText("Login successful!");
+                        // sets the username for the session
+                        Session.setUsername(user);
                         playAnimation();
-                        switchToInventory(user);
+                        switchToInventory();
                     }
                     else 
                     {
