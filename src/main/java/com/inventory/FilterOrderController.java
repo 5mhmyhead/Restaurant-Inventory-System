@@ -75,6 +75,8 @@ public class FilterOrderController implements Initializable{
             playAnimation();
             return;
         }
+        //check if date exists
+        
     }
 
     
