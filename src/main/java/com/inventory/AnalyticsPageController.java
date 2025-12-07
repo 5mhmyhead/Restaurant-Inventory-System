@@ -10,8 +10,14 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -38,11 +44,23 @@ public class AnalyticsPageController implements Initializable
     @FXML private ImageView chickenWhite;
     @FXML private ImageView hatPink;
 
+    @FXML private PieChart pieChart;
+    @FXML private LineChart<Number, Number> customerChart;
+    
     @FXML Button signOutButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+    			new PieChart.Data("D.VA",13),
+    			new PieChart.Data("Mercy",22),
+    			new PieChart.Data("Tracer",15),
+    			new PieChart.Data("Widowmaker",10),
+                new PieChart.Data("Ana", 8));
+    
+        pieChart.setData(pieChartData);
+
         // gets the username of the person from the session
         welcomeMessage.setText("Welcome, " + Session.getUsername() + "!");
         

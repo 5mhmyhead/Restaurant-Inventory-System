@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -156,8 +160,17 @@
       </ImageView>
       <AnchorPane layoutX="284.0" layoutY="384.0" prefHeight="326.0" prefWidth="647.0">
          <children>
+            <PieChart fx:id="pieChart" layoutX="10.0" layoutY="10.0" prefHeight="306.0" prefWidth="627.0" styleClass="poppins-black" stylesheets="@style.css" title="Income Chart" />
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#693c5b" height="326.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="647.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="306.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="627.0" />
+            <LineChart fx:id="customerChart" layoutX="10.0" layoutY="10.0" prefHeight="306.0" prefWidth="627.0" styleClass="poppins-black" stylesheets="@analytics.css" title="Customer Chart">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
          </children>
       </AnchorPane>
       <Button fx:id="incomeButton" layoutX="284.0" layoutY="341.0" mnemonicParsing="false" onAction="#switchToIncomeView" prefHeight="32.0" prefWidth="239.0" styleClass="button-white-purple-border" text="Income Chart" />

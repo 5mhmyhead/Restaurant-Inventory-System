@@ -1,0 +1,71 @@
+/* pie chart */
+.chart-legend {
+  background-color: #F8E9E5;
+  -fx-background-color: #F8E9E5;
+
+}
+
+.chart-legend-item {
+  -fx-text-fill: #253657; 
+}
+
+.chart-title {
+  -fx-text-fill: #253657;
+
+  font-size: 24px;
+  -fx-font-size: 24px;
+}
+
+.chart-pie-label {
+  fill: #253657;
+  -fx-fill: #253657;
+}
+
+/* changing chart pie slice colors */
+.chart-pie.data0 {
+  -fx-pie-color: #E76D8A;
+}
+
+.chart-pie.data1 {
+  -fx-pie-color: #6F4367;
+}
+
+.chart-pie.data2 {
+  -fx-pie-color: #FFD6B7;
+}
+
+.chart-pie.data3 {
+  -fx-pie-color: #F5A1A1;
+}
+
+.chart-pie.data4 {
+  -fx-pie-color: #A69ACA;
+}
+
+/* line chart */
+.chart-series-line {
+  stroke-width: 5px;
+  -fx-stroke-width: 5px;
+  
+  -fx-effect:null;
+}
+
+.default-color0.chart-series-line {
+  stroke: #E76D8A;
+  -fx-stroke: #E76D8A;
+}
+
+.default-color1.chart-series-line {
+  stroke: #6F4367;
+  -fx-stroke: #6F4367;
+}
+
+.default-color0.chart-line-symbol {
+  background-color: #E76D8A, #F8E9E5;
+  -fx-background-color: #E76D8A, #F8E9E5;
+}
+
+.default-color1.chart-line-symbol  {
+  background-color: #6F4367, #F8E9E5;
+  -fx-background-color: #6F4367, #F8E9E5;
+}
