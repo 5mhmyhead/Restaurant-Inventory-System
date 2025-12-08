@@ -338,12 +338,12 @@ public class InventoryPageController implements Initializable
         String currentSearch = searchBar.getText();
         if(currentSearch != null && !currentSearch.isEmpty())
         {
-            filterTable(currentSearch, breakfastFilter, lunchFilter, dinnerFilter, appetizerFilter, nonVegetarianFilter, nonVegetarianFilter);
+            filterTable(currentSearch, breakfastFilter, lunchFilter, dinnerFilter, appetizerFilter, vegetarianFilter, nonVegetarianFilter);
         }
     }
 
     // applies filters to the table to show/hide different data
-    public void filterTable(String keyword, boolean breakfast, boolean lunch, boolean dinner, boolean appetizer, boolean nonVegetarian, boolean vegetarian)
+    public void filterTable(String keyword, boolean breakfast, boolean lunch, boolean dinner, boolean appetizer, boolean vegetarian, boolean nonVegetarian)
     {
         ObservableList<Product> filtered = FXCollections.observableArrayList();
 
