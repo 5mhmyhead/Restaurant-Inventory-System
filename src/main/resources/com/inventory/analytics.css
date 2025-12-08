@@ -1,4 +1,9 @@
 /* pie chart */
+@font-face {
+  font-family: "Poppins Medium";
+  src: url(fonts/Poppins-Medium.ttf);
+}
+
 .chart-legend {
   background-color: #F8E9E5;
   -fx-background-color: #F8E9E5;
@@ -6,14 +11,20 @@
 }
 
 .chart-legend-item {
-  -fx-text-fill: #253657; 
+  -fx-text-fill: #505A74; 
+
+  font-size: 14px;
+  -fx-font-size: 14px;
+
+  font-family: "Poppins Medium";
+  -fx-font-family: "Poppins Medium";
 }
 
 .chart-title {
   -fx-text-fill: #253657;
 
-  font-size: 24px;
-  -fx-font-size: 24px;
+  font-size: 30px;
+  -fx-font-size: 30px;
 }
 
 .chart-pie-label {
@@ -42,30 +53,33 @@
   -fx-pie-color: #A69ACA;
 }
 
-/* line chart */
-.chart-series-line {
+/* bar chart */
+.chart-content {
   stroke-width: 5px;
   -fx-stroke-width: 5px;
   
   -fx-effect:null;
 }
 
-.default-color0.chart-series-line {
+.chart-plot-background {
+  background-color: #F8E9E5; 
+  -fx-background-color: #F8E9E5; 
+}
+
+.default-color0.chart-bar {
   stroke: #E76D8A;
   -fx-stroke: #E76D8A;
 }
 
-.default-color1.chart-series-line {
+.default-color1.chart-bar {
   stroke: #6F4367;
   -fx-stroke: #6F4367;
 }
 
-.default-color0.chart-line-symbol {
-  background-color: #E76D8A, #F8E9E5;
-  -fx-background-color: #E76D8A, #F8E9E5;
+.default-color0.chart-bar {
+  -fx-bar-fill: #E76D8A;
 }
 
-.default-color1.chart-line-symbol  {
-  background-color: #6F4367, #F8E9E5;
-  -fx-background-color: #6F4367, #F8E9E5;
+.default-color1.chart-bar  {
+  -fx-bar-fill: #6F4367;
 }
