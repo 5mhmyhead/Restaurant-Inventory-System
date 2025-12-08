@@ -1,5 +1,8 @@
 package com.inventory;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Session {
     // hardcoded manager provided password
     private static String managerProvidedPW = "vivii";
@@ -7,6 +10,18 @@ public class Session {
     // this function is to get the username/user type of the user from the login page to use for the main scenes
     private static String username;
     private static String userType;
+
+    // get the current date
+    static LocalDate today = LocalDate.now();
+    static DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+
+    // the current date of the session
+    private static String currentDate = today.format(formatter);
+
+    public static String getCurrentDate() 
+    {
+        return currentDate;
+    }
 
     public static void setUsername(String user) 
     {
