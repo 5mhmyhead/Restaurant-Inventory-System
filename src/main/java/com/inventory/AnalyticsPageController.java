@@ -2,6 +2,10 @@ package com.inventory;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 import javafx.animation.FadeTransition;
@@ -14,10 +18,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Side;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -49,18 +52,33 @@ public class AnalyticsPageController implements Initializable
     
     @FXML Button signOutButton;
 
+    // observable list for the pie chart data
+    ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-    			new PieChart.Data("D.VA",13),
-    			new PieChart.Data("Mercy",22),
-    			new PieChart.Data("Tracer",15),
-    			new PieChart.Data("Widowmaker",10),
-                new PieChart.Data("Ana", 8));
-    
-        pieChart.setData(pieChartData);
+        String sql = "SELECT * FROM Meal LIMIT 5";
 
+        try (Connection conn = SQLite_Connection.connect()) 
+        {
+            try (Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)) 
+            {
+                while (rs.next()) 
+                {
+                    pieChartData.add(new PieChart.Data(rs.getString("meal_name") + " - ₱" + rs.getInt("amount_sold"), rs.getInt("amount_sold")));
+                }
+            }
+
+            conn.close();
+        }
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+
+        pieChart.setData(pieChartData);
         // gets the username of the person from the session
         welcomeMessage.setText("Welcome, " + Session.getUsername() + "!");
         
