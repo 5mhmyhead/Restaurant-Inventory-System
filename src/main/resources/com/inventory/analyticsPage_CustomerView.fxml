@@ -2,9 +2,9 @@
 
 <?import java.lang.String?>
 <?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.StackedBarChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -160,20 +160,57 @@
       </ImageView>
       <AnchorPane layoutX="284.0" layoutY="384.0" prefHeight="326.0" prefWidth="647.0">
          <children>
+            <Label fx:id="totalAmount" layoutX="10.0" layoutY="10.0" opacity="0.0" prefHeight="64.0" prefWidth="189.0" styleClass="poppins-bold" text="label" textFill="#253657">
+               <font>
+                  <Font size="45.0" />
+               </font>
+            </Label>
             <PieChart fx:id="pieChart" layoutX="10.0" layoutY="10.0" prefHeight="306.0" prefWidth="627.0" styleClass="poppins-black" stylesheets="@style.css" title="Income Chart" />
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#693c5b" height="326.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="647.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="306.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="627.0" />
-            <LineChart fx:id="customerChart" layoutX="10.0" layoutY="10.0" prefHeight="306.0" prefWidth="627.0" styleClass="poppins-black" stylesheets="@analytics.css" title="Customer Chart">
+            <StackedBarChart fx:id="customerChart" layoutX="10.0" layoutY="10.0" prefHeight="306.0" prefWidth="627.0" styleClass="poppins-black" stylesheets="@analytics.css" title="Customer Chart">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
               <yAxis>
                 <NumberAxis side="LEFT" />
               </yAxis>
-            </LineChart>
+            </StackedBarChart>
          </children>
       </AnchorPane>
       <Button fx:id="incomeButton" layoutX="284.0" layoutY="341.0" mnemonicParsing="false" onAction="#switchToIncomeView" prefHeight="32.0" prefWidth="239.0" styleClass="button-white-purple-border" text="Income Chart" />
       <Button fx:id="customerButton" layoutX="533.0" layoutY="341.0" mnemonicParsing="false" onAction="#switchToCustomerView" prefHeight="32.0" prefWidth="239.0" styleClass="button-purple" text="Customer Chart" />
+      <Label fx:id="totalIncome" alignment="CENTER" layoutX="782.0" layoutY="217.0" prefHeight="71.0" prefWidth="239.0" styleClass="poppins-bold" text="label" textAlignment="CENTER" textFill="#253657">
+         <font>
+            <Font size="50.0" />
+         </font>
+      </Label>
+      <Label fx:id="todaysIncome" alignment="CENTER" layoutX="533.0" layoutY="217.0" prefHeight="64.0" prefWidth="239.0" styleClass="poppins-bold" text="label" textAlignment="CENTER" textFill="#253657">
+         <font>
+            <Font size="50.0" />
+         </font>
+      </Label>
+      <Label fx:id="productsSold" alignment="CENTER" layoutX="1031.0" layoutY="217.0" prefHeight="71.0" prefWidth="239.0" styleClass="poppins-bold" text="label" textAlignment="CENTER" textFill="#253657">
+         <font>
+            <Font size="50.0" />
+         </font>
+      </Label>
+      <Label fx:id="customers" alignment="CENTER" layoutX="284.0" layoutY="217.0" prefHeight="64.0" prefWidth="239.0" styleClass="poppins-bold" text="label" textAlignment="CENTER" textFill="#253657">
+         <font>
+            <Font size="50.0" />
+         </font>
+      </Label>
+      <Label fx:id="topSellingProduct" alignment="CENTER" layoutX="941.0" layoutY="452.0" prefHeight="71.0" prefWidth="329.0" styleClass="poppins-bold" text="label" textAlignment="CENTER" textFill="#f8e9e5">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Label>
+      <Label fx:id="lowestSales" alignment="CENTER" layoutX="941.0" layoutY="618.0" prefHeight="71.0" prefWidth="329.0" styleClass="poppins-bold" text="label" textAlignment="CENTER" textFill="#253657">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Label>
+      <Label fx:id="topSellingLabel" alignment="CENTER" layoutX="941.0" layoutY="501.0" prefHeight="32.0" prefWidth="329.0" styleClass="poppins-bold" text="label" textAlignment="CENTER" textFill="#b496a2" />
+      <Label fx:id="lowestSalesLabel" alignment="CENTER" layoutX="941.0" layoutY="667.0" prefHeight="32.0" prefWidth="329.0" styleClass="poppins-bold" text="label" textAlignment="CENTER" textFill="#8d6c7c" />
    </children>
 </AnchorPane>
