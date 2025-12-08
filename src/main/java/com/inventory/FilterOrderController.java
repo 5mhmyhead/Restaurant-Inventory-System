@@ -2,6 +2,9 @@ package com.inventory;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
@@ -68,14 +71,34 @@ public class FilterOrderController implements Initializable{
             playAnimation();
             return;
         }
-        
+        else
         if(!start.isEmpty() && end.isEmpty() || start.isEmpty() && !end.isEmpty()){
 
             errMsg.setText("Please enter both start and end dates");
             playAnimation();
             return;
         }
-        //check if date exists
+        
+       StringBuilder sql = new StringBuilder("SELECT * FROM Orders WHERE 1=1");
+    ArrayList<String> parameters = new ArrayList<>();
+
+    if (!cashier.isEmpty()) {
+        sql.append(" AND cashier_username = ?");
+        parameters.add(cashier);
+    }
+
+    if (!productID.isEmpty()) {
+        sql.append(" AND product_id = ?");
+        parameters.add(productID);
+    }
+
+    if (!start.isEmpty() && !end.isEmpty()) {
+        sql.append(" AND order_date BETWEEN ? AND ?");
+        parameters.add(start);
+        parameters.add(end);
+    }
+
+        
         
     }
 
