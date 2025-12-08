@@ -131,7 +131,7 @@
          <children>
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f5a1a1" height="562.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="542.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="580.0" />
-            <FlowPane fx:id="menuCardContainer" layoutX="14.0" layoutY="14.0" prefHeight="534.0" prefWidth="572.0" />
+            <FlowPane fx:id="menuCardContainer" hgap="15.0" layoutX="14.0" layoutY="14.0" prefHeight="534.0" prefWidth="572.0" vgap="10.0" />
          </children>
       </AnchorPane>
       <Button layoutX="284.0" layoutY="96.0" prefHeight="37.0" prefWidth="40.0" styleClass="search-icon-container" />

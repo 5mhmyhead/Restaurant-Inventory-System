@@ -791,7 +791,7 @@
   -fx-background-radius: 10px;
 }
 
-.menu-card-border{
+.menu-card-border-available{
   background-color: #F8E9E5;
   -fx-background-color: #F8E9E5;
 
@@ -806,7 +806,22 @@
   -fx-arc-height: 20;
 }
 
-.menu-card-label{
+.menu-card-border-unavailable{
+  background-color: #F8E9E5;
+  -fx-background-color: #F8E9E5;
+
+  stroke: #FCB7A4;
+  -fx-stroke: #FCB7A4;
+
+  stroke-width: 1;
+  -fx-stroke-width: 1;
+
+  -fx-stroke-type: inside;
+  -fx-arc-width: 20;
+  -fx-arc-height: 20;
+}
+
+.menu-card-label-available{
   font-family: "Poppins Black", sans-serif;
   -fx-font-family: "Poppins Black", sans-serif;
     
@@ -836,7 +851,67 @@
   -fx-border-color: #EF8FA4;
 }
 
-.menu-card-counter{
+.menu-card-label-unavailable{
+  font-family: "Poppins Black", sans-serif;
+  -fx-font-family: "Poppins Black", sans-serif;
+    
+  font-weight: 900;
+  -fx-font-weight: 900;
+  
+  font-style: normal;
+  -fx-font-style: normal;
+
+  -fx-text-fill: #f8e9e5;
+
+  background-color: #FCB7A4;
+  -fx-background-color: #FCB7A4;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-color: #FCB7A4;
+  -fx-border-color: #FCB7A4;
+}
+
+.menu-card-box-available{
+  background-color: #F8E9E5;
+  -fx-background-color: #F8E9E5;
+
+  stroke: #e76d8a;
+  -fx-stroke: #e76d8a;
+
+  stroke-width: 3;
+  -fx-stroke-width: 3;
+
+  -fx-stroke-type: inside;
+  -fx-arc-width: 20;
+  -fx-arc-height: 20;
+}
+
+.menu-card-box-unavailable{
+  background-color: #F8E9E5;
+  -fx-background-color: #F8E9E5;
+
+  stroke: #FCB7A4;
+  -fx-stroke: #FCB7A4;
+
+  stroke-width: 3;
+  -fx-stroke-width: 3;
+
+  -fx-stroke-type: inside;
+  -fx-arc-width: 20;
+  -fx-arc-height: 20;
+}
+
+.menu-card-counter-available{
   font-family: "Poppins Black", sans-serif;
   -fx-font-family: "Poppins Black", sans-serif;
     
@@ -869,7 +944,40 @@
   -fx-border-color: #EF8FA4;
 }
 
-.menu-card-updown-button-container {
+.menu-card-counter-unavailable{
+  font-family: "Poppins Black", sans-serif;
+  -fx-font-family: "Poppins Black", sans-serif;
+    
+  font-weight: 900;
+  -fx-font-weight: 900;
+  
+  font-style: normal;
+  -fx-font-style: normal;
+
+  -fx-text-fill: #253657;
+
+  padding: 0 0 0 5;
+  -fx-padding: 0 0 0 5;   
+
+  background-color: #f8e9e5;
+  -fx-background-color: #f8e9e5;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-color: #FCB7A4;
+  -fx-border-color: #FCB7A4;
+}
+
+.menu-card-updown-container-available {
   padding: 0 0 0 5;
   -fx-padding: 0 0 0 5;   
 
@@ -891,7 +999,29 @@
   -fx-border-color: #EF8FA4;
 }
 
-.menu-card-button{
+.menu-card-updown-container-unavailable {
+  padding: 0 0 0 5;
+  -fx-padding: 0 0 0 5;   
+
+  background-color: #f8e9e5;
+  -fx-background-color: #f8e9e5;
+
+  border-radius: 0px 10px 10px 0px;
+  -fx-border-radius: 0px 10px 10px 0px;
+
+  -fx-background-radius: 0px 10px 10px 0px;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-color: #FCB7A4;
+  -fx-border-color: #FCB7A4;
+}
+
+.menu-card-button-available{
   font-family: "Poppins Black", sans-serif;
   -fx-font-family: "Poppins Black", sans-serif;
     
@@ -921,7 +1051,7 @@
   -fx-border-color: #EF8FA4;
 }
 
-.menu-card-button:hover{
+.menu-card-button-available:hover{
   font-family: "Poppins Black", sans-serif;
   -fx-font-family: "Poppins Black", sans-serif;
 
@@ -938,6 +1068,36 @@
 
   border-color: #EF8FA4;
   -fx-border-color: #EF8FA4;
+}
+
+.menu-card-button-unavailable{
+  font-family: "Poppins Black", sans-serif;
+  -fx-font-family: "Poppins Black", sans-serif;
+    
+  font-weight: 900;
+  -fx-font-weight: 900;
+  
+  font-style: normal;
+  -fx-font-style: normal;
+
+  -fx-text-fill: #f8e9e5;
+
+  background-color: #FCB7A4;
+  -fx-background-color: #FCB7A4;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-color: #FCB7A4;
+  -fx-border-color: #FCB7A4;
 }
 
 .menu-card-updown-button{

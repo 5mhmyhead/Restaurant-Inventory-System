@@ -63,4 +63,14 @@ public class Product
     public int getAmountDiscount() { return amountDiscount.get(); }
     public String getProdStatus() { return prodStatus.get(); }
     public byte[] getProdImage() { return prodImage; }
+
+    // setter methods
+    public void setProdId(int id) { this.prodId.set(id); }
+    public void setProdName(String name) { this.prodName.set(name); }
+    public void setProdCategory(String category) { this.prodCategory.set(category); }
+    public void setProdType(String type) { this.prodType.set(type); }
+    public void setAmountStock(int stock) { this.amountStock.set(stock); }
+    public void setProdPrice(double price) { this.prodPrice.set(price); }
+    public void setAmountDiscount(int discount) { this.amountDiscount.set(discount); }
+    public void setProdStatus(String status) { this.prodStatus.set(status); }
 }
