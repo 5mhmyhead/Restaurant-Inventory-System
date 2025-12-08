@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
@@ -32,8 +33,7 @@ public class FilterOrderController implements Initializable{
     SequentialTransition transition;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) 
-    {
+    public void initialize(URL location, ResourceBundle resources) {
         // the error message waits for 2 seconds
         delay = new PauseTransition(Duration.seconds(3));
         // then it fades out
@@ -49,68 +49,55 @@ public class FilterOrderController implements Initializable{
         App.setRoot("ordersPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
     }
     
-
     @FXML
-    void filter(ActionEvent event)  throws IOException {
+    void filter(ActionEvent event) throws IOException {
         String cashier = CashierUser.getText().trim();
         String productID = enterProd.getText().trim();
         String start = startDate.getText().trim();
         String end = endDate.getText().trim();
+        Date defaultDate = new Date(System.currentTimeMillis());
+        StringBuilder sql = new StringBuilder("SELECT * FROM Orders WHERE 1=1");
+        ArrayList<String> parameters = new ArrayList<>();
 
-        //function if any  field is empty
-        if (cashier.isEmpty() && productID.isEmpty() && start.isEmpty() && end.isEmpty()){
-        
-        errMsg.setText("Please enter atleast one filter");
-        playAnimation();
-        return;
-        }
-        
-        //missing both dates
-        if(start.isEmpty() && end.isEmpty()){
-
-            errMsg.setText("Date is empty");
+        //print error message if all fields are empty
+        if (cashier.isEmpty() && productID.isEmpty() && start.isEmpty() && end.isEmpty()) {
+            errMsg.setText("Please enter at least one filter");
             playAnimation();
             return;
         }
-        else
-        if(!start.isEmpty() && end.isEmpty() || start.isEmpty() && !end.isEmpty()){
 
-            errMsg.setText("Please enter both start and end dates");
-            playAnimation();
-            return;
+        //for filtering by Cashier
+        if (!cashier.isEmpty()) {
+            sql.append(" AND cashier_username = ?");
+            parameters.add(cashier);
         }
+
+        //for filtering by Product ID
+        if (!productID.isEmpty()) {
+            sql.append(" AND product_id = ?");
+            parameters.add(productID);
+        }   
         
-       StringBuilder sql = new StringBuilder("SELECT * FROM Orders WHERE 1=1");
-    ArrayList<String> parameters = new ArrayList<>();
+        //for filtering by date
+        //only the starting date is necessary
+        if (!start.isEmpty()) {
+            sql.append(" AND order_date BETWEEN ? AND ?");
+            parameters.add(start);
 
-    if (!cashier.isEmpty()) {
-        sql.append(" AND cashier_username = ?");
-        parameters.add(cashier);
+            if (!end.isEmpty())
+                //if end date is not empty, add to sql
+                parameters.add(end);
+            else
+                //if end date is empty, set to current date
+                parameters.add(defaultDate.toString());
+        }
     }
-
-    if (!productID.isEmpty()) {
-        sql.append(" AND product_id = ?");
-        parameters.add(productID);
-    }
-
-    if (!start.isEmpty() && !end.isEmpty()) {
-        sql.append(" AND order_date BETWEEN ? AND ?");
-        parameters.add(start);
-        parameters.add(end);
-    }
-
-        
-        
-    }
-
-    
- // error message animation helper
+  
+    //error message animation helper
     private void playAnimation() 
     {
         transition.jumpTo(Duration.ZERO);
         transition.stop();
         transition.play();
     }
-    
-    
-        }
+}

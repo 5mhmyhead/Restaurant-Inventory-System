@@ -25,7 +25,7 @@
 }
 
 @font-face {
-  font-family: "Poppins Bold";
+  font-family: "Poppins";
   src: url(fonts/Poppins-Bold.ttf);
 }
 
@@ -35,8 +35,8 @@
 }
 
 #titleLabel {
-  font-family: "Poppins Bold", sans-serif;
-  -fx-font-family: "Poppins Bold", sans-serif;
+  font-family: "Poppins", sans-serif;
+  -fx-font-family: "Poppins", sans-serif;
 
   font-optical-sizing: auto;
   -fx-font-optical-sizing: auto;
@@ -82,8 +82,8 @@
 }
 
 .poppins-bold {
-  font-family: "Poppins Bold", sans-serif;
-  -fx-font-family: "Poppins Bold", sans-serif;
+  font-family: "Poppins", sans-serif;
+  -fx-font-family: "Poppins", sans-serif;
 
   font-weight: 700;
   -fx-font-weight: 700;
