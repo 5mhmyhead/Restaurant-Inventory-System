@@ -1,5 +1,7 @@
 package com.inventory;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 
@@ -34,16 +36,22 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class InventoryPageController implements Initializable
 {
     @FXML private AnchorPane parentContainer;
     @FXML private AnchorPane selectedBar;
+    @FXML private AnchorPane imageDropPane;
     @FXML private Label welcomeMessage;
 
     @FXML private Button inventoryButton;
@@ -55,6 +63,7 @@ public class InventoryPageController implements Initializable
     @FXML private ImageView cutleryWhite;
     @FXML private ImageView chickenWhite;
     @FXML private ImageView hatWhite;
+    @FXML private ImageView importImageDrop;
 
     @FXML private TableView<Product> inventoryTable;
     @FXML private TableColumn<Product, Number> inventoryProductID;
@@ -77,8 +86,10 @@ public class InventoryPageController implements Initializable
     @FXML ComboBox<String> statusDrop;
     @FXML Button signOutButton;
     @FXML Button filterButton;
+    @FXML Button importImageButton;
 
     private Connection conn;
+    private File selectedImage;
 
     // master list of products
     private ObservableList<Product> data = FXCollections.observableArrayList();
@@ -382,6 +393,54 @@ public class InventoryPageController implements Initializable
         categoryDrop.setValue(null);
         typeDrop.setValue(null);
         statusDrop.setValue(null);
+        selectedImage = null;
+        importImageDrop.setImage(null);
+    }
+
+    // handles image importing
+    // opens FileChooser when button is clicked
+    @FXML
+    private void chooseImage()
+    {
+        FileChooser chooseImg = new FileChooser();
+        chooseImg.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg"));
+
+        File file = chooseImg.showOpenDialog(importImageButton.getScene().getWindow());
+        if (file != null)
+        {
+            selectedImage = file;
+            importImageDrop.setImage(new Image(file.toURI().toString()));
+        }
+    }
+
+    // handles dragging over images
+    @FXML
+    private void handleDragOver (DragEvent event)
+    {
+        if (event.getDragboard().hasFiles())
+        {
+            event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+        }
+        event.consume();
+    }
+
+    // handles dropping images
+    @FXML
+    private void handleDragDropped (DragEvent event)
+    {
+        Dragboard db = event.getDragboard();
+        if (db.hasFiles())
+        {
+            File file = db.getFiles().get(0);
+            if (file.getName().matches(".*\\.(png|jpg|jpeg)$"))
+            {
+                selectedImage = file;
+                importImageDrop.setImage(new Image(file.toURI().toString()));
+            }
+        }
+
+        event.setDropCompleted(true);
+        event.consume();
     }
 
     // adds items into the inventory
@@ -419,7 +478,7 @@ public class InventoryPageController implements Initializable
             }
 
             // insert if no duplicate
-            try (PreparedStatement ps = conn.prepareStatement("INSERT INTO Meal (meal_name, category, type, price, amount_sold, amount_stock, amount_discount, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) 
+            try (PreparedStatement ps = conn.prepareStatement("INSERT INTO Meal (meal_name, category, type, price, amount_sold, amount_stock, amount_discount, status, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) 
             {
                 ps.setString(1, name);
                 ps.setString(2, category);
@@ -429,6 +488,24 @@ public class InventoryPageController implements Initializable
                 ps.setInt(6, stock);
                 ps.setInt(7, 0); 
                 ps.setString(8, status);
+
+                // adds image if there is
+                if (selectedImage != null)
+                {
+                    try (FileInputStream fis = new FileInputStream(selectedImage))
+                    {
+                        ps.setBinaryStream(9, fis, (int) selectedImage.length());
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                        ps.setNull(9, java.sql.Types.BLOB);
+                    }
+                }
+                else
+                {
+                    ps.setNull(9, java.sql.Types.BLOB);
+                }
 
                 // refresh table and clears all fields
                 int rowsInserted = ps.executeUpdate();
@@ -447,7 +524,9 @@ public class InventoryPageController implements Initializable
                     }
                 }
             }
-        } catch (SQLException e) {
+        } 
+        catch (SQLException e) 
+        {
             e.printStackTrace();
         }
     }
@@ -501,6 +580,11 @@ public class InventoryPageController implements Initializable
             sql.append("status = ?, ");
             params.add(status);
         }
+        if (selectedImage != null)
+        {
+            sql.append("image = ?, ");
+            params.add(selectedImage);
+        }
 
         if (params.isEmpty()) 
         {
@@ -522,6 +606,17 @@ public class InventoryPageController implements Initializable
                 if (value instanceof String) updateStmt.setString(i + 1, (String) value);
                 else if (value instanceof Integer) updateStmt.setInt(i + 1, (Integer) value);
                 else if (value instanceof Double) updateStmt.setDouble(i + 1, (Double) value);
+                else if (value instanceof File)
+                    {
+                      try (FileInputStream fis = new FileInputStream((File) value)) 
+                        { 
+                            updateStmt.setBinaryStream(i + 1, fis, (int) ((File) value).length());
+                        }  
+                        catch (IOException e)
+                        {
+                            e.printStackTrace();
+                        }
+                    } 
                 else updateStmt.setObject(i + 1, value);
             }
 
