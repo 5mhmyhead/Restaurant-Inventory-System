@@ -19,8 +19,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
-import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.StackedBarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -48,8 +49,20 @@ public class AnalyticsPageController implements Initializable
     @FXML private ImageView hatPink;
 
     @FXML private PieChart pieChart;
-    @FXML private LineChart<Number, Number> customerChart;
+    @FXML private StackedBarChart<String, Number> customerChart;
     
+    @FXML private Label totalAmount;
+    @FXML private Label totalIncome;
+    @FXML private Label todaysIncome;
+    @FXML private Label productsSold;
+    @FXML private Label customers;
+
+    @FXML private Label topSellingProduct;
+    @FXML private Label lowestSales;
+
+    @FXML private Label topSellingLabel;
+    @FXML private Label lowestSalesLabel;
+
     @FXML Button signOutButton;
 
     // observable list for the pie chart data
@@ -58,16 +71,152 @@ public class AnalyticsPageController implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
-        String sql = "SELECT * FROM Meal LIMIT 5";
+        // sql queries
+        String sqlIncomeToday = "SELECT SUM(m.amount_sold) AS total_amount_today " 
+                              + "FROM Meal m "
+                              + "JOIN Orders o ON m.meal_id = o.meal_id "
+                              + "WHERE o.order_date = '" + Session.getCurrentDate() + "'";
 
+        String sqlTopFiveMeal = "SELECT SUM(amount_sold) AS total_amount_sold " 
+                              + "FROM (SELECT amount_sold FROM Meal ORDER BY amount_sold DESC LIMIT 5) "
+                              + "AS top_meals";
+
+        String sqlTopSelling = "SELECT m.meal_id, m.meal_name, SUM(o.order_quantity) AS total_times_sold "
+                             + "FROM Meal m "
+                             + "JOIN Orders o ON m.meal_id = o.meal_id "
+                             + "GROUP BY m.meal_id, m.meal_name "
+                             + "ORDER BY total_times_sold DESC LIMIT 1 ";
+
+        String sqlLowestSale = "SELECT m.meal_id, m.meal_name, SUM(o.order_quantity) AS total_times_sold "
+                             + "FROM Meal m "
+                             + "JOIN Orders o ON m.meal_id = o.meal_id "
+                             + "GROUP BY m.meal_id, m.meal_name "
+                             + "ORDER BY total_times_sold ASC LIMIT 1 ";
+
+        // sql queries for stack bar chart
+        String sqlStackChart = "SELECT m.meal_id, m.meal_name, "
+                             + "SUM(CASE WHEN DATE(o.order_date) = '" + Session.getCurrentDate() + "' THEN o.order_quantity ELSE 0 END) AS total_times_sold_today, "
+                             + "SUM(CASE WHEN DATE(o.order_date) <> '" + Session.getCurrentDate() + "' THEN o.order_quantity ELSE 0 END) AS total_times_sold "
+                             + "FROM Meal m "
+                             + "JOIN Orders o ON m.meal_id = o.meal_id "
+                             + "GROUP BY m.meal_id, m.meal_name "
+                             + "ORDER BY m.meal_name";
+
+        // pie chart styling
+        pieChart.setLegendSide(Side.LEFT);
+        pieChart.setLabelsVisible(false);
+        
+        // setting up the stacked bar chart data
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+
+        series.setName("Today");
+        series.getData().add(new XYChart.Data<>("Hash Browns", 250));
+        series.getData().add(new XYChart.Data<>("Matcha Tea", 1000));
+        series.getData().add(new XYChart.Data<>("Light Espresso", 100));
+        series.getData().add(new XYChart.Data<>("Hot Choco", 500));
+
+        XYChart.Series<String, Number> series1 = new XYChart.Series<>();
+
+        series1.setName("Tomorrow");
+        series1.getData().add(new XYChart.Data<>("Hash Browns", 20));
+        series1.getData().add(new XYChart.Data<>("Matcha Tea", 100));
+        series1.getData().add(new XYChart.Data<>("Light Espresso", 120));
+        series1.getData().add(new XYChart.Data<>("Hot Choco", 560));
+
+        customerChart.setCategoryGap(50);
+        customerChart.getData().addAll(series, series1);
+
+        // connecting to sql database to create analytics
         try (Connection conn = SQLite_Connection.connect()) 
         {
+            // find the top 5 most sold meals
             try (Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql)) 
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Meal LIMIT 5")) 
             {
                 while (rs.next()) 
                 {
                     pieChartData.add(new PieChart.Data(rs.getString("meal_name") + " - ₱" + rs.getInt("amount_sold"), rs.getInt("amount_sold")));
+                }
+            }
+
+            // the total amount sold of the top five meals in the database
+            try (Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sqlTopFiveMeal))
+            {
+                while (rs.next())
+                {
+                    int result = rs.getInt("total_amount_sold");
+                    totalAmount.setText("" + result);
+                }
+            }
+
+            // the amount of customers in the database all time
+            try (Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT COUNT(DISTINCT order_id) AS total_customers FROM orders"))
+            {
+                while (rs.next())
+                {
+                    int result = rs.getInt("total_customers");
+                    customers.setText("" + result); 
+                }
+            }
+
+            // the amount sold today 
+            try (Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sqlIncomeToday))
+            {
+                while (rs.next())
+                {
+                    int result = rs.getInt("total_amount_today");
+                    todaysIncome.setText("₱" + result); 
+                }
+            }
+
+            // the total amount sold of every meal in the database
+            try (Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT SUM(amount_sold) AS total_amount_sold FROM Meal"))
+            {
+                while (rs.next())
+                {
+                    int result = rs.getInt("total_amount_sold");
+                    totalIncome.setText("₱" + result);
+                }
+            }
+
+            // the amount of products sold all time
+            try (Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT SUM(order_quantity) AS total_products_sold FROM orders"))
+            {
+                while (rs.next())
+                {
+                    int result = rs.getInt("total_products_sold");
+                    productsSold.setText("" + result); 
+                }
+            }
+
+            // finding the top selling meal
+            try (Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sqlTopSelling))
+            {
+                while (rs.next())
+                {
+                    String meal = rs.getString("meal_name");
+                    String amtSold = rs.getString("total_times_sold");
+                    topSellingProduct.setText(meal);
+                    topSellingLabel.setText(amtSold + " sales this past month");
+                }
+            }
+
+            // finding the meal with the lowest sales
+            try (Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sqlLowestSale))
+            {
+                while (rs.next())
+                {
+                    String meal = rs.getString("meal_name");
+                    String amtSold = rs.getString("total_times_sold");
+                    lowestSales.setText(meal);
+                    lowestSalesLabel.setText(amtSold + " sales this past month");
                 }
             }
 
@@ -78,6 +227,7 @@ public class AnalyticsPageController implements Initializable
             e.printStackTrace();
         }
 
+        // setting the pie chart data
         pieChart.setData(pieChartData);
         // gets the username of the person from the session
         welcomeMessage.setText("Welcome, " + Session.getUsername() + "!");
