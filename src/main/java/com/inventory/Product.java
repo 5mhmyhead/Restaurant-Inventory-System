@@ -1,54 +1,54 @@
 package com.inventory;
 
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.StringProperty;
+
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
+
 
 public class Product 
 {
-    private final SimpleIntegerProperty prodId;
-    private final SimpleStringProperty prodName;
-    private final SimpleStringProperty prodCategory;
-    private final SimpleStringProperty prodType;
-    private final SimpleDoubleProperty prodPrice;
-    private final SimpleIntegerProperty amountSold;
-    private final SimpleIntegerProperty amountStock;
-    private final SimpleIntegerProperty amountDiscount;
-    private final SimpleStringProperty prodStatus;
+    private final IntegerProperty prodId = new SimpleIntegerProperty();
+    private final StringProperty prodName = new SimpleStringProperty();
+    private final StringProperty prodCategory = new SimpleStringProperty();
+    private final StringProperty prodType = new SimpleStringProperty();
+    private final IntegerProperty amountStock = new SimpleIntegerProperty();
+    private final DoubleProperty prodPrice = new SimpleDoubleProperty();
+    private final IntegerProperty amountDiscount = new SimpleIntegerProperty();
+    private final StringProperty prodStatus = new SimpleStringProperty();
 
-    // constructor
-    public Product(int prodId, String prodName, String prodCategory, String prodType, double prodPrice, int amountSold, int amountStock, int amountDiscount, String prodStatus) 
+    public Product(int id, String name, String category, String type, double price, int sold, int stock, int discount, String status)
     {
-        this.prodId = new SimpleIntegerProperty(prodId);
-        this.prodName = new SimpleStringProperty(prodName);
-        this.prodCategory = new SimpleStringProperty(prodCategory);
-        this.prodType = new SimpleStringProperty(prodType);
-        this.prodPrice = new SimpleDoubleProperty(prodPrice);
-        this.amountSold = new SimpleIntegerProperty(amountSold);
-        this.amountStock = new SimpleIntegerProperty(amountStock);
-        this.amountDiscount = new SimpleIntegerProperty(amountDiscount);
-        this.prodStatus = new SimpleStringProperty(prodStatus);
+        this.prodId.set(id);
+        this.prodName.set(name);
+        this.prodCategory.set(category);
+        this.prodType.set(type);
+        this.prodPrice.set(price);
+        this.amountStock.set(stock);
+        this.amountDiscount.set(discount);
+        this.prodStatus.set(status);
     }
 
-    // getters
+    // property methods for the table
+    public IntegerProperty prodIdProperty() { return prodId; }
+    public StringProperty prodNameProperty() { return prodName; }
+    public StringProperty prodCategoryProperty() { return prodCategory; }
+    public StringProperty prodTypeProperty() { return prodType; }
+    public IntegerProperty amountStockProperty() { return amountStock; }
+    public DoubleProperty prodPriceProperty() { return prodPrice; }
+    public IntegerProperty amountDiscountProperty() { return amountDiscount; }
+    public StringProperty prodStatusProperty() { return prodStatus; }
+
+    // getter methods for the controller
     public int getProdId() { return prodId.get(); }
     public String getProdName() { return prodName.get(); }
     public String getProdCategory() { return prodCategory.get(); }
     public String getProdType() { return prodType.get(); }
-    public double getProdPrice() { return prodPrice.get(); }
-    public int getAmountSold() { return amountSold.get(); }
     public int getAmountStock() { return amountStock.get(); }
+    public double getProdPrice() { return prodPrice.get(); }
     public int getAmountDiscount() { return amountDiscount.get(); }
     public String getProdStatus() { return prodStatus.get(); }
-
-    // property getters (needed for TableView binding)
-    public SimpleIntegerProperty prodIdProperty() { return prodId; }
-    public SimpleStringProperty prodNameProperty() { return prodName; }
-    public SimpleStringProperty prodCategoryProperty() { return prodCategory; }
-    public SimpleStringProperty prodTypeProperty() { return prodType; }
-    public SimpleDoubleProperty prodPriceProperty() { return prodPrice; }
-    public SimpleIntegerProperty amountSoldProperty() { return amountSold; }
-    public SimpleIntegerProperty amountStockProperty() { return amountStock; }
-    public SimpleIntegerProperty amountDiscountProperty() { return amountDiscount; }
-    public SimpleStringProperty prodStatusProperty() { return prodStatus; }
 }
