@@ -11,16 +11,24 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.ResultSet;
+
 public class MenuPageController implements Initializable
 {    
+    @FXML private FlowPane menuCardContainer;
+
     @FXML private AnchorPane parentContainer;
     @FXML private AnchorPane selectedBar;
     @FXML private Label welcomeMessage;
@@ -43,6 +51,9 @@ public class MenuPageController implements Initializable
     {
         // gets the username of the person from the session
         welcomeMessage.setText("Welcome, " + Session.getUsername() + "!");
+
+        // loads the menu cards
+        loadMenu();
 
         // below is the code for animating the sidebar slide
         Color fromColor = new Color(0.906, 0.427, 0.541, 1.0);
@@ -148,6 +159,7 @@ public class MenuPageController implements Initializable
         });
     }
 
+    // navigation methods
     @FXML
     private void switchToInventory() throws IOException 
     {
@@ -176,5 +188,46 @@ public class MenuPageController implements Initializable
     private void switchToFilterMenu() throws IOException 
     { 
         App.setRoot("filterMenu", App.WIDTH, App.HEIGHT);
+    }
+
+    // loads product cards
+    private void loadMenu()
+    {
+        menuCardContainer.getChildren().clear();
+        String sql = "SELECT meal_id, meal_name, category, type, price, amount_sold, amount_stock, amount_discount, status, image FROM Meal";
+
+        try (Connection conn = SQLite_Connection.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) 
+        {
+            while (rs.next()) 
+            {
+                byte[] imageBytes = rs.getBytes("image");
+                Product product = new Product
+                (
+                    rs.getInt("meal_id"),
+                    rs.getString("meal_name"),
+                    rs.getString("category"),
+                    rs.getString("type"),
+                    rs.getDouble("price"),
+                    rs.getInt("amount_sold"),
+                    rs.getInt("amount_stock"),
+                    rs.getInt("amount_discount"),
+                    rs.getString("status"),
+                    imageBytes
+                );
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("menuCard.fxml"));
+                AnchorPane card = loader.load();
+                MenuPageCardController controller = loader.getController();
+                controller.setData(product);
+
+                menuCardContainer.getChildren().add(card);
+            }
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
     }
 }
