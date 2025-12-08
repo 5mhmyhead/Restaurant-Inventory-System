@@ -186,7 +186,6 @@
             <Button fx:id="updateButton" layoutX="268.0" layoutY="215.0" mnemonicParsing="false" onAction="#updateItem" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Update" />
             <Button fx:id="clearButton" layoutX="465.0" layoutY="215.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Clear" />
             <Button fx:id="deleteButton" layoutX="625.0" layoutY="215.0" mnemonicParsing="false" onAction="#deleteItem" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Delete" />
-            <Button fx:id="importImageButton" layoutX="785.0" layoutY="215.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Import Image" />
             <TextField fx:id="prodNameField" layoutX="108.0" layoutY="133.0" prefHeight="32.0" prefWidth="215.0" styleClass="text-field-purple" />
             <TextField fx:id="prodIDField" layoutX="108.0" layoutY="86.0" prefHeight="32.0" prefWidth="215.0" styleClass="text-field-purple" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#693c5b" height="10.0" layoutX="122.0" layoutY="81.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="60.0" />
@@ -215,7 +214,13 @@
                   <Font size="10.0" />
                </font>
             </Label>
-            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f8e9e5" height="129.0" layoutX="718.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="217.0" />
+            <AnchorPane fx:id="imageDropPane" layoutX="718.0" layoutY="39.0" onDragDropped="#handleDragDropped" onDragOver="#handleDragOver" prefHeight="172.0" prefWidth="217.0">
+               <children>
+                  <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f8e9e5" height="152.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="217.0" />
+                  <ImageView fx:id="importImageDrop" fitHeight="144.0" fitWidth="189.0" layoutX="14.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </AnchorPane>
+            <Button fx:id="importImageButton" layoutX="785.0" layoutY="215.0" mnemonicParsing="false" onAction="#chooseImage" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Import Image" />
             <ComboBox fx:id="categoryDrop" layoutX="558.0" layoutY="43.0" prefHeight="32.0" prefWidth="150.0" styleClass="button-createaccount" />
             <ComboBox fx:id="typeDrop" layoutX="558.0" layoutY="85.0" prefHeight="32.0" prefWidth="150.0" styleClass="button-createaccount" />
             <ComboBox fx:id="statusDrop" layoutX="558.0" layoutY="133.0" prefHeight="32.0" prefWidth="150.0" styleClass="button-createaccount" />  

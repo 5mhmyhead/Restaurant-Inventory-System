@@ -62,6 +62,7 @@ public class FilterOrderController implements Initializable{
         playAnimation();
         return;
         }
+        
         //missing both dates
         if(start.isEmpty() && end.isEmpty()){
 
