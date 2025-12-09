@@ -168,7 +168,7 @@
             <PieChart fx:id="pieChart" layoutX="10.0" layoutY="10.0" prefHeight="306.0" prefWidth="627.0" styleClass="poppins-black" stylesheets="@style.css" title="Income Chart" />
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#693c5b" height="326.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="647.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="306.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="627.0" />
-            <BarChart fx:id="customerChart" layoutX="10.0" layoutY="10.0" prefHeight="306.0" prefWidth="627.0" styleClass="poppins-black" stylesheets="@analytics.css" title="Weekly Chart">
+            <BarChart fx:id="weeklyChart" layoutX="10.0" layoutY="10.0" prefHeight="306.0" prefWidth="627.0" styleClass="poppins-black" stylesheets="@analytics.css" title="Weekly Chart">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
@@ -179,7 +179,7 @@
          </children>
       </AnchorPane>
       <Button fx:id="incomeButton" layoutX="284.0" layoutY="341.0" mnemonicParsing="false" onAction="#switchToIncomeView" prefHeight="32.0" prefWidth="239.0" styleClass="button-white-purple-border" text="Income Chart" />
-      <Button fx:id="customerButton" layoutX="533.0" layoutY="341.0" mnemonicParsing="false" onAction="#switchToCustomerView" prefHeight="32.0" prefWidth="239.0" styleClass="button-purple" text="Weekly Chart" />
+      <Button fx:id="weeklyChartButton" layoutX="533.0" layoutY="341.0" mnemonicParsing="false" onAction="#switchToWeeklyChartView" prefHeight="32.0" prefWidth="239.0" styleClass="button-purple" text="Weekly Chart" />
       <Label fx:id="totalIncome" alignment="CENTER" layoutX="782.0" layoutY="217.0" prefHeight="71.0" prefWidth="239.0" styleClass="poppins-bold" text="label" textAlignment="CENTER" textFill="#253657">
          <font>
             <Font size="50.0" />

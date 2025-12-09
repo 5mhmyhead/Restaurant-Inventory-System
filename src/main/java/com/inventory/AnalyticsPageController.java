@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import javafx.animation.FadeTransition;
@@ -22,7 +21,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Side;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
-import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -42,7 +40,7 @@ public class AnalyticsPageController implements Initializable
     @FXML private Button ordersButton;
     @FXML private Button analyticsButton;
 
-    @FXML private Button customerButton;
+    @FXML private Button weeklyChartButton;
     @FXML private Button incomeButton;
 
     @FXML private ImageView fridgeWhite;
@@ -51,8 +49,8 @@ public class AnalyticsPageController implements Initializable
     @FXML private ImageView hatPink;
 
     @FXML private PieChart pieChart;
-    @FXML private BarChart<String, Number> customerChart;
-    
+    @FXML private BarChart<String, Number> weeklyChart;
+
     @FXML private Label totalAmount;
     @FXML private Label totalIncome;
     @FXML private Label todaysIncome;
@@ -232,7 +230,7 @@ public class AnalyticsPageController implements Initializable
 
         // setting the pie chart and bar chart data
         pieChart.setData(pieChartData);
-        customerChart.getData().addAll(barChartDataProducts, barChartDataCustomers);
+        weeklyChart.getData().addAll(barChartDataProducts, barChartDataCustomers);
 
         // gets the username of the person from the session
         welcomeMessage.setText("Welcome, " + Session.getUsername() + "!");
@@ -342,9 +340,9 @@ public class AnalyticsPageController implements Initializable
     }
 
     @FXML
-    private void switchToCustomerView() throws IOException 
+    private void switchToWeeklyChartView() throws IOException 
     {
-        App.setRoot("analyticsPage_CustomerView", App.MAIN_WIDTH, App.MAIN_HEIGHT);
+        App.setRoot("analyticsPage_WeeklyChartView", App.MAIN_WIDTH, App.MAIN_HEIGHT);
     }
 
     @FXML
