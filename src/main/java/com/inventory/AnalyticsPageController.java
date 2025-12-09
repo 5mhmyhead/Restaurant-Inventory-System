@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import javafx.animation.FadeTransition;
@@ -19,6 +20,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
@@ -49,7 +51,7 @@ public class AnalyticsPageController implements Initializable
     @FXML private ImageView hatPink;
 
     @FXML private PieChart pieChart;
-    @FXML private StackedBarChart<String, Number> customerChart;
+    @FXML private BarChart<String, Number> customerChart;
     
     @FXML private Label totalAmount;
     @FXML private Label totalIncome;
@@ -67,14 +69,16 @@ public class AnalyticsPageController implements Initializable
 
     // observable list for the pie chart data
     ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+    // XYChart for the bar chart data
+    XYChart.Series<String, Number> barChartDataProducts = new XYChart.Series<>();
+    XYChart.Series<String, Number> barChartDataCustomers = new XYChart.Series<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
         // sql queries
-        String sqlIncomeToday = "SELECT SUM(m.amount_sold) AS total_amount_today " 
-                              + "FROM Meal m "
-                              + "JOIN Orders o ON m.meal_id = o.meal_id "
+        String sqlIncomeToday = "SELECT SUM(o.total_amount) AS total_amount_today " 
+                              + "FROM orders o "
                               + "WHERE o.order_date = '" + Session.getCurrentDate() + "'";
 
         String sqlTopFiveMeal = "SELECT SUM(amount_sold) AS total_amount_sold " 
@@ -94,38 +98,22 @@ public class AnalyticsPageController implements Initializable
                              + "ORDER BY total_times_sold ASC LIMIT 1 ";
 
         // sql queries for stack bar chart
-        String sqlStackChart = "SELECT m.meal_id, m.meal_name, "
-                             + "SUM(CASE WHEN DATE(o.order_date) = '" + Session.getCurrentDate() + "' THEN o.order_quantity ELSE 0 END) AS total_times_sold_today, "
-                             + "SUM(CASE WHEN DATE(o.order_date) <> '" + Session.getCurrentDate() + "' THEN o.order_quantity ELSE 0 END) AS total_times_sold "
-                             + "FROM Meal m "
-                             + "JOIN Orders o ON m.meal_id = o.meal_id "
-                             + "GROUP BY m.meal_id, m.meal_name "
-                             + "ORDER BY m.meal_name";
+        String sqlStackedBar = "WITH RECURSIVE last7days(day) AS ( "
+                             + "SELECT date('now', '-6 days') UNION ALL "
+                             + "SELECT date(day, '+1 day') FROM last7days WHERE day < date('now')) "
+                             + "SELECT last7days.day, "
+                             + "COALESCE(SUM(order_quantity), 0) AS total_sold, "
+                             + "COALESCE(COUNT(DISTINCT Orders.order_id), 0) AS customers "
+                             + "FROM last7days LEFT JOIN Orders ON date(Orders.order_date) = last7days.day "
+                             + "GROUP BY last7days.day ORDER BY last7days.day ";
 
         // pie chart styling
         pieChart.setLegendSide(Side.LEFT);
         pieChart.setLabelsVisible(false);
+
+        barChartDataProducts.setName("Products Sold");
+        barChartDataCustomers.setName("Customers");
         
-        // setting up the stacked bar chart data
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-
-        series.setName("Today");
-        series.getData().add(new XYChart.Data<>("Hash Browns", 250));
-        series.getData().add(new XYChart.Data<>("Matcha Tea", 1000));
-        series.getData().add(new XYChart.Data<>("Light Espresso", 100));
-        series.getData().add(new XYChart.Data<>("Hot Choco", 500));
-
-        XYChart.Series<String, Number> series1 = new XYChart.Series<>();
-
-        series1.setName("Tomorrow");
-        series1.getData().add(new XYChart.Data<>("Hash Browns", 20));
-        series1.getData().add(new XYChart.Data<>("Matcha Tea", 100));
-        series1.getData().add(new XYChart.Data<>("Light Espresso", 120));
-        series1.getData().add(new XYChart.Data<>("Hot Choco", 560));
-
-        customerChart.setCategoryGap(50);
-        customerChart.getData().addAll(series, series1);
-
         // connecting to sql database to create analytics
         try (Connection conn = SQLite_Connection.connect()) 
         {
@@ -220,6 +208,21 @@ public class AnalyticsPageController implements Initializable
                 }
             }
 
+            // generating the data for the stacked bar, showing the amount_sold for each day for the past week
+            try (Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sqlStackedBar))
+            {
+                while (rs.next())
+                {
+                    String date = rs.getString("day"); 
+                    int total = rs.getInt("total_sold");
+                    int customers = rs.getInt("customers");
+
+                    barChartDataProducts.getData().add(new XYChart.Data<>(date, total));
+                    barChartDataCustomers.getData().add(new XYChart.Data<>(date, customers));
+                }
+            }
+
             conn.close();
         }
         catch (SQLException e) 
@@ -227,8 +230,10 @@ public class AnalyticsPageController implements Initializable
             e.printStackTrace();
         }
 
-        // setting the pie chart data
+        // setting the pie chart and bar chart data
         pieChart.setData(pieChartData);
+        customerChart.getData().addAll(barChartDataProducts, barChartDataCustomers);
+
         // gets the username of the person from the session
         welcomeMessage.setText("Welcome, " + Session.getUsername() + "!");
         
