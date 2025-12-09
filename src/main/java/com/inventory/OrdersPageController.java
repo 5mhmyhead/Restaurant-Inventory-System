@@ -2,6 +2,10 @@ package com.inventory;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 import javafx.animation.FadeTransition;
@@ -14,6 +18,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -38,6 +45,17 @@ public class OrdersPageController implements Initializable
     @FXML Button filterMenuButton;
     @FXML Button signOutButton;
 
+    @FXML private TableView<Order> ordersTable;
+    @FXML private TableColumn<Order, Integer> orderIDTable;
+    @FXML private TableColumn<Order, String> userIDTable;
+    @FXML private TableColumn<Order, Integer> prodIDTable;
+    @FXML private TableColumn<Order, Integer> customerIDTable;
+    @FXML private TableColumn<Order, Double> totalTable;
+    @FXML private TableColumn<Order, Integer> quantityTable;
+    @FXML private TableColumn<Order, String> statusTable;
+    @FXML private TableColumn<Order, String> dateTable;
+    @FXML private TableColumn<Order, String> cashierTable;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
@@ -52,6 +70,18 @@ public class OrdersPageController implements Initializable
             new KeyFrame(Duration.ZERO, new KeyValue(ordersButton.textFillProperty(), fromColor)),
             new KeyFrame(Duration.millis(100), new KeyValue(ordersButton.textFillProperty(), toColor))
         );
+
+        // loads table
+        orderIDTable.setCellValueFactory(new PropertyValueFactory<>("orderId"));
+        userIDTable.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        prodIDTable.setCellValueFactory(new PropertyValueFactory<>("prodId"));
+        customerIDTable.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        totalTable.setCellValueFactory(new PropertyValueFactory<>("totalAmount"));
+        quantityTable.setCellValueFactory(new PropertyValueFactory<>("orderQuantity"));
+        statusTable.setCellValueFactory(new PropertyValueFactory<>("orderStatus"));
+        dateTable.setCellValueFactory(new PropertyValueFactory<>("orderDate"));
+        cashierTable.setCellValueFactory(new PropertyValueFactory<>("username"));
+        loadOrders();
 
         FadeTransition fadeChicken = new FadeTransition(Duration.millis(100), chickenPink);
         fadeChicken.setFromValue(1);
@@ -176,5 +206,35 @@ public class OrdersPageController implements Initializable
     void signOut() throws IOException 
     {
         App.setRoot("openingAnimation", App.WIDTH, App.HEIGHT);
+    }
+
+    // load orders from database
+    public void loadOrders() 
+    {
+        try (Connection conn = SQLite_Connection.connect(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery("SELECT o.order_id, o.user_id, o.prod_id, o.customer_id, o.total_amount, " + "o.order_quantity, o.order_status, o.order_date, a.username AS cashier " + "FROM ORDERS o " + "JOIN ACCOUNT a ON o.user_id = a.user_id")) 
+         {
+            ordersTable.getItems().clear();
+
+            while (rs.next()) 
+            {
+                Order order = new Order
+                (
+                    rs.getInt("order_id"),
+                    rs.getInt("user_id"),
+                    rs.getInt("prod_id"),
+                    rs.getInt("customer_id"),
+                    rs.getDouble("total_amount"),
+                    rs.getInt("order_quantity"),
+                    rs.getString("order_status"),
+                    rs.getString("order_date"),
+                    rs.getString("cashier")
+                );
+                ordersTable.getItems().add(order);
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }

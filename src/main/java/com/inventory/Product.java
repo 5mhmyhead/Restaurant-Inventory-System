@@ -20,13 +20,13 @@ public class Product
     private final byte[] prodImage;
 
     // constructor with image
-    public Product(int id, String name, String category, String type, double price, int sold, int stock, int discount, String status, byte[] image)
+    public Product(int id, String name, String category, String type, double prod_price, int sold, int stock, int discount, String status, byte[] image)
     {
         this.prodId.set(id);
         this.prodName.set(name);
         this.prodCategory.set(category);
         this.prodType.set(type);
-        this.prodPrice.set(price);
+        this.prodPrice.set(prod_price);
         this.amountStock.set(stock);
         this.amountDiscount.set(discount);
         this.prodStatus.set(status);
@@ -34,9 +34,9 @@ public class Product
     }
 
     // constructor without image
-    public Product(int id, String name, String category, String type, double price, int sold, int stock, int discount, String status)
+    public Product(int id, String name, String category, String type, double prod_price, int sold, int stock, int discount, String status)
     {
-        this(id, name, category, type, price, sold, stock, discount, status, null);
+        this(id, name, category, type, prod_price, sold, stock, discount, status, null);
     }
 
     // property methods for the table
@@ -66,7 +66,7 @@ public class Product
     public void setProdCategory(String category) { this.prodCategory.set(category); }
     public void setProdType(String type) { this.prodType.set(type); }
     public void setAmountStock(int stock) { this.amountStock.set(stock); }
-    public void setProdPrice(double price) { this.prodPrice.set(price); }
+    public void setProdPrice(double prod_price) { this.prodPrice.set(prod_price); }
     public void setAmountDiscount(int discount) { this.amountDiscount.set(discount); }
     public void setProdStatus(String status) { this.prodStatus.set(status); }
 }

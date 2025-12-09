@@ -107,6 +107,7 @@ public class LoginPageController implements Initializable
                         errorMessage.setText("Login successful!");
                         // sets the username for the session
                         Session.setUsername(user);
+                        Session.setUserId(rs.getInt("user_id"));
                         playAnimation();
                         switchToInventory();
                     }

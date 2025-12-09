@@ -11,6 +11,8 @@ public class Session {
     private static String username;
     private static String userType;
 
+    private static int user_id;
+
     // get the current date
     static LocalDate today = LocalDate.now();
     static DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
@@ -28,6 +30,11 @@ public class Session {
         username = user;
     }
 
+    public static void setUserId (int id)
+    {
+        user_id = id;
+    }
+
     public static void setUserType(String type) 
     {
         userType = type;
@@ -36,6 +43,11 @@ public class Session {
     public static void setManagerPassword(String pass) 
     {
         managerProvidedPW = pass;
+    }
+
+    public static Integer getUserId()
+    {
+        return user_id;
     }
 
     public static String getUsername() 

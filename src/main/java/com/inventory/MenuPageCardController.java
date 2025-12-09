@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Line;
@@ -29,6 +30,8 @@ public class MenuPageCardController
 
     private int quantity = 0;
     private int maxStock = 0;
+
+    private TableView<MenuOrder> menuOrdersTable;
 
     public void setData (Product product)
     {
@@ -117,26 +120,20 @@ public class MenuPageCardController
             product.setAmountStock(newStock);
             maxStock = newStock;
 
+            if (menuOrdersTable != null)
+            {
+                MenuOrder order = new MenuOrder(product.getProdId(), product.getProdPrice(), product.getProdName(), quantity);
+                menuOrdersTable.getItems().add(order);
+            }
+
             quantity = 0;
             quantityLabel.setText(String.valueOf(quantity));
-
-            updateStock(product.getProdId(), newStock);
-
             changeStyle();
         }
     }
 
-    private void updateStock (int prodId, int newStock)
+    public void setOrdersTable(TableView<MenuOrder> menuOrdersTable)
     {
-        try (Connection conn = SQLite_Connection.connect(); PreparedStatement pstmt = conn.prepareStatement("UPDATE Meal SET amount_stock = ? WHERE meal_id = ?"))
-        {
-            pstmt.setInt(1, newStock);
-            pstmt.setInt(2, prodId);
-            pstmt.executeUpdate();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+        this.menuOrdersTable = menuOrdersTable;
     }
 }

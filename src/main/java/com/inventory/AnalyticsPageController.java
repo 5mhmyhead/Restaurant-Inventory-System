@@ -79,20 +79,20 @@ public class AnalyticsPageController implements Initializable
                               + "FROM orders o "
                               + "WHERE o.order_date = '" + Session.getCurrentDate() + "'";
 
-        String sqlTopFiveMeal = "SELECT SUM(amount_sold) AS total_amount_sold " 
-                              + "FROM (SELECT amount_sold FROM Meal ORDER BY amount_sold DESC LIMIT 5) "
+        String sqlTopFiveProduct = "SELECT SUM(amount_sold) AS total_amount_sold " 
+                              + "FROM (SELECT amount_sold FROM Product ORDER BY amount_sold DESC LIMIT 5) "
                               + "AS top_meals";
 
-        String sqlTopSelling = "SELECT m.meal_id, m.meal_name, SUM(o.order_quantity) AS total_times_sold "
-                             + "FROM Meal m "
-                             + "JOIN Orders o ON m.meal_id = o.meal_id "
-                             + "GROUP BY m.meal_id, m.meal_name "
+        String sqlTopSelling = "SELECT m.prod_id, m.meal_name, SUM(o.order_quantity) AS total_times_sold "
+                             + "FROM Product m "
+                             + "JOIN Orders o ON m.prod_id = o.prod_id "
+                             + "GROUP BY m.prod_id, m.meal_name "
                              + "ORDER BY total_times_sold DESC LIMIT 1 ";
 
-        String sqlLowestSale = "SELECT m.meal_id, m.meal_name, SUM(o.order_quantity) AS total_times_sold "
-                             + "FROM Meal m "
-                             + "JOIN Orders o ON m.meal_id = o.meal_id "
-                             + "GROUP BY m.meal_id, m.meal_name "
+        String sqlLowestSale = "SELECT m.prod_id, m.meal_name, SUM(o.order_quantity) AS total_times_sold "
+                             + "FROM Product m "
+                             + "JOIN Orders o ON m.prod_id = o.prod_id "
+                             + "GROUP BY m.prod_id, m.meal_name "
                              + "ORDER BY total_times_sold ASC LIMIT 1 ";
 
         // sql queries for stack bar chart
@@ -117,7 +117,7 @@ public class AnalyticsPageController implements Initializable
         {
             // find the top 5 most sold meals
             try (Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Meal LIMIT 5")) 
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Product LIMIT 5")) 
             {
                 while (rs.next()) 
                 {
@@ -127,7 +127,7 @@ public class AnalyticsPageController implements Initializable
 
             // the total amount sold of the top five meals in the database
             try (Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sqlTopFiveMeal))
+            ResultSet rs = stmt.executeQuery(sqlTopFiveProduct))
             {
                 while (rs.next())
                 {
@@ -160,7 +160,7 @@ public class AnalyticsPageController implements Initializable
 
             // the total amount sold of every meal in the database
             try (Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT SUM(amount_sold) AS total_amount_sold FROM Meal"))
+            ResultSet rs = stmt.executeQuery("SELECT SUM(amount_sold) AS total_amount_sold FROM Product"))
             {
                 while (rs.next())
                 {

@@ -152,7 +152,7 @@ public class InventoryPageController implements Initializable
             }
         });
         
-        // bind columns to Meal properties
+        // bind columns to Product properties
         inventoryProductID.setCellValueFactory(cellData -> cellData.getValue().prodIdProperty());
         inventoryProductName.setCellValueFactory(cellData -> cellData.getValue().prodNameProperty());
         inventoryCategory.setCellValueFactory(cellData -> cellData.getValue().prodCategoryProperty());
@@ -310,7 +310,7 @@ public class InventoryPageController implements Initializable
     public void loadItems() 
     {
         data.clear();
-        String sql = "SELECT meal_id, meal_name, category, type, price, amount_sold, amount_stock, amount_discount, status FROM Meal";
+        String sql = "SELECT prod_id, meal_name, category, type, prod_price, amount_sold, amount_stock, amount_discount, status FROM Product";
 
         try (Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(sql)) 
@@ -318,11 +318,11 @@ public class InventoryPageController implements Initializable
             while (rs.next()) 
             {
                 data.add(new Product(
-                    rs.getInt("meal_id"),
+                    rs.getInt("prod_id"),
                     rs.getString("meal_name"),
                     rs.getString("category"),
                     rs.getString("type"),
-                    rs.getDouble("price"),
+                    rs.getDouble("prod_price"),
                     rs.getInt("amount_sold"),
                     rs.getInt("amount_stock"),
                     rs.getInt("amount_discount"),
@@ -455,7 +455,7 @@ public class InventoryPageController implements Initializable
 
         // collect values
         String name = prodNameField.getText().trim();
-        double price = Double.parseDouble(prodPriceField.getText().trim());
+        double prod_price = Double.parseDouble(prodPriceField.getText().trim());
         int stock = Integer.parseInt(prodStockField.getText().trim());
         String type = typeDrop.getValue().trim();
         String status = statusDrop.getValue().trim();
@@ -464,7 +464,7 @@ public class InventoryPageController implements Initializable
         try (Connection conn = SQLite_Connection.connect()) 
         {
             // check for duplicate name
-            try (PreparedStatement checkStmt = conn.prepareStatement("SELECT 1 FROM Meal WHERE meal_name = ?")) 
+            try (PreparedStatement checkStmt = conn.prepareStatement("SELECT 1 FROM Product WHERE meal_name = ?")) 
             {
                 checkStmt.setString(1, name);
                 try (ResultSet rs = checkStmt.executeQuery()) 
@@ -478,12 +478,12 @@ public class InventoryPageController implements Initializable
             }
 
             // insert if no duplicate
-            try (PreparedStatement ps = conn.prepareStatement("INSERT INTO Meal (meal_name, category, type, price, amount_sold, amount_stock, amount_discount, status, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) 
+            try (PreparedStatement ps = conn.prepareStatement("INSERT INTO Product (meal_name, category, type, prod_price, amount_sold, amount_stock, amount_discount, status, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) 
             {
                 ps.setString(1, name);
                 ps.setString(2, category);
                 ps.setString(3, type);
-                ps.setDouble(4, price);
+                ps.setDouble(4, prod_price);
                 ps.setInt(5, 0);
                 ps.setInt(6, stock);
                 ps.setInt(7, 0); 
@@ -552,7 +552,7 @@ public class InventoryPageController implements Initializable
         String status = statusDrop.getValue() != null ? statusDrop.getValue().trim() : "";
 
         // makes query statement based on what values are present (keep in mind that category, type, and drop still need to be filled)
-        StringBuilder sql = new StringBuilder("UPDATE Meal SET ");
+        StringBuilder sql = new StringBuilder("UPDATE Product SET ");
         List<Object> params = new ArrayList<>();
 
         if (!prodName.isEmpty()) 
@@ -561,7 +561,7 @@ public class InventoryPageController implements Initializable
             params.add(prodName);
         }
         if (!prodPrice.isEmpty()) {
-            sql.append("price = ?, ");
+            sql.append("prod_price = ?, ");
             params.add(Double.parseDouble(prodPrice));
         }
         if (!prodStock.isEmpty()) {
@@ -593,7 +593,7 @@ public class InventoryPageController implements Initializable
         }
 
         sql.setLength(sql.length() - 2);
-        sql.append(" WHERE meal_id = ?");
+        sql.append(" WHERE prod_id = ?");
         params.add(prodID);
 
         try (Connection conn = SQLite_Connection.connect();
@@ -655,7 +655,7 @@ public class InventoryPageController implements Initializable
 
         try (Connection conn = SQLite_Connection.connect()) 
         {
-            try (PreparedStatement deleteStmt = conn.prepareStatement("DELETE FROM Meal WHERE meal_id = ? OR meal_name = ?")) 
+            try (PreparedStatement deleteStmt = conn.prepareStatement("DELETE FROM Product WHERE prod_id = ? OR meal_name = ?")) 
             {
                 deleteStmt.setString(1, prodID);
                 deleteStmt.setString(2, prodName);
