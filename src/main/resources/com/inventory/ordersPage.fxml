@@ -63,7 +63,6 @@
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f5a1a1" height="560.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="963.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="540.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="943.0" />
             <TableView fx:id="ordersTable" layoutX="20.0" layoutY="20.0" prefHeight="520.0" prefWidth="923.0" stylesheets="@style.css">
-            <TableView fx:id="ordersTable" layoutX="20.0" layoutY="20.0" prefHeight="520.0" prefWidth="923.0" stylesheets="@style.css">
               <columns>
                 <TableColumn fx:id="orderIDTable" prefWidth="75.0" text="Order ID" />
                   <TableColumn fx:id="userIDTable" prefWidth="65.60003662109375" text="User ID" />

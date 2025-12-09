@@ -29,6 +29,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -51,16 +52,6 @@ public class OrdersPageController implements Initializable
     @FXML private ImageView cutleryWhite;
     @FXML private ImageView chickenPink;
     @FXML private ImageView hatWhite;
-
-    @FXML private TableView<Order> ordersTable;
-    @FXML private TableColumn<Order, Number> orderProductID;
-    @FXML private TableColumn<Order, Number> orderCustomerID;
-    @FXML private TableColumn<Order, String> orderProdName;
-    @FXML private TableColumn<Order, Number> orderQuantity;
-    @FXML private TableColumn<Order, Number> orderTotalAmount;
-    @FXML private TableColumn<Order, String> orderDate;
-    @FXML private TableColumn<Order, String> orderStatus;
-    @FXML private TableColumn<Order, String> orderCashier;
     
     @FXML TextField searchBar;
 
@@ -81,22 +72,6 @@ public class OrdersPageController implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
-        // bind columns to Orders properties
-        orderProductID.setCellValueFactory(cellData -> cellData.getValue().prodIDProperty());
-        orderCustomerID.setCellValueFactory(cellData -> cellData.getValue().customerIDProperty());
-        orderProdName.setCellValueFactory(cellData -> cellData.getValue().prodNameProperty());
-        orderQuantity.setCellValueFactory(cellData -> cellData.getValue().quantityProperty());
-        orderTotalAmount.setCellValueFactory(cellData -> cellData.getValue().totalAmountProperty());
-        orderDate.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
-        orderStatus.setCellValueFactory(cellData -> cellData.getValue().statusProperty());
-        orderCashier.setCellValueFactory(cellData -> cellData.getValue().cashierProperty());
-
-        // listener for search bar
-        searchBar.textProperty().addListener((observable, oldValue, newValue) ->
-        {
-            filterTable(newValue);
-        });
-
         // gets the username of the person from the session
         welcomeMessage.setText("Welcome, " + Session.getUsername() + "!");
 
