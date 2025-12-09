@@ -61,6 +61,15 @@
   -fx-effect:null;
 }
 
+.chart-legend-item {
+  padding: 0px 10px;
+  -fx-padding: 0px 10px;
+}
+
+.chart-legend-item-symbol {
+  -fx-shape: "M5,0 A5,5 0 1,1 4.99,0 Z";
+}
+
 .chart-plot-background {
   background-color: #F8E9E5; 
   -fx-background-color: #F8E9E5; 
@@ -81,5 +90,5 @@
 }
 
 .default-color1.chart-bar  {
-  -fx-bar-fill: #6F4367;
+  -fx-bar-fill: #FFD6B7;
 }

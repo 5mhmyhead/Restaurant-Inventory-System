@@ -51,7 +51,7 @@
          </image>
       </ImageView>
       <Button fx:id="filterMenuButton" layoutX="1058.0" layoutY="100.0" mnemonicParsing="false" onAction="#switchToFilterOrder" prefHeight="37.0" prefWidth="200.0" styleClass="button-orange" text="Filter Order" />
-      <TextField layoutX="335.0" layoutY="100.0" prefHeight="37.0" prefWidth="700.0" styleClass="search-field" />
+      <TextField fx:id="searchBar" layoutX="335.0" layoutY="100.0" prefHeight="37.0" prefWidth="700.0" styleClass="search-field" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="10.0" layoutX="307.0" layoutY="97.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="104.0" />
       <Label layoutX="311.0" layoutY="93.0" styleClass="poppins-regular" text="Search for an order" textFill="#f5a1a1">
          <font>
@@ -62,6 +62,7 @@
          <children>
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f5a1a1" height="560.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="963.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="540.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="943.0" />
+            <TableView fx:id="ordersTable" layoutX="20.0" layoutY="20.0" prefHeight="520.0" prefWidth="923.0" stylesheets="@style.css">
             <TableView fx:id="ordersTable" layoutX="20.0" layoutY="20.0" prefHeight="520.0" prefWidth="923.0" stylesheets="@style.css">
               <columns>
                 <TableColumn fx:id="orderIDTable" prefWidth="75.0" text="Order ID" />

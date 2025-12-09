@@ -35,14 +35,8 @@ public class TransLoginToTitleController implements Initializable
 
         transition.play();
         transition.setOnFinished(event -> {
-            try 
-            {
-                switchToTitlePage();
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+            try { switchToTitlePage(); }
+            catch (IOException e) { e.printStackTrace(); }
         });
     }
 

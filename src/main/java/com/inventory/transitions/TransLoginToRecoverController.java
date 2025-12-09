@@ -35,14 +35,8 @@ public class TransLoginToRecoverController implements Initializable
 
         transition.play();
         transition.setOnFinished(event -> {
-            try 
-            {
-                switchToRecoverAccount();
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+            try { switchToRecoverAccount(); }
+            catch (IOException e) { e.printStackTrace(); }
         });
     }
 

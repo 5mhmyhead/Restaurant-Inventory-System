@@ -16,7 +16,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
-public class FilterOrderController implements Initializable{
+public class FilterOrderController implements Initializable
+{
+    // TODO: ADD FUNCTIONALITY TO THE ORDER CONTROLLER
+    private OrdersPageController actualController;
+    public void setController(OrdersPageController controller)
+    {
+        this.actualController = controller;
+    }
+
     @FXML private TextField CashierUser;
     @FXML private TextField endDate;
     @FXML private TextField enterProd;
@@ -97,5 +105,13 @@ public class FilterOrderController implements Initializable{
         transition.jumpTo(Duration.ZERO);
         transition.stop();
         transition.play();
+    }
+
+    // closes the pop up. also closes it after applying or clearing filters
+    @FXML
+    private void closePopup ()
+    {
+        // TODO: ADD CANCEL BUTTON
+        // cancelButton.getScene().getWindow().hide();
     }
 }

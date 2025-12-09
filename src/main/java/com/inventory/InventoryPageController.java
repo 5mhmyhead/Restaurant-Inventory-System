@@ -300,6 +300,31 @@ public class InventoryPageController implements Initializable
         App.setRoot("openingAnimation", App.WIDTH, App.HEIGHT);
     }
 
+    // opens the filter menu for inventory
+    @FXML
+    private void switchToFilterInventory()
+    {
+        try 
+        {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("filterInventory.fxml"));
+            Parent root = loader.load();
+
+            FilterInventoryController popupController = loader.getController();
+            popupController.setController(this);
+
+            Stage popupStage = new Stage();
+            popupStage.setTitle("Filter Inventory");
+            popupStage.setResizable(false);
+            popupStage.setScene(new Scene(root));
+            popupStage.initOwner(parentContainer.getScene().getWindow());
+            popupStage.show();
+        } 
+        catch (IOException e) 
+        {
+            e.printStackTrace();
+        }
+    }
+
     // allow main app to inject DB connection
     public void setConnection(Connection conn) 
     {
@@ -352,33 +377,32 @@ public class InventoryPageController implements Initializable
         ObservableList<Product> filtered = FXCollections.observableArrayList();
 
         for (Product p : data) 
+        {
+            String name = p.getProdName() != null ? p.getProdName().trim() : "";
+                
+            // filters by case-sensitive keyword on search bar
+            boolean matchesSearch =
+                (keyword == null || keyword.trim().isEmpty() || name.contains(keyword.trim()));
+                
+            // filters by category
+            boolean matchesCategory =
+                (!breakfast && !lunch && !dinner && !appetizer) ||
+                (breakfast && "Breakfast".equals(p.getProdCategory())) ||
+                (lunch && "Lunch".equals(p.getProdCategory())) ||
+                (dinner && "Dinner".equals(p.getProdCategory())) ||
+                (appetizer && "Appetizer".equals(p.getProdCategory()));
+
+            // filters by type
+            boolean matchesType =
+                (!vegetarian && !nonVegetarian) ||
+                (vegetarian && "Vegetarian".equals(p.getProdType())) ||
+                (nonVegetarian && "Non-Vegetarian".equals(p.getProdType()));
+
+            if (matchesSearch && matchesCategory && matchesType) 
             {
-                String name = p.getProdName() != null ? p.getProdName().trim() : "";
-                
-                // filters by case-sensitive keyword on search bar
-                boolean matchesSearch =
-                    (keyword == null || keyword.trim().isEmpty() || name.contains(keyword.trim()));
-                
-                // filters by category
-                boolean matchesCategory =
-                    (!breakfast && !lunch && !dinner && !appetizer) ||
-                    (breakfast && "Breakfast".equals(p.getProdCategory())) ||
-                    (lunch && "Lunch".equals(p.getProdCategory())) ||
-                    (dinner && "Dinner".equals(p.getProdCategory())) ||
-                    (appetizer && "Appetizer".equals(p.getProdCategory()));
-
-                // filters by type
-                boolean matchesType =
-                    (!vegetarian && !nonVegetarian) ||
-                    (vegetarian && "Vegetarian".equals(p.getProdType())) ||
-                    (nonVegetarian && "Non-Vegetarian".equals(p.getProdType()));
-
-
-                if (matchesSearch && matchesCategory && matchesType) 
-                {
-                    filtered.add(p);
-                }
+                filtered.add(p);
             }
+        }
         inventoryTable.setItems(filtered);
     }
 
@@ -517,8 +541,10 @@ public class InventoryPageController implements Initializable
                 }
 
                 // get auto-generated prod_id
-                try (ResultSet rs = ps.getGeneratedKeys()) {
-                    if (rs.next()) {
+                try (ResultSet rs = ps.getGeneratedKeys()) 
+                {
+                    if (rs.next()) 
+                    {
                         int newId = rs.getInt(1);
                         System.out.println("Inserted product with ID: " + newId);
                     }
@@ -535,7 +561,7 @@ public class InventoryPageController implements Initializable
     @FXML
     private void updateItem ()
     {
-       // validation check
+        // validation check
         if (prodIDField.getText().trim().isEmpty()) 
         {
             System.out.println("Please fill in product ID before updating a product.");
@@ -560,26 +586,37 @@ public class InventoryPageController implements Initializable
             sql.append("meal_name = ?, ");
             params.add(prodName);
         }
-        if (!prodPrice.isEmpty()) {
+    
+        if (!prodPrice.isEmpty()) 
+        {
             sql.append("prod_price = ?, ");
             params.add(Double.parseDouble(prodPrice));
         }
-        if (!prodStock.isEmpty()) {
+    
+        if (!prodStock.isEmpty()) 
+        {
             sql.append("amount_stock = ?, ");
             params.add(Integer.parseInt(prodStock));
         }
-        if (!category.isEmpty()) {
+    
+        if (!category.isEmpty())
+        {
             sql.append("category = ?, ");
             params.add(category);
         }
-        if (!type.isEmpty()) {
+
+        if (!type.isEmpty()) 
+        {
             sql.append("type = ?, ");
             params.add(type);
         }
-        if (!status.isEmpty()) {
+
+        if (!status.isEmpty()) 
+        {
             sql.append("status = ?, ");
             params.add(status);
         }
+
         if (selectedImage != null)
         {
             sql.append("image = ?, ");
@@ -639,7 +676,7 @@ public class InventoryPageController implements Initializable
         }
     }
 
-    //deletes items inside the inventory
+    // deletes items inside the inventory
     @FXML
     private void deleteItem ()
     {
@@ -676,30 +713,6 @@ public class InventoryPageController implements Initializable
         } 
     
         catch (SQLException e) 
-        {
-            e.printStackTrace();
-        }
-    }
-    // opens the filter menu for inventory
-    @FXML
-    private void openFilterMenu()
-    {
-        try 
-        {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("filterInventory.fxml"));
-            Parent root = loader.load();
-
-            filterInventoryController popupController = loader.getController();
-            popupController.setController(this);
-
-            Stage popupStage = new Stage();
-            popupStage.setTitle("Filter Inventory");
-            popupStage.setResizable(false);
-            popupStage.setScene(new Scene(root));
-            popupStage.initOwner(parentContainer.getScene().getWindow());
-            popupStage.show();
-        } 
-        catch (IOException e) 
         {
             e.printStackTrace();
         }
