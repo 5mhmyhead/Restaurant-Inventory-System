@@ -35,14 +35,8 @@ public class TransLoginToCreateController implements Initializable
 
         transition.play();
         transition.setOnFinished(event -> {
-            try 
-            {
-                switchToCreateAccount();
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+            try { switchToCreateAccount(); }
+            catch (IOException e) { e.printStackTrace(); }
         });
     }
 

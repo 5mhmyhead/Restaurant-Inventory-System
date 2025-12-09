@@ -2,6 +2,10 @@ package com.inventory;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 import javafx.animation.FadeTransition;
@@ -10,13 +14,22 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class OrdersPageController implements Initializable
@@ -35,12 +48,46 @@ public class OrdersPageController implements Initializable
     @FXML private ImageView chickenPink;
     @FXML private ImageView hatWhite;
 
+    @FXML private TableView<Order> ordersTable;
+    @FXML private TableColumn<Order, Number> orderProductID;
+    @FXML private TableColumn<Order, Number> orderCustomerID;
+    @FXML private TableColumn<Order, String> orderProdName;
+    @FXML private TableColumn<Order, Number> orderQuantity;
+    @FXML private TableColumn<Order, Number> orderTotalAmount;
+    @FXML private TableColumn<Order, String> orderDate;
+    @FXML private TableColumn<Order, String> orderStatus;
+    @FXML private TableColumn<Order, String> orderCashier;
+    
+    @FXML TextField searchBar;
+
     @FXML Button filterMenuButton;
     @FXML Button signOutButton;
 
+    private Connection conn;
+
+    // master list of orders
+    private ObservableList<Order> data = FXCollections.observableArrayList();
+
+    // initializes the table
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
+        // bind columns to Orders properties
+        orderProductID.setCellValueFactory(cellData -> cellData.getValue().prodIDProperty());
+        orderCustomerID.setCellValueFactory(cellData -> cellData.getValue().customerIDProperty());
+        orderProdName.setCellValueFactory(cellData -> cellData.getValue().prodNameProperty());
+        orderQuantity.setCellValueFactory(cellData -> cellData.getValue().quantityProperty());
+        orderTotalAmount.setCellValueFactory(cellData -> cellData.getValue().totalAmountProperty());
+        orderDate.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
+        orderStatus.setCellValueFactory(cellData -> cellData.getValue().statusProperty());
+        orderCashier.setCellValueFactory(cellData -> cellData.getValue().cashierProperty());
+
+        // listener for search bar
+        searchBar.textProperty().addListener((observable, oldValue, newValue) ->
+        {
+            filterTable(newValue);
+        });
+
         // gets the username of the person from the session
         welcomeMessage.setText("Welcome, " + Session.getUsername() + "!");
 
@@ -149,32 +196,118 @@ public class OrdersPageController implements Initializable
     }
 
     @FXML
-    void switchToInventory() throws IOException 
+    private void switchToInventory() throws IOException 
     {
         playAnimation("inventoryPage", 350, -200);
     }
 
     @FXML
-    void switchToMenu() throws IOException 
+    private void switchToMenu() throws IOException 
     {
         playAnimation("menuPage", 300, -100);
     }
 
     @FXML
-    void switchToAnalytics() throws IOException 
+    private void switchToAnalytics() throws IOException 
     {
         playAnimation("analyticsPage_IncomeView", 300, 100);
     }
 
     @FXML
-    void switchToFilterOrder() throws IOException 
+    private void switchToFilterOrder() throws IOException 
     {
-        App.setRoot("filterOrders", App.WIDTH, App.HEIGHT);
+        try 
+        {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("filterOrders.fxml"));
+            Parent root = loader.load();
+
+            
+            FilterOrderController popupController = loader.getController();
+            popupController.setController(this);
+
+            Stage popupStage = new Stage();
+            popupStage.setTitle("Filter Orders");
+            popupStage.setResizable(false);
+            popupStage.setScene(new Scene(root));
+            popupStage.initOwner(parentContainer.getScene().getWindow());
+            popupStage.show();
+        } 
+        catch (IOException e) 
+        {
+            e.printStackTrace();
+        }
     }
 
     @FXML
-    void signOut() throws IOException 
+    private void signOut() throws IOException 
     {
         App.setRoot("openingAnimation", App.WIDTH, App.HEIGHT);
+    }
+
+    // allow main app to inject DB connection
+    public void setConnection(Connection conn) 
+    {
+        this.conn = conn;
+    }
+
+    // applies filters to the table to show/hide different data
+    public void filterTable(String keyword)
+    {
+        ObservableList<Order> filtered = FXCollections.observableArrayList();
+
+        for (Order o : data) 
+        {
+            String name = o.getProdName() != null ? o.getProdName().trim() : "";
+                
+            // filters by case-sensitive keyword on search bar
+            boolean matchesSearch = (keyword == null || keyword.trim().isEmpty() || name.contains(keyword.trim()));
+
+            if (matchesSearch) 
+            {
+                filtered.add(o);
+            }
+        }
+
+        ordersTable.setItems(filtered);
+    }
+
+    // load products from database
+    public void loadItems() 
+    {
+        data.clear();
+        // TODO: FIX THIS QUERY
+        String sql = "SELECT FROM Product";
+
+        try (Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql)) 
+        {
+            while (rs.next()) 
+            {
+                data.add(new Order(
+                    rs.getInt("order_id"),
+                    rs.getInt("customer_id"),
+                    rs.getString("product_name"),
+                    rs.getInt("quantity"),
+                    rs.getDouble("total_amount"),
+                    rs.getString("date"),
+                    rs.getString("status"),
+                    rs.getString("cashier")
+                ));
+            }
+        }
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+
+        // shows items in the table
+        ordersTable.setItems(data);
+
+        // reapplies any search if user has typed something
+        String currentSearch = searchBar.getText();
+        if(currentSearch != null && !currentSearch.isEmpty())
+        {
+            filterTable(currentSearch);
+        }
     }
 }

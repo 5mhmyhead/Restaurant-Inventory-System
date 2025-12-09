@@ -134,7 +134,7 @@
             <Image url="@images/searchOrange.png" />
          </image>
       </ImageView>
-      <Button fx:id="filterButton" alignment="CENTER" layoutX="1058.0" layoutY="100.0" mnemonicParsing="false" onAction="#openFilterMenu" prefHeight="37.0" prefWidth="200.0" styleClass="button-orange" text="Filter Inventory" />
+      <Button fx:id="filterButton" alignment="CENTER" layoutX="1058.0" layoutY="100.0" mnemonicParsing="false" onAction="#switchToFilterInventory" prefHeight="37.0" prefWidth="200.0" styleClass="button-orange" text="Filter Inventory" />
       <TextField fx:id="searchBar" layoutX="335.0" layoutY="100.0" prefHeight="37.0" prefWidth="700.0" styleClass="search-field" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="10.0" layoutX="307.0" layoutY="97.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="100.0" />
       <Label layoutX="310.0" layoutY="93.0" styleClass="poppins-regular" text="Search for an item" textFill="#f5a1a1">
