@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -146,7 +147,7 @@
          <children>
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f5a1a1" height="275.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="963.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="255.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="943.0" />
-            <TableView fx:id="inventoryTable" layoutX="20.0" layoutY="19.0" prefHeight="235.0" prefWidth="923.0" stylesheets="@style.css">
+            <TableView fx:id="inventoryTable" layoutX="20.0" layoutY="19.0" prefHeight="235.0" prefWidth="923.0" style="-fx-background-color: #f8e9e5;">
               <columns>
                   <TableColumn fx:id="inventoryProductID" prefWidth="100.0" reorderable="false" text="Product ID" />
                   <TableColumn fx:id="inventoryProductName" prefWidth="200.0" reorderable="false" text="Product Name" />
@@ -154,9 +155,16 @@
                   <TableColumn fx:id="inventoryProductType" minWidth="8.0" prefWidth="123.0" reorderable="false" text="Type" />
                   <TableColumn fx:id="inventoryProductPrice" minWidth="8.0" prefWidth="100.0" reorderable="false" text="Price" />
                   <TableColumn fx:id="inventoryProductStock" minWidth="8.0" prefWidth="100.0" reorderable="false" text="Stock" />
-                  <TableColumn fx:id="inventoryProductDiscount" minWidth="8.0" prefWidth="100.0" reorderable="false" text="Discount" />
-                  <TableColumn fx:id="inventoryProductStatus" minWidth="8.0" prefWidth="100.0" reorderable="false" text="Status" />
+                  <TableColumn fx:id="inventoryProductDiscount" minWidth="8.0" prefWidth="95.0" reorderable="false" text="Discount" />
+                  <TableColumn fx:id="inventoryProductStatus" minWidth="8.0" prefWidth="98.0" reorderable="false" text="Status" />
               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+               <stylesheets>
+                  <URL value="@style.css" />
+                  <URL value="@tables.css" />
+               </stylesheets>
             </TableView>
          </children>
       </AnchorPane>
@@ -182,48 +190,55 @@
                   <Font size="25.0" />
                </font>
             </Label>
-            <Button fx:id="addButton" layoutX="108.0" layoutY="215.0" mnemonicParsing="false" onAction="#addItem" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Add" />
-            <Button fx:id="updateButton" layoutX="268.0" layoutY="215.0" mnemonicParsing="false" onAction="#updateItem" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Update" />
-            <Button fx:id="clearButton" layoutX="465.0" layoutY="215.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Clear" />
-            <Button fx:id="deleteButton" layoutX="625.0" layoutY="215.0" mnemonicParsing="false" onAction="#deleteItem" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Delete" />
-            <TextField fx:id="prodNameField" layoutX="108.0" layoutY="133.0" prefHeight="32.0" prefWidth="215.0" styleClass="text-field-purple" />
-            <TextField fx:id="prodIDField" layoutX="108.0" layoutY="86.0" prefHeight="32.0" prefWidth="215.0" styleClass="text-field-purple" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#693c5b" height="10.0" layoutX="122.0" layoutY="81.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="60.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#693c5b" height="10.0" layoutX="121.0" layoutY="128.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="77.0" />
-            <Label layoutX="127.0" layoutY="78.0" styleClass="poppins-bold" text="Product ID" textFill="#f8e9e5">
+            <Button fx:id="addButton" layoutX="51.0" layoutY="220.0" mnemonicParsing="false" onAction="#addItem" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Add" />
+            <Button fx:id="updateButton" layoutX="215.0" layoutY="220.0" mnemonicParsing="false" onAction="#updateItem" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Update" />
+            <Button fx:id="clearButton" layoutX="419.0" layoutY="220.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Clear" />
+            <Button fx:id="deleteButton" layoutX="584.0" layoutY="220.0" mnemonicParsing="false" onAction="#deleteItem" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Delete" />
+            <TextField fx:id="prodNameField" layoutX="50.0" layoutY="117.0" prefHeight="32.0" prefWidth="215.0" styleClass="text-field-purple" />
+            <TextField fx:id="prodIDField" layoutX="50.0" layoutY="63.0" prefHeight="32.0" prefWidth="215.0" styleClass="text-field-purple" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#693c5b" height="3.0" layoutX="65.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="60.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#693c5b" height="3.0" layoutX="62.0" layoutY="116.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="80.0" />
+            <Label layoutX="69.0" layoutY="55.0" styleClass="poppins-bold" text="Product ID" textFill="#f8e9e5">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <Label layoutX="125.0" layoutY="126.0" styleClass="poppins-bold" text="Product Name" textFill="#f8e9e5">
+            <Label layoutX="65.0" layoutY="109.0" styleClass="poppins-bold" text="Product Name" textFill="#f8e9e5">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <TextField fx:id="prodPriceField" layoutX="333.0" layoutY="133.0" prefHeight="32.0" prefWidth="215.0" styleClass="text-field-purple" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#693c5b" height="10.0" layoutX="346.0" layoutY="128.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="44.0" />
-            <Label layoutX="350.0" layoutY="126.0" styleClass="poppins-bold" text="Price(₱)" textFill="#f8e9e5">
+            <TextField fx:id="prodPriceField" layoutX="275.0" layoutY="117.0" prefHeight="32.0" prefWidth="215.0" styleClass="text-field-purple" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#693c5b" height="5.0" layoutX="291.0" layoutY="114.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="47.0" />
+            <Label layoutX="294.0" layoutY="109.0" styleClass="poppins-bold" text="Price(₱)" textFill="#f8e9e5">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <TextField fx:id="prodStockField" layoutX="333.0" layoutY="86.0" prefHeight="32.0" prefWidth="215.0" styleClass="text-field-purple" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#693c5b" height="10.0" layoutX="347.0" layoutY="80.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="32.0" />
-            <Label layoutX="350.0" layoutY="78.0" styleClass="poppins-bold" text="Stock" textFill="#f8e9e5">
+            <TextField fx:id="prodStockField" layoutX="275.0" layoutY="63.0" prefHeight="32.0" prefWidth="215.0" styleClass="text-field-purple" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#693c5b" height="5.0" layoutX="290.0" layoutY="60.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="35.0" />
+            <TextField fx:id="prodDiscountField" layoutX="50.0" layoutY="171.0" prefHeight="32.0" prefWidth="215.0" styleClass="text-field-purple" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#693c5b" height="5.0" layoutX="62.0" layoutY="169.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="70.0" />
+            <Label layoutX="293.0" layoutY="56.0" styleClass="poppins-bold" text="Stock" textFill="#f8e9e5">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <AnchorPane fx:id="imageDropPane" layoutX="718.0" layoutY="39.0" onDragDropped="#handleDragDropped" onDragOver="#handleDragOver" prefHeight="172.0" prefWidth="217.0">
+            <AnchorPane fx:id="imageDropPane" layoutX="718.0" layoutY="63.0" onDragDropped="#handleDragDropped" onDragOver="#handleDragOver" prefHeight="140.0" prefWidth="217.0">
                <children>
-                  <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f8e9e5" height="152.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="217.0" />
-                  <ImageView fx:id="importImageDrop" fitHeight="144.0" fitWidth="189.0" layoutX="14.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" />
+                  <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f8e9e5" height="140.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="217.0" />
+                  <ImageView fx:id="importImageDrop" fitHeight="120.0" fitWidth="197.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" />
                </children>
             </AnchorPane>
-            <Button fx:id="importImageButton" layoutX="785.0" layoutY="215.0" mnemonicParsing="false" onAction="#chooseImage" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Import Image" />
-            <ComboBox fx:id="categoryDrop" layoutX="558.0" layoutY="43.0" prefHeight="32.0" prefWidth="150.0" styleClass="button-createaccount" />
-            <ComboBox fx:id="typeDrop" layoutX="558.0" layoutY="85.0" prefHeight="32.0" prefWidth="150.0" styleClass="button-createaccount" />
-            <ComboBox fx:id="statusDrop" layoutX="558.0" layoutY="133.0" prefHeight="32.0" prefWidth="150.0" styleClass="button-createaccount" />  
+            <Button fx:id="importImageButton" layoutX="785.0" layoutY="220.0" mnemonicParsing="false" onAction="#chooseImage" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Import Image" />
+            <ComboBox fx:id="categoryDrop" layoutX="526.0" layoutY="63.0" prefHeight="32.0" prefWidth="150.0" promptText="Select Category" styleClass="combo-box" stylesheets="@inventory.css" />
+            <ComboBox fx:id="typeDrop" layoutX="526.0" layoutY="117.0" prefHeight="32.0" prefWidth="150.0" promptText="Select Type" styleClass="combo-box" stylesheets="@inventory.css" />
+            <ComboBox fx:id="statusDrop" layoutX="526.0" layoutY="171.0" prefHeight="32.0" prefWidth="150.0" promptText="Set Status" stylesheets="@inventory.css" />
+            <Label layoutX="64.0" layoutY="164.0" styleClass="poppins-bold" text="Discount (%)" textFill="#f8e9e5">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>  
          </children>
       </AnchorPane>
    </children>
