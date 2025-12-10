@@ -68,7 +68,7 @@
                   <TableColumn fx:id="userIDTable" prefWidth="65.60003662109375" text="User ID" />
                   <TableColumn fx:id="prodIDTable" prefWidth="88.79998779296875" text="Product ID" />
                 <TableColumn fx:id="customerIDTable" prefWidth="84.0" text="Customer ID" />
-                  <TableColumn fx:id="totalTable" prefWidth="183.99993896484375" text="Total(₱)" />
+                  <TableColumn fx:id="totalAmountTable" prefWidth="183.99993896484375" text="Total(₱)" />
                   <TableColumn fx:id="quantityTable" prefWidth="67.2000732421875" text="Quantity" />
                   <TableColumn fx:id="statusTable" prefWidth="116.00006103515625" text="Status" />
                   <TableColumn fx:id="dateTable" prefWidth="81.60003662109375" text="Date" />

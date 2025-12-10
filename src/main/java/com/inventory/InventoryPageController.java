@@ -47,6 +47,7 @@ import javafx.util.Duration;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+// TODO: ADD FUNCTIONALITY TO MAKE AVAILABLE FOOD UNAVAILABLE ONCE STOCK REACHES 0
 public class InventoryPageController implements Initializable
 {
     @FXML private AnchorPane parentContainer;
@@ -333,7 +334,8 @@ public class InventoryPageController implements Initializable
         {
             while (rs.next()) 
             {
-                data.add(new Product(
+                data.add(new Product
+                (
                     rs.getInt("prod_id"),
                     rs.getString("prod_name"),
                     rs.getString("category"),
@@ -681,6 +683,7 @@ public class InventoryPageController implements Initializable
         }
     }
 
+    // TODO: HANDLE EDGE CASES FOR DELETING AN ITEM E.G ITEM BEING DELETED WAS ON AN ORDER
     // deletes items inside the inventory
     @FXML
     private void deleteItem ()
