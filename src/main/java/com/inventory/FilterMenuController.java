@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ToggleButton;
+import javafx.util.Duration;
 
 public class FilterMenuController implements Initializable 
 {
@@ -32,14 +33,14 @@ public class FilterMenuController implements Initializable
     }
 
     @FXML
-    void switchToMenu(ActionEvent event) throws IOException 
-    {
+    void switchToMenu(ActionEvent event) throws IOException {
         App.setRoot("menuPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) 
+   public void initialize(URL location, ResourceBundle resources) 
     {
         
     }
+
 }
