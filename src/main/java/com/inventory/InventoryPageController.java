@@ -55,6 +55,7 @@ public class InventoryPageController implements Initializable
     @FXML private AnchorPane selectedBar;
     @FXML private AnchorPane imageDropPane;
     @FXML private Label welcomeMessage;
+    @FXML private Label notifLabel;
 
     @FXML private Button inventoryButton;
     @FXML private Button menuButton;
@@ -476,7 +477,7 @@ public class InventoryPageController implements Initializable
             statusDrop.getValue().trim().isEmpty()) 
         {
             // TODO: ADD ERROR MESSAGE ON WINDOW INSTEAD FROM CONSOLE
-            System.out.println("Please fill in all fields before adding a product.");
+            notifLabel.setText("Please fill in all fields before adding a product.");
             return;
         }
 
@@ -499,7 +500,7 @@ public class InventoryPageController implements Initializable
                     if (rs.next()) 
                     {
                         // TODO: ADD ERROR MESSAGE FOR THIS
-                        System.out.println("Item with the same name already exists!");
+                        notifLabel.setText("Item with the same name already exists!");
                         return; // stop execution
                     }
                 }
@@ -540,7 +541,7 @@ public class InventoryPageController implements Initializable
                 if (rowsInserted > 0) 
                 {
                     // TODO: ADD THIS MESSAGE TO WINDOW
-                    System.out.println("Item added successfully!");
+                    notifLabel.setText("Item added successfully!");
                     loadItems();
                     clearFields();
                 }
@@ -551,7 +552,7 @@ public class InventoryPageController implements Initializable
                     if (rs.next()) 
                     {
                         int newId = rs.getInt(1);
-                        System.out.println("Inserted product with ID: " + newId);
+                        notifLabel.setText("Inserted product with ID: " + newId);
                     }
                 }
             }
@@ -570,7 +571,7 @@ public class InventoryPageController implements Initializable
         if (prodIDField.getText().trim().isEmpty()) 
         {
             // TODO: ADD ERROR MESSAGE
-            System.out.println("Please fill in product ID before updating a product.");
+            notifLabel.setText("Please fill in product ID before updating a product.");
             return; // stop execution
         }
 
@@ -633,7 +634,7 @@ public class InventoryPageController implements Initializable
         if (params.isEmpty()) 
         {
             // TODO: ADD ERROR MESSAGE FOR THIS
-            System.out.println("No changes provided. Update aborted.");
+            notifLabel.setText("No changes provided. Update aborted.");
             return;
         }
 
@@ -669,12 +670,12 @@ public class InventoryPageController implements Initializable
             int dataTouched = updateStmt.executeUpdate();
             if (dataTouched == 0) 
             {
-                System.out.println("Item not found!");
+                notifLabel.setText("Item not found!");
             } 
             else 
             {
                 // TODO: ADD ERROR MESSAGE FOR THIS
-                System.out.println("Item updated successfully!");
+                notifLabel.setText("Item updated successfully!");
                 loadItems();
                 clearFields();
             }
@@ -697,7 +698,7 @@ public class InventoryPageController implements Initializable
         if (prodID.isEmpty() && prodName.isEmpty()) 
         {
             // TODO: ADD ERROR MESSAGE FOR THIS
-            System.out.println("Please fill in id or name field before deleting a product");
+            notifLabel.setText("Please fill in id or name field before deleting a product");
             return; // stop execution
         }
 
@@ -713,12 +714,12 @@ public class InventoryPageController implements Initializable
                 if (dataTouched == 0) 
                 {
                     // TODO: ADD ERROR MESSAGE FOR THIS
-                    System.out.println("Item not found!");
+                    notifLabel.setText("Item not found!");
                 } 
                 else 
                 {
                     // TODO: ADD MESSAGE FOR THIS IN WINDOW
-                    System.out.println("Item deleted successfully!");
+                    notifLabel.setText("Item deleted successfully!");
                     loadItems();
                     clearFields();
                 }

@@ -238,6 +238,13 @@
                <font>
                   <Font size="10.0" />
                </font>
+            </Label>
+            <Label fx:id="notifLabel" layoutX="338.0" layoutY="8.0" prefHeight="28.0" prefWidth="381.0" stylesheets="@style.css" textFill="#f8e9e5">
+               <styleClass>
+                  <String fx:value="text-center" />
+                  <String fx:value="poppins-bold" />
+                  <String fx:value="poppins-semibold" />
+               </styleClass>
             </Label>  
          </children>
       </AnchorPane>
