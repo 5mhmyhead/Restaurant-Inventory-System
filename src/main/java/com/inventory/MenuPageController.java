@@ -10,6 +10,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.collections.ListChangeListener;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,15 +19,27 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.sql.ResultSet;
+
 public class MenuPageController implements Initializable
 {    
+    @FXML private FlowPane menuCardContainer;
+
     @FXML private AnchorPane parentContainer;
     @FXML private AnchorPane selectedBar;
     @FXML private Label welcomeMessage;
@@ -40,14 +54,34 @@ public class MenuPageController implements Initializable
     @FXML private ImageView chickenWhite;
     @FXML private ImageView hatWhite;
 
+    @FXML private TableView<MenuOrder> menuOrdersTable;
+    @FXML private TableColumn<MenuOrder, Double > orderTablePrice;
+    @FXML private TableColumn<MenuOrder, String>  orderTableProdName;
+    @FXML private TableColumn<MenuOrder, Integer>  orderTableQuantity;
+
+    @FXML private Label amountDue;
+    @FXML private Label totalAmount;
+    @FXML private Label amountChange;
+    @FXML private TextField amountPay;
+
     @FXML Button filterMenuButton;
     @FXML Button signOutButton;
+
+    private double dueTotal = 0.0;
+    private static int customerCounter = 0;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
         // gets the username of the person from the session
         welcomeMessage.setText("Welcome, " + Session.getUsername() + "!");
+
+        // loads the menu cards
+        loadMenu();
+        orderTablePrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        orderTableProdName.setCellValueFactory(new PropertyValueFactory<>("prodName"));
+        orderTableQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        menuOrdersTable.getItems().addListener((ListChangeListener<MenuOrder>) change -> updateAmountDue());
 
         // below is the code for animating the sidebar slide
         Color fromColor = new Color(0.906, 0.427, 0.541, 1.0);
@@ -153,6 +187,7 @@ public class MenuPageController implements Initializable
         });
     }
 
+    // navigation methods
     @FXML
     private void switchToInventory() throws IOException 
     {
@@ -203,6 +238,116 @@ private void switchToFilterMenu() {
 
     } catch (IOException e) {
         e.printStackTrace();
+    }
+
+    // loads product cards
+    private void loadMenu()
+    {
+        menuCardContainer.getChildren().clear();
+        String sql = "SELECT prod_id, prod_name, category, type, prod_price, amount_sold, amount_stock, amount_discount, status, image FROM Product";
+
+        try (Connection conn = SQLite_Connection.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) 
+        {
+            while (rs.next()) 
+            {
+                byte[] imageBytes = rs.getBytes("image");
+                Product product = new Product
+                (
+                    rs.getInt("prod_id"),
+                    rs.getString("prod_name"),
+                    rs.getString("category"),
+                    rs.getString("type"),
+                    rs.getDouble("prod_price"),
+                    rs.getInt("amount_sold"),
+                    rs.getInt("amount_stock"),
+                    rs.getInt("amount_discount"),
+                    rs.getString("status"),
+                    imageBytes
+                );
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("menuCard.fxml"));
+                AnchorPane card = loader.load();
+                MenuPageCardController controller = loader.getController();
+                controller.setData(product);
+                controller.setOrdersTable(menuOrdersTable);
+                menuCardContainer.getChildren().add(card);
+            }
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+    }
+
+    // updates amount due
+    private void updateAmountDue()
+    {
+        dueTotal = menuOrdersTable.getItems().stream().mapToDouble(order -> order.getPrice() * order.getQuantity()).sum();
+        amountDue.setText("Amount Due: P" + String.format("%.2f", dueTotal));
+    }
+
+    // TODO: WHEN PAYING AN ORDER AND PUTTING TO DATABASE, AMOUNT_SOLD DOES NOT UPDATE, WHICH AFFECTS ANALYTICS
+    // TODO: I WOULD ALSO LIKE TO HAVE THE CHANGE BE DYNAMIC AND CHANGE BEFORE YOU PRESS PAY
+    @FXML
+    private void payOrder (ActionEvent event)
+    {
+        double payment;
+        try 
+        {
+            payment = Double.parseDouble(amountPay.getText());
+        }
+        catch (NumberFormatException e)
+        {
+            return;
+        }
+
+        if (payment < dueTotal)
+        {
+            return;
+        }
+        customerCounter++;
+        int customerId = customerCounter;
+
+        // updates stock for each ordered item in the database
+        for (MenuOrder order : menuOrdersTable.getItems()) 
+        {
+            try (Connection conn = SQLite_Connection.connect(); PreparedStatement pstmt = conn.prepareStatement("UPDATE Product SET amount_stock = amount_stock - ? WHERE prod_name = ?")) 
+            {
+                pstmt.setInt(1, order.getQuantity());
+                pstmt.setString(2, order.getProdName());
+                pstmt.executeUpdate();
+            } 
+            catch (Exception e) 
+            {
+                e.printStackTrace();
+            }
+
+            // insert into Orders
+            try (Connection conn = SQLite_Connection.connect(); PreparedStatement pstmtOrder = conn.prepareStatement("INSERT INTO Orders (user_id, prod_id, customer_id, total_amount, order_quantity, order_status, order_date) " + "VALUES (?, ?, ?, ?, ?, ?, ?)")) 
+            {
+                pstmtOrder.setInt(1, Session.getUserId());
+                pstmtOrder.setInt(2, order.getMealId());
+                pstmtOrder.setInt(3, customerId);
+                pstmtOrder.setDouble(4, order.getPrice() * order.getQuantity());
+                pstmtOrder.setInt(5, order.getQuantity());
+                pstmtOrder.setString(6, "Pending");
+                pstmtOrder.setString(7, Session.getCurrentDate().toString());
+                pstmtOrder.executeUpdate();
+            } 
+            catch (Exception e) 
+            {
+                e.printStackTrace();
+            }
+        }
+
+        double change = payment - dueTotal;
+        amountChange.setText("Change: P" + String.format("%.2f", change));
+
+        menuOrdersTable.getItems().clear();
+        updateAmountDue();
+        amountPay.clear();
     }
 }
 

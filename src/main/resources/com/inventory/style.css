@@ -598,6 +598,28 @@
   -fx-background-radius: 10px;
 }
 
+.payment-field {
+  -fx-text-fill: #253657;
+
+  background-color: #f8e9e5;
+  -fx-background-color: #f8e9e5;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid solid solid solid;
+  -fx-border-style: solid solid solid solid;
+
+  border-color: #F5A1A1;
+  -fx-border-color: #F5A1A1;
+
+  border-radius: 10px 10px 10px 10px;
+  -fx-border-radius: 10px 10px 10px 10px;
+
+  -fx-background-radius: 10px;
+}
+
+
 .filter-order-text-field {
   background-color: #e76d8a;
   -fx-background-color: #e76d8a;
@@ -685,46 +707,6 @@
   -fx-underline: true;
 }
 
-.table-view {
-  font-family: "Poppins Regular", sans-serif;
-  -fx-font-family: "Poppins Regular", sans-serif;
-
-  -fx-text-fill: #253657;
-
-  border-color: #F5A1A1;
-  -fx-border-color: #F5A1A1;
-
-  border-radius: 3px;
-  -fx-border-radius: 3px;
-
-  -fx-background-radius: 3px;
-
-  background-color: transparent;
-  -fx-background-color: transparent;
-}
-
-.table-view .column-header-background {
-  font-family: "Poppins Regular", sans-serif;
-  -fx-font-family: "Poppins Regular", sans-serif;
-
-  background-color: #F5A1A1;
-  -fx-background-color: #F5A1A1;
-
-  -fx-background-insets: 0 0 0 0;
-}
-
-.table-view .column-header, .filter {   
-  font-family: "Poppins Regular", sans-serif;
-  -fx-font-family: "Poppins Regular", sans-serif;
-  
-  -fx-text-fill: #253657;
-}
-
-.table-row-cell {
-  background-color: #FFD6B7;
-  -fx-background-color: #FFD6B7;
-}
-
 .toggle-filter-button{
   font-family: "Poppins Black", sans-serif;
   -fx-font-family: "Poppins Black", sans-serif;
@@ -789,4 +771,335 @@
   -fx-border-radius: 10px;
 
   -fx-background-radius: 10px;
+}
+
+.menu-card-border-available{
+  background-color: #F8E9E5;
+  -fx-background-color: #F8E9E5;
+
+  stroke: #EF8FA4;
+  -fx-stroke: #EF8FA4;
+
+  stroke-width: 1;
+  -fx-stroke-width: 1;
+
+  -fx-stroke-type: inside;
+  -fx-arc-width: 20;
+  -fx-arc-height: 20;
+}
+
+.menu-card-border-unavailable{
+  background-color: #F8E9E5;
+  -fx-background-color: #F8E9E5;
+
+  stroke: #FCB7A4;
+  -fx-stroke: #FCB7A4;
+
+  stroke-width: 1;
+  -fx-stroke-width: 1;
+
+  -fx-stroke-type: inside;
+  -fx-arc-width: 20;
+  -fx-arc-height: 20;
+}
+
+.menu-card-label-available{
+  font-family: "Poppins Black", sans-serif;
+  -fx-font-family: "Poppins Black", sans-serif;
+    
+  font-weight: 900;
+  -fx-font-weight: 900;
+  
+  font-style: normal;
+  -fx-font-style: normal;
+
+  -fx-text-fill: #f8e9e5;
+
+  background-color: #EF8FA4;
+  -fx-background-color: #EF8FA4;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-color: #EF8FA4;
+  -fx-border-color: #EF8FA4;
+}
+
+.menu-card-label-unavailable{
+  font-family: "Poppins Black", sans-serif;
+  -fx-font-family: "Poppins Black", sans-serif;
+    
+  font-weight: 900;
+  -fx-font-weight: 900;
+  
+  font-style: normal;
+  -fx-font-style: normal;
+
+  -fx-text-fill: #f8e9e5;
+
+  background-color: #FCB7A4;
+  -fx-background-color: #FCB7A4;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-color: #FCB7A4;
+  -fx-border-color: #FCB7A4;
+}
+
+.menu-card-box-available{
+  background-color: #F8E9E5;
+  -fx-background-color: #F8E9E5;
+
+  stroke: #e76d8a;
+  -fx-stroke: #e76d8a;
+
+  stroke-width: 3;
+  -fx-stroke-width: 3;
+
+  -fx-stroke-type: inside;
+  -fx-arc-width: 20;
+  -fx-arc-height: 20;
+}
+
+.menu-card-box-unavailable{
+  background-color: #F8E9E5;
+  -fx-background-color: #F8E9E5;
+
+  stroke: #FCB7A4;
+  -fx-stroke: #FCB7A4;
+
+  stroke-width: 3;
+  -fx-stroke-width: 3;
+
+  -fx-stroke-type: inside;
+  -fx-arc-width: 20;
+  -fx-arc-height: 20;
+}
+
+.menu-card-counter-available{
+  font-family: "Poppins Black", sans-serif;
+  -fx-font-family: "Poppins Black", sans-serif;
+    
+  font-weight: 900;
+  -fx-font-weight: 900;
+  
+  font-style: normal;
+  -fx-font-style: normal;
+
+  -fx-text-fill: #253657;
+
+  padding: 0 0 0 5;
+  -fx-padding: 0 0 0 5;   
+
+  background-color: #f8e9e5;
+  -fx-background-color: #f8e9e5;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-color: #EF8FA4;
+  -fx-border-color: #EF8FA4;
+}
+
+.menu-card-counter-unavailable{
+  font-family: "Poppins Black", sans-serif;
+  -fx-font-family: "Poppins Black", sans-serif;
+    
+  font-weight: 900;
+  -fx-font-weight: 900;
+  
+  font-style: normal;
+  -fx-font-style: normal;
+
+  -fx-text-fill: #253657;
+
+  padding: 0 0 0 5;
+  -fx-padding: 0 0 0 5;   
+
+  background-color: #f8e9e5;
+  -fx-background-color: #f8e9e5;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-color: #FCB7A4;
+  -fx-border-color: #FCB7A4;
+}
+
+.menu-card-updown-container-available {
+  padding: 0 0 0 5;
+  -fx-padding: 0 0 0 5;   
+
+  background-color: #f8e9e5;
+  -fx-background-color: #f8e9e5;
+
+  border-radius: 0px 10px 10px 0px;
+  -fx-border-radius: 0px 10px 10px 0px;
+
+  -fx-background-radius: 0px 10px 10px 0px;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-color: #EF8FA4;
+  -fx-border-color: #EF8FA4;
+}
+
+.menu-card-updown-container-unavailable {
+  padding: 0 0 0 5;
+  -fx-padding: 0 0 0 5;   
+
+  background-color: #f8e9e5;
+  -fx-background-color: #f8e9e5;
+
+  border-radius: 0px 10px 10px 0px;
+  -fx-border-radius: 0px 10px 10px 0px;
+
+  -fx-background-radius: 0px 10px 10px 0px;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-color: #FCB7A4;
+  -fx-border-color: #FCB7A4;
+}
+
+.menu-card-button-available{
+  font-family: "Poppins Black", sans-serif;
+  -fx-font-family: "Poppins Black", sans-serif;
+    
+  font-weight: 900;
+  -fx-font-weight: 900;
+  
+  font-style: normal;
+  -fx-font-style: normal;
+
+  -fx-text-fill: #f8e9e5;
+
+  background-color: #EF8FA4;
+  -fx-background-color: #EF8FA4;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-color: #EF8FA4;
+  -fx-border-color: #EF8FA4;
+}
+
+.menu-card-button-available:hover{
+  font-family: "Poppins Black", sans-serif;
+  -fx-font-family: "Poppins Black", sans-serif;
+
+  -fx-text-fill: #f8e9e5;
+
+  background-color: #EF8FA4;
+  -fx-background-color: #EF8FA4;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-color: #EF8FA4;
+  -fx-border-color: #EF8FA4;
+}
+
+.menu-card-button-unavailable{
+  font-family: "Poppins Black", sans-serif;
+  -fx-font-family: "Poppins Black", sans-serif;
+    
+  font-weight: 900;
+  -fx-font-weight: 900;
+  
+  font-style: normal;
+  -fx-font-style: normal;
+
+  -fx-text-fill: #f8e9e5;
+
+  background-color: #FCB7A4;
+  -fx-background-color: #FCB7A4;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-color: #FCB7A4;
+  -fx-border-color: #FCB7A4;
+}
+
+.menu-card-updown-button{
+  background-color: transparent;
+  -fx-background-color: transparent;
+
+  border-color: transparent;
+  -fx-border-color: transparent;
+
+  border-width: 0;
+  -fx-border-width: 0;
+
+  border-radius: 0;
+  -fx-border-radius: 0; 
+
+  -fx-background-radius: 0; 
+
+  font-size: 8px;
+  -fx-font-size: 8px;
+  
+  padding: 0;
+  -fx-padding: 0;
 }

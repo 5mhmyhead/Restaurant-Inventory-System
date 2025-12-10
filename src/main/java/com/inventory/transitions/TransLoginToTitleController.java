@@ -15,16 +15,16 @@ import javafx.util.Duration;
 
 import com.inventory.App;
 
-// this class is to play an animation from the login page to the title page
+// this class is to play an animation from the login to the title
 public class TransLoginToTitleController implements Initializable
 {
-    // objects in the scene for the intro animation
+    // objects in the scene for the animation
     @FXML private AnchorPane parentContainer;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
-        // creates an animation where the login page slides into the screen 
+        // creates an animation
         TranslateTransition transition = new TranslateTransition();
        
         transition.setNode(parentContainer);
@@ -35,14 +35,8 @@ public class TransLoginToTitleController implements Initializable
 
         transition.play();
         transition.setOnFinished(event -> {
-            try 
-            {
-                switchToTitlePage();
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+            try { switchToTitlePage(); }
+            catch (IOException e) { e.printStackTrace(); }
         });
     }
 

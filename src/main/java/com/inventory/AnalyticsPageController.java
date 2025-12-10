@@ -19,8 +19,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
-import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -29,6 +29,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+// TODO: MAKE ANALYTICS BUTTON DISABLED WHEN USER TYPE IS WORKER FROM SESSION CLASS
 public class AnalyticsPageController implements Initializable
 {
     @FXML private AnchorPane parentContainer;
@@ -40,7 +41,7 @@ public class AnalyticsPageController implements Initializable
     @FXML private Button ordersButton;
     @FXML private Button analyticsButton;
 
-    @FXML private Button customerButton;
+    @FXML private Button weeklyChartButton;
     @FXML private Button incomeButton;
 
     @FXML private ImageView fridgeWhite;
@@ -49,8 +50,8 @@ public class AnalyticsPageController implements Initializable
     @FXML private ImageView hatPink;
 
     @FXML private PieChart pieChart;
-    @FXML private StackedBarChart<String, Number> customerChart;
-    
+    @FXML private BarChart<String, Number> weeklyChart;
+
     @FXML private Label totalAmount;
     @FXML private Label totalIncome;
     @FXML private Label todaysIncome;
@@ -67,81 +68,67 @@ public class AnalyticsPageController implements Initializable
 
     // observable list for the pie chart data
     ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+    // XYChart for the bar chart data
+    XYChart.Series<String, Number> barChartDataProducts = new XYChart.Series<>();
+    XYChart.Series<String, Number> barChartDataCustomers = new XYChart.Series<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
         // sql queries
-        String sqlIncomeToday = "SELECT SUM(m.amount_sold) AS total_amount_today " 
-                              + "FROM Meal m "
-                              + "JOIN Orders o ON m.meal_id = o.meal_id "
+        String sqlIncomeToday = "SELECT SUM(o.total_amount) AS total_amount_today " 
+                              + "FROM Orders o "
                               + "WHERE o.order_date = '" + Session.getCurrentDate() + "'";
 
-        String sqlTopFiveMeal = "SELECT SUM(amount_sold) AS total_amount_sold " 
-                              + "FROM (SELECT amount_sold FROM Meal ORDER BY amount_sold DESC LIMIT 5) "
+        String sqlTopFiveProduct = "SELECT SUM(amount_sold) AS total_amount_sold " 
+                              + "FROM (SELECT amount_sold FROM Product ORDER BY amount_sold DESC LIMIT 5) "
                               + "AS top_meals";
 
-        String sqlTopSelling = "SELECT m.meal_id, m.meal_name, SUM(o.order_quantity) AS total_times_sold "
-                             + "FROM Meal m "
-                             + "JOIN Orders o ON m.meal_id = o.meal_id "
-                             + "GROUP BY m.meal_id, m.meal_name "
+        String sqlTopSelling = "SELECT p.prod_id, p.prod_name, SUM(o.order_quantity) AS total_times_sold "
+                             + "FROM Product p "
+                             + "JOIN Orders o ON p.prod_id = o.prod_id "
+                             + "GROUP BY p.prod_id, p.prod_name "
                              + "ORDER BY total_times_sold DESC LIMIT 1 ";
 
-        String sqlLowestSale = "SELECT m.meal_id, m.meal_name, SUM(o.order_quantity) AS total_times_sold "
-                             + "FROM Meal m "
-                             + "JOIN Orders o ON m.meal_id = o.meal_id "
-                             + "GROUP BY m.meal_id, m.meal_name "
+        String sqlLowestSale = "SELECT p.prod_id, p.prod_name, SUM(o.order_quantity) AS total_times_sold "
+                             + "FROM Product p "
+                             + "JOIN Orders o ON p.prod_id = o.prod_id "
+                             + "GROUP BY p.prod_id, p.prod_name "
                              + "ORDER BY total_times_sold ASC LIMIT 1 ";
 
         // sql queries for stack bar chart
-        String sqlStackChart = "SELECT m.meal_id, m.meal_name, "
-                             + "SUM(CASE WHEN DATE(o.order_date) = '" + Session.getCurrentDate() + "' THEN o.order_quantity ELSE 0 END) AS total_times_sold_today, "
-                             + "SUM(CASE WHEN DATE(o.order_date) <> '" + Session.getCurrentDate() + "' THEN o.order_quantity ELSE 0 END) AS total_times_sold "
-                             + "FROM Meal m "
-                             + "JOIN Orders o ON m.meal_id = o.meal_id "
-                             + "GROUP BY m.meal_id, m.meal_name "
-                             + "ORDER BY m.meal_name";
+        String sqlStackedBar = "WITH RECURSIVE last7days(day) AS ( "
+                             + "SELECT date('now', '-6 days') UNION ALL "
+                             + "SELECT date(day, '+1 day') FROM last7days WHERE day < date('now')) "
+                             + "SELECT last7days.day, "
+                             + "COALESCE(SUM(order_quantity), 0) AS total_sold, "
+                             + "COALESCE(COUNT(DISTINCT Orders.order_id), 0) AS customers "
+                             + "FROM last7days LEFT JOIN Orders ON date(Orders.order_date) = last7days.day "
+                             + "GROUP BY last7days.day ORDER BY last7days.day ";
 
         // pie chart styling
         pieChart.setLegendSide(Side.LEFT);
         pieChart.setLabelsVisible(false);
+
+        barChartDataProducts.setName("Products Sold");
+        barChartDataCustomers.setName("Customers");
         
-        // setting up the stacked bar chart data
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-
-        series.setName("Today");
-        series.getData().add(new XYChart.Data<>("Hash Browns", 250));
-        series.getData().add(new XYChart.Data<>("Matcha Tea", 1000));
-        series.getData().add(new XYChart.Data<>("Light Espresso", 100));
-        series.getData().add(new XYChart.Data<>("Hot Choco", 500));
-
-        XYChart.Series<String, Number> series1 = new XYChart.Series<>();
-
-        series1.setName("Tomorrow");
-        series1.getData().add(new XYChart.Data<>("Hash Browns", 20));
-        series1.getData().add(new XYChart.Data<>("Matcha Tea", 100));
-        series1.getData().add(new XYChart.Data<>("Light Espresso", 120));
-        series1.getData().add(new XYChart.Data<>("Hot Choco", 560));
-
-        customerChart.setCategoryGap(50);
-        customerChart.getData().addAll(series, series1);
-
         // connecting to sql database to create analytics
         try (Connection conn = SQLite_Connection.connect()) 
         {
             // find the top 5 most sold meals
             try (Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Meal LIMIT 5")) 
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Product LIMIT 5")) 
             {
                 while (rs.next()) 
                 {
-                    pieChartData.add(new PieChart.Data(rs.getString("meal_name") + " - ₱" + rs.getInt("amount_sold"), rs.getInt("amount_sold")));
+                    pieChartData.add(new PieChart.Data(rs.getString("prod_name") + " - ₱" + rs.getInt("amount_sold"), rs.getInt("amount_sold")));
                 }
             }
 
             // the total amount sold of the top five meals in the database
             try (Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sqlTopFiveMeal))
+            ResultSet rs = stmt.executeQuery(sqlTopFiveProduct))
             {
                 while (rs.next())
                 {
@@ -152,7 +139,7 @@ public class AnalyticsPageController implements Initializable
 
             // the amount of customers in the database all time
             try (Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT COUNT(DISTINCT order_id) AS total_customers FROM orders"))
+            ResultSet rs = stmt.executeQuery("SELECT COUNT(DISTINCT order_id) AS total_customers FROM Orders"))
             {
                 while (rs.next())
                 {
@@ -174,7 +161,7 @@ public class AnalyticsPageController implements Initializable
 
             // the total amount sold of every meal in the database
             try (Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT SUM(amount_sold) AS total_amount_sold FROM Meal"))
+            ResultSet rs = stmt.executeQuery("SELECT SUM(amount_sold) AS total_amount_sold FROM Product"))
             {
                 while (rs.next())
                 {
@@ -185,7 +172,7 @@ public class AnalyticsPageController implements Initializable
 
             // the amount of products sold all time
             try (Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT SUM(order_quantity) AS total_products_sold FROM orders"))
+            ResultSet rs = stmt.executeQuery("SELECT SUM(order_quantity) AS total_products_sold FROM Orders"))
             {
                 while (rs.next())
                 {
@@ -194,13 +181,14 @@ public class AnalyticsPageController implements Initializable
                 }
             }
 
+            // TODO: MAKE LABEL CHANGE FONT DYNAMICALLY DEPENDING ON THE LENGTH OF STRING
             // finding the top selling meal
             try (Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sqlTopSelling))
             {
                 while (rs.next())
                 {
-                    String meal = rs.getString("meal_name");
+                    String meal = rs.getString("prod_name");
                     String amtSold = rs.getString("total_times_sold");
                     topSellingProduct.setText(meal);
                     topSellingLabel.setText(amtSold + " sales this past month");
@@ -213,10 +201,25 @@ public class AnalyticsPageController implements Initializable
             {
                 while (rs.next())
                 {
-                    String meal = rs.getString("meal_name");
+                    String meal = rs.getString("prod_name");
                     String amtSold = rs.getString("total_times_sold");
                     lowestSales.setText(meal);
                     lowestSalesLabel.setText(amtSold + " sales this past month");
+                }
+            }
+
+            // generating the data for the stacked bar, showing the amount_sold for each day for the past week
+            try (Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sqlStackedBar))
+            {
+                while (rs.next())
+                {
+                    String date = rs.getString("day"); 
+                    int total = rs.getInt("total_sold");
+                    int customers = rs.getInt("customers");
+
+                    barChartDataProducts.getData().add(new XYChart.Data<>(date, total));
+                    barChartDataCustomers.getData().add(new XYChart.Data<>(date, customers));
                 }
             }
 
@@ -227,8 +230,10 @@ public class AnalyticsPageController implements Initializable
             e.printStackTrace();
         }
 
-        // setting the pie chart data
+        // setting the pie chart and bar chart data
         pieChart.setData(pieChartData);
+        weeklyChart.getData().addAll(barChartDataProducts, barChartDataCustomers);
+
         // gets the username of the person from the session
         welcomeMessage.setText("Welcome, " + Session.getUsername() + "!");
         
@@ -337,9 +342,9 @@ public class AnalyticsPageController implements Initializable
     }
 
     @FXML
-    private void switchToCustomerView() throws IOException 
+    private void switchToWeeklyChartView() throws IOException 
     {
-        App.setRoot("analyticsPage_CustomerView", App.MAIN_WIDTH, App.MAIN_HEIGHT);
+        App.setRoot("analyticsPage_WeeklyChartView", App.MAIN_WIDTH, App.MAIN_HEIGHT);
     }
 
     @FXML

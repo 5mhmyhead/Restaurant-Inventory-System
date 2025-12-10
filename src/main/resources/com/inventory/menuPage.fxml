@@ -3,10 +3,13 @@
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
@@ -130,6 +133,7 @@
          <children>
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f5a1a1" height="562.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="542.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="580.0" />
+            <FlowPane fx:id="menuCardContainer" hgap="15.0" layoutX="14.0" layoutY="14.0" prefHeight="534.0" prefWidth="572.0" vgap="10.0" />
          </children>
       </AnchorPane>
       <Button layoutX="284.0" layoutY="96.0" prefHeight="37.0" prefWidth="40.0" styleClass="search-icon-container" />
@@ -159,7 +163,18 @@
                </image>
             </ImageView>
             <Button layoutX="193.0" layoutY="593.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Remove" />
-            <Button layoutX="33.0" layoutY="593.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Pay" />
+            <Button layoutX="33.0" layoutY="593.0" mnemonicParsing="false" onAction="#payOrder" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Pay" />
+            <TableView fx:id="menuOrdersTable" layoutX="4.0" layoutY="6.0" prefHeight="390.0" prefWidth="366.0">
+              <columns>
+                <TableColumn fx:id="orderTablePrice" prefWidth="123.20001220703125" text="Price" />
+                <TableColumn fx:id="orderTableProdName" prefWidth="158.4000244140625" text="Product Name" />
+                  <TableColumn fx:id="orderTableQuantity" minWidth="0.0" prefWidth="86.39990234375" text="Quantity" />
+              </columns>
+            </TableView>
+            <TextField fx:id="amountPay" layoutX="37.0" layoutY="456.0" prefHeight="38.0" prefWidth="306.0" styleClass="payment-field" />
+            <Label fx:id="amountDue" layoutX="37.0" layoutY="429.0" prefHeight="18.0" prefWidth="244.0" styleClass="poppins-black" text="Amount Due: P0.00" />
+            <Label fx:id="totalAmount" layoutX="37.0" layoutY="517.0" prefHeight="18.0" prefWidth="306.0" styleClass="poppins-black" text="Total Amount : P0.00" />
+            <Label fx:id="amountChange" layoutX="37.0" layoutY="547.0" prefHeight="18.0" prefWidth="306.0" styleClass="poppins-black" text="Change: P0.00" />
          </children>
       </AnchorPane>
    </children>

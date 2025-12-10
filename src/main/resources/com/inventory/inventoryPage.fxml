@@ -134,7 +134,7 @@
             <Image url="@images/searchOrange.png" />
          </image>
       </ImageView>
-      <Button fx:id="filterButton" alignment="CENTER" layoutX="1058.0" layoutY="100.0" mnemonicParsing="false" onAction="#openFilterMenu" prefHeight="37.0" prefWidth="200.0" styleClass="button-orange" text="Filter Inventory" />
+      <Button fx:id="filterButton" alignment="CENTER" layoutX="1058.0" layoutY="100.0" mnemonicParsing="false" onAction="#switchToFilterInventory" prefHeight="37.0" prefWidth="200.0" styleClass="button-orange" text="Filter Inventory" />
       <TextField fx:id="searchBar" layoutX="335.0" layoutY="100.0" prefHeight="37.0" prefWidth="700.0" styleClass="search-field" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="10.0" layoutX="307.0" layoutY="97.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="100.0" />
       <Label layoutX="310.0" layoutY="93.0" styleClass="poppins-regular" text="Search for an item" textFill="#f5a1a1">
@@ -148,14 +148,14 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="255.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="943.0" />
             <TableView fx:id="inventoryTable" layoutX="20.0" layoutY="19.0" prefHeight="235.0" prefWidth="923.0" stylesheets="@style.css">
               <columns>
-                  <TableColumn fx:id="inventoryProductID" prefWidth="75.0" reorderable="false" text="Product ID" />
-                  <TableColumn fx:id="inventoryProductName" prefWidth="182.0" reorderable="false" text="Product Name" />
-                  <TableColumn fx:id="inventoryType" minWidth="8.0" prefWidth="105.0" reorderable="false" text="Type" />
-                  <TableColumn fx:id="inventoryCategory" minWidth="8.0" prefWidth="105.0" reorderable="false" text="Category" />
-                  <TableColumn fx:id="inventoryStock" minWidth="8.0" prefWidth="105.0" reorderable="false" text="Stock" />
-                  <TableColumn fx:id="inventoryPrice" minWidth="8.0" prefWidth="105.0" reorderable="false" text="Price" />
-                  <TableColumn fx:id="inventoryDiscount" minWidth="8.0" prefWidth="105.0" reorderable="false" text="Discount" />
-                  <TableColumn fx:id="inventoryStatus" minWidth="8.0" prefWidth="139.0" reorderable="false" text="Status" />
+                  <TableColumn fx:id="inventoryProductID" prefWidth="100.0" reorderable="false" text="Product ID" />
+                  <TableColumn fx:id="inventoryProductName" prefWidth="200.0" reorderable="false" text="Product Name" />
+                  <TableColumn fx:id="inventoryProductCategory" minWidth="8.0" prefWidth="100.0" reorderable="false" text="Category" />
+                  <TableColumn fx:id="inventoryProductType" minWidth="8.0" prefWidth="123.0" reorderable="false" text="Type" />
+                  <TableColumn fx:id="inventoryProductPrice" minWidth="8.0" prefWidth="100.0" reorderable="false" text="Price" />
+                  <TableColumn fx:id="inventoryProductStock" minWidth="8.0" prefWidth="100.0" reorderable="false" text="Stock" />
+                  <TableColumn fx:id="inventoryProductDiscount" minWidth="8.0" prefWidth="100.0" reorderable="false" text="Discount" />
+                  <TableColumn fx:id="inventoryProductStatus" minWidth="8.0" prefWidth="100.0" reorderable="false" text="Status" />
               </columns>
             </TableView>
          </children>

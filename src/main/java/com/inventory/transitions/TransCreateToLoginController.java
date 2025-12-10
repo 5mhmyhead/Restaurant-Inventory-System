@@ -18,7 +18,7 @@ import com.inventory.App;
 // this class is to play an animation from the create account to login
 public class TransCreateToLoginController implements Initializable
 {
-    // objects in the scene for the intro animation
+    // objects in the scene for the animation
     @FXML private AnchorPane parentContainer;
 
     @Override
@@ -35,14 +35,8 @@ public class TransCreateToLoginController implements Initializable
 
         transition.play();
         transition.setOnFinished(event -> {
-            try 
-            {
-                switchToLoginPage();
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+            try { switchToLoginPage(); }
+            catch (IOException e) { e.printStackTrace(); }
         });
     }
 

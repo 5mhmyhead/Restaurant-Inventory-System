@@ -47,6 +47,7 @@ import javafx.util.Duration;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+// TODO: ADD FUNCTIONALITY TO MAKE AVAILABLE FOOD UNAVAILABLE ONCE STOCK REACHES 0
 public class InventoryPageController implements Initializable
 {
     @FXML private AnchorPane parentContainer;
@@ -68,12 +69,12 @@ public class InventoryPageController implements Initializable
     @FXML private TableView<Product> inventoryTable;
     @FXML private TableColumn<Product, Number> inventoryProductID;
     @FXML private TableColumn<Product, String> inventoryProductName;
-    @FXML private TableColumn<Product, String> inventoryCategory;
-    @FXML private TableColumn<Product, String> inventoryType;
-    @FXML private TableColumn<Product, Number> inventoryStock;
-    @FXML private TableColumn<Product, Number> inventoryPrice;
-    @FXML private TableColumn<Product, Number> inventoryDiscount;
-    @FXML private TableColumn<Product, String> inventoryStatus;
+    @FXML private TableColumn<Product, String> inventoryProductCategory;
+    @FXML private TableColumn<Product, String> inventoryProductType;
+    @FXML private TableColumn<Product, Number> inventoryProductStock;
+    @FXML private TableColumn<Product, Number> inventoryProductPrice;
+    @FXML private TableColumn<Product, Number> inventoryProductDiscount;
+    @FXML private TableColumn<Product, String> inventoryProductStatus;
 
     @FXML TextField searchBar;
     @FXML TextField prodIDField;
@@ -84,6 +85,7 @@ public class InventoryPageController implements Initializable
     @FXML ComboBox<String> categoryDrop;
     @FXML ComboBox<String> typeDrop;
     @FXML ComboBox<String> statusDrop;
+
     @FXML Button signOutButton;
     @FXML Button filterButton;
     @FXML Button importImageButton;
@@ -116,11 +118,8 @@ public class InventoryPageController implements Initializable
             protected void updateItem(String item, boolean empty) 
             {
                 super.updateItem(item, empty);
-                if (empty || item == null) 
-                setText("Select Category");
-
-                else 
-                setText(item);
+                if (empty || item == null) setText("Select Category");
+                else setText(item);
             }
         });
 
@@ -129,12 +128,8 @@ public class InventoryPageController implements Initializable
             protected void updateItem(String item, boolean empty) 
             {
                 super.updateItem(item, empty);
-                if (empty || item == null) 
-                setText("Select Type");
-
-                else 
-                setText(item);
-                
+                if (empty || item == null) setText("Select Type");
+                else setText(item);
             }
         });
 
@@ -144,23 +139,20 @@ public class InventoryPageController implements Initializable
             protected void updateItem(String item, boolean empty) 
             {
                 super.updateItem(item, empty);
-                if (empty || item == null) 
-                setText("Set Status");
-                
-                else 
-                setText(item);
+                if (empty || item == null) setText("Set Status");
+                else setText(item);
             }
         });
         
-        // bind columns to Meal properties
-        inventoryProductID.setCellValueFactory(cellData -> cellData.getValue().prodIdProperty());
+        // bind columns to Product properties
+        inventoryProductID.setCellValueFactory(cellData -> cellData.getValue().prodIDProperty());
         inventoryProductName.setCellValueFactory(cellData -> cellData.getValue().prodNameProperty());
-        inventoryCategory.setCellValueFactory(cellData -> cellData.getValue().prodCategoryProperty());
-        inventoryType.setCellValueFactory(cellData -> cellData.getValue().prodTypeProperty());
-        inventoryStock.setCellValueFactory(cellData -> cellData.getValue().amountStockProperty());
-        inventoryPrice.setCellValueFactory(cellData -> cellData.getValue().prodPriceProperty());
-        inventoryDiscount.setCellValueFactory(cellData -> cellData.getValue().amountDiscountProperty());
-        inventoryStatus.setCellValueFactory(cellData -> cellData.getValue().prodStatusProperty());
+        inventoryProductCategory.setCellValueFactory(cellData -> cellData.getValue().prodCategoryProperty());
+        inventoryProductType.setCellValueFactory(cellData -> cellData.getValue().prodTypeProperty());
+        inventoryProductStock.setCellValueFactory(cellData -> cellData.getValue().prodAmountStockProperty());
+        inventoryProductPrice.setCellValueFactory(cellData -> cellData.getValue().prodPriceProperty());
+        inventoryProductDiscount.setCellValueFactory(cellData -> cellData.getValue().prodAmountDiscountProperty());
+        inventoryProductStatus.setCellValueFactory(cellData -> cellData.getValue().prodStatusProperty());
 
         // listener for search bar
         searchBar.textProperty().addListener((observable, oldValue, newValue) ->
@@ -300,6 +292,31 @@ public class InventoryPageController implements Initializable
         App.setRoot("openingAnimation", App.WIDTH, App.HEIGHT);
     }
 
+    // opens the filter menu for inventory
+    @FXML
+    private void switchToFilterInventory()
+    {
+        try 
+        {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("filterInventory.fxml"));
+            Parent root = loader.load();
+
+            FilterInventoryController popupController = loader.getController();
+            popupController.setController(this);
+
+            Stage popupStage = new Stage();
+            popupStage.setTitle("Filter Inventory");
+            popupStage.setResizable(false);
+            popupStage.setScene(new Scene(root));
+            popupStage.initOwner(parentContainer.getScene().getWindow());
+            popupStage.show();
+        } 
+        catch (IOException e) 
+        {
+            e.printStackTrace();
+        }
+    }
+
     // allow main app to inject DB connection
     public void setConnection(Connection conn) 
     {
@@ -310,19 +327,20 @@ public class InventoryPageController implements Initializable
     public void loadItems() 
     {
         data.clear();
-        String sql = "SELECT meal_id, meal_name, category, type, price, amount_sold, amount_stock, amount_discount, status FROM Meal";
+        String sql = "SELECT prod_id, prod_name, category, type, prod_price, amount_sold, amount_stock, amount_discount, status FROM Product";
 
         try (Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(sql)) 
         {
             while (rs.next()) 
             {
-                data.add(new Product(
-                    rs.getInt("meal_id"),
-                    rs.getString("meal_name"),
+                data.add(new Product
+                (
+                    rs.getInt("prod_id"),
+                    rs.getString("prod_name"),
                     rs.getString("category"),
                     rs.getString("type"),
-                    rs.getDouble("price"),
+                    rs.getDouble("prod_price"),
                     rs.getInt("amount_sold"),
                     rs.getInt("amount_stock"),
                     rs.getInt("amount_discount"),
@@ -352,33 +370,32 @@ public class InventoryPageController implements Initializable
         ObservableList<Product> filtered = FXCollections.observableArrayList();
 
         for (Product p : data) 
+        {
+            String name = p.getProdName() != null ? p.getProdName().trim() : "";
+                
+            // filters by case-sensitive keyword on search bar
+            boolean matchesSearch =
+                (keyword == null || keyword.trim().isEmpty() || name.contains(keyword.trim()));
+                
+            // filters by category
+            boolean matchesCategory =
+                (!breakfast && !lunch && !dinner && !appetizer) ||
+                (breakfast && "Breakfast".equals(p.getProdCategory())) ||
+                (lunch && "Lunch".equals(p.getProdCategory())) ||
+                (dinner && "Dinner".equals(p.getProdCategory())) ||
+                (appetizer && "Appetizer".equals(p.getProdCategory()));
+
+            // filters by type
+            boolean matchesType =
+                (!vegetarian && !nonVegetarian) ||
+                (vegetarian && "Vegetarian".equals(p.getProdType())) ||
+                (nonVegetarian && "Non-Vegetarian".equals(p.getProdType()));
+
+            if (matchesSearch && matchesCategory && matchesType) 
             {
-                String name = p.getProdName() != null ? p.getProdName().trim() : "";
-                
-                // filters by case-sensitive keyword on search bar
-                boolean matchesSearch =
-                    (keyword == null || keyword.trim().isEmpty() || name.contains(keyword.trim()));
-                
-                // filters by category
-                boolean matchesCategory =
-                    (!breakfast && !lunch && !dinner && !appetizer) ||
-                    (breakfast && "Breakfast".equals(p.getProdCategory())) ||
-                    (lunch && "Lunch".equals(p.getProdCategory())) ||
-                    (dinner && "Dinner".equals(p.getProdCategory())) ||
-                    (appetizer && "Appetizer".equals(p.getProdCategory()));
-
-                // filters by type
-                boolean matchesType =
-                    (!vegetarian && !nonVegetarian) ||
-                    (vegetarian && "Vegetarian".equals(p.getProdType())) ||
-                    (nonVegetarian && "Non-Vegetarian".equals(p.getProdType()));
-
-
-                if (matchesSearch && matchesCategory && matchesType) 
-                {
-                    filtered.add(p);
-                }
+                filtered.add(p);
             }
+        }
         inventoryTable.setItems(filtered);
     }
 
@@ -390,9 +407,11 @@ public class InventoryPageController implements Initializable
         prodNameField.clear();
         prodPriceField.clear();
         prodStockField.clear();
+
         categoryDrop.setValue(null);
         typeDrop.setValue(null);
         statusDrop.setValue(null);
+
         selectedImage = null;
         importImageDrop.setImage(null);
     }
@@ -447,15 +466,21 @@ public class InventoryPageController implements Initializable
     @FXML
     private void addItem() {
         // validation check
-        if (prodNameField.getText().trim().isEmpty() || prodPriceField.getText().trim().isEmpty() || prodStockField.getText().trim().isEmpty() || categoryDrop.getValue().trim().isEmpty() || typeDrop.getValue().trim().isEmpty() || statusDrop.getValue().trim().isEmpty()) 
+        if (prodNameField.getText().trim().isEmpty() || 
+            prodPriceField.getText().trim().isEmpty() || 
+            prodStockField.getText().trim().isEmpty() || 
+            categoryDrop.getValue().trim().isEmpty() || 
+            typeDrop.getValue().trim().isEmpty() || 
+            statusDrop.getValue().trim().isEmpty()) 
         {
+            // TODO: ADD ERROR MESSAGE ON WINDOW INSTEAD FROM CONSOLE
             System.out.println("Please fill in all fields before adding a product.");
             return;
         }
 
         // collect values
         String name = prodNameField.getText().trim();
-        double price = Double.parseDouble(prodPriceField.getText().trim());
+        double prod_price = Double.parseDouble(prodPriceField.getText().trim());
         int stock = Integer.parseInt(prodStockField.getText().trim());
         String type = typeDrop.getValue().trim();
         String status = statusDrop.getValue().trim();
@@ -464,13 +489,14 @@ public class InventoryPageController implements Initializable
         try (Connection conn = SQLite_Connection.connect()) 
         {
             // check for duplicate name
-            try (PreparedStatement checkStmt = conn.prepareStatement("SELECT 1 FROM Meal WHERE meal_name = ?")) 
+            try (PreparedStatement checkStmt = conn.prepareStatement("SELECT 1 FROM Product WHERE prod_name = ?")) 
             {
                 checkStmt.setString(1, name);
                 try (ResultSet rs = checkStmt.executeQuery()) 
                 {
                     if (rs.next()) 
                     {
+                        // TODO: ADD ERROR MESSAGE FOR THIS
                         System.out.println("Item with the same name already exists!");
                         return; // stop execution
                     }
@@ -478,12 +504,12 @@ public class InventoryPageController implements Initializable
             }
 
             // insert if no duplicate
-            try (PreparedStatement ps = conn.prepareStatement("INSERT INTO Meal (meal_name, category, type, price, amount_sold, amount_stock, amount_discount, status, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) 
+            try (PreparedStatement ps = conn.prepareStatement("INSERT INTO Product (prod_name, category, type, prod_price, amount_sold, amount_stock, amount_discount, status, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) 
             {
                 ps.setString(1, name);
                 ps.setString(2, category);
                 ps.setString(3, type);
-                ps.setDouble(4, price);
+                ps.setDouble(4, prod_price);
                 ps.setInt(5, 0);
                 ps.setInt(6, stock);
                 ps.setInt(7, 0); 
@@ -511,14 +537,17 @@ public class InventoryPageController implements Initializable
                 int rowsInserted = ps.executeUpdate();
                 if (rowsInserted > 0) 
                 {
+                    // TODO: ADD THIS MESSAGE TO WINDOW
                     System.out.println("Item added successfully!");
                     loadItems();
                     clearFields();
                 }
 
                 // get auto-generated prod_id
-                try (ResultSet rs = ps.getGeneratedKeys()) {
-                    if (rs.next()) {
+                try (ResultSet rs = ps.getGeneratedKeys()) 
+                {
+                    if (rs.next()) 
+                    {
                         int newId = rs.getInt(1);
                         System.out.println("Inserted product with ID: " + newId);
                     }
@@ -531,13 +560,14 @@ public class InventoryPageController implements Initializable
         }
     }
 
-    //updates items that are inside the inventory
+    // updates items that are inside the inventory
     @FXML
     private void updateItem ()
     {
-       // validation check
+        // validation check
         if (prodIDField.getText().trim().isEmpty()) 
         {
+            // TODO: ADD ERROR MESSAGE
             System.out.println("Please fill in product ID before updating a product.");
             return; // stop execution
         }
@@ -547,39 +577,51 @@ public class InventoryPageController implements Initializable
         String prodName = prodNameField.getText().trim();
         String prodPrice = prodPriceField.getText().trim();
         String prodStock = prodStockField.getText().trim();
-        String category = categoryDrop.getValue() != null ? categoryDrop.getValue().trim() : "";
-        String type = typeDrop.getValue() != null ? typeDrop.getValue().trim() : "";
-        String status = statusDrop.getValue() != null ? statusDrop.getValue().trim() : "";
+        String prodCategory = categoryDrop.getValue() != null ? categoryDrop.getValue().trim() : "";
+        String prodType = typeDrop.getValue() != null ? typeDrop.getValue().trim() : "";
+        String prodStatus = statusDrop.getValue() != null ? statusDrop.getValue().trim() : "";
 
-        // makes query statement based on what values are present (keep in mind that category, type, and drop still need to be filled)
-        StringBuilder sql = new StringBuilder("UPDATE Meal SET ");
+        // makes query statement based on what values are present 
+        // keep in mind that category, type, and drop still need to be filled
+        StringBuilder sql = new StringBuilder("UPDATE Product SET ");
         List<Object> params = new ArrayList<>();
 
         if (!prodName.isEmpty()) 
         {
-            sql.append("meal_name = ?, ");
+            sql.append("prod_name = ?, ");
             params.add(prodName);
         }
-        if (!prodPrice.isEmpty()) {
-            sql.append("price = ?, ");
+    
+        if (!prodPrice.isEmpty()) 
+        {
+            sql.append("prod_price = ?, ");
             params.add(Double.parseDouble(prodPrice));
         }
-        if (!prodStock.isEmpty()) {
+    
+        if (!prodStock.isEmpty()) 
+        {
             sql.append("amount_stock = ?, ");
             params.add(Integer.parseInt(prodStock));
         }
-        if (!category.isEmpty()) {
+    
+        if (!prodCategory.isEmpty())
+        {
             sql.append("category = ?, ");
-            params.add(category);
+            params.add(prodCategory);
         }
-        if (!type.isEmpty()) {
+
+        if (!prodType.isEmpty()) 
+        {
             sql.append("type = ?, ");
-            params.add(type);
+            params.add(prodType);
         }
-        if (!status.isEmpty()) {
+
+        if (!prodStatus.isEmpty()) 
+        {
             sql.append("status = ?, ");
-            params.add(status);
+            params.add(prodStatus);
         }
+
         if (selectedImage != null)
         {
             sql.append("image = ?, ");
@@ -588,12 +630,13 @@ public class InventoryPageController implements Initializable
 
         if (params.isEmpty()) 
         {
+            // TODO: ADD ERROR MESSAGE FOR THIS
             System.out.println("No changes provided. Update aborted.");
             return;
         }
 
         sql.setLength(sql.length() - 2);
-        sql.append(" WHERE meal_id = ?");
+        sql.append(" WHERE prod_id = ?");
         params.add(prodID);
 
         try (Connection conn = SQLite_Connection.connect();
@@ -608,7 +651,7 @@ public class InventoryPageController implements Initializable
                 else if (value instanceof Double) updateStmt.setDouble(i + 1, (Double) value);
                 else if (value instanceof File)
                     {
-                      try (FileInputStream fis = new FileInputStream((File) value)) 
+                        try (FileInputStream fis = new FileInputStream((File) value)) 
                         { 
                             updateStmt.setBinaryStream(i + 1, fis, (int) ((File) value).length());
                         }  
@@ -628,6 +671,7 @@ public class InventoryPageController implements Initializable
             } 
             else 
             {
+                // TODO: ADD ERROR MESSAGE FOR THIS
                 System.out.println("Item updated successfully!");
                 loadItems();
                 clearFields();
@@ -639,7 +683,8 @@ public class InventoryPageController implements Initializable
         }
     }
 
-    //deletes items inside the inventory
+    // TODO: HANDLE EDGE CASES FOR DELETING AN ITEM E.G ITEM BEING DELETED WAS ON AN ORDER
+    // deletes items inside the inventory
     @FXML
     private void deleteItem ()
     {
@@ -649,13 +694,14 @@ public class InventoryPageController implements Initializable
         // validation (using && because it only needs at least one of them to be filled)
         if (prodID.isEmpty() && prodName.isEmpty()) 
         {
+            // TODO: ADD ERROR MESSAGE FOR THIS
             System.out.println("Please fill in id or name field before deleting a product");
             return; // stop execution
         }
 
         try (Connection conn = SQLite_Connection.connect()) 
         {
-            try (PreparedStatement deleteStmt = conn.prepareStatement("DELETE FROM Meal WHERE meal_id = ? OR meal_name = ?")) 
+            try (PreparedStatement deleteStmt = conn.prepareStatement("DELETE FROM Product WHERE prod_id = ? OR prod_name = ?")) 
             {
                 deleteStmt.setString(1, prodID);
                 deleteStmt.setString(2, prodName);
@@ -664,10 +710,12 @@ public class InventoryPageController implements Initializable
                 int dataTouched = deleteStmt.executeUpdate();
                 if (dataTouched == 0) 
                 {
+                    // TODO: ADD ERROR MESSAGE FOR THIS
                     System.out.println("Item not found!");
                 } 
                 else 
                 {
+                    // TODO: ADD MESSAGE FOR THIS IN WINDOW
                     System.out.println("Item deleted successfully!");
                     loadItems();
                     clearFields();
@@ -676,30 +724,6 @@ public class InventoryPageController implements Initializable
         } 
     
         catch (SQLException e) 
-        {
-            e.printStackTrace();
-        }
-    }
-    // opens the filter menu for inventory
-    @FXML
-    private void openFilterMenu()
-    {
-        try 
-        {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("filterInventory.fxml"));
-            Parent root = loader.load();
-
-            filterInventoryController popupController = loader.getController();
-            popupController.setController(this);
-
-            Stage popupStage = new Stage();
-            popupStage.setTitle("Filter Inventory");
-            popupStage.setResizable(false);
-            popupStage.setScene(new Scene(root));
-            popupStage.initOwner(parentContainer.getScene().getWindow());
-            popupStage.show();
-        } 
-        catch (IOException e) 
         {
             e.printStackTrace();
         }
