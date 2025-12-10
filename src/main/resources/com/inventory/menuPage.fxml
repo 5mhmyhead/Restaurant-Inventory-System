@@ -171,7 +171,7 @@
                   <TableColumn fx:id="orderTableQuantity" minWidth="0.0" prefWidth="86.39990234375" text="Quantity" />
               </columns>
             </TableView>
-            <TextField fx:id="amountPay" layoutX="37.0" layoutY="456.0" prefHeight="38.0" prefWidth="306.0" styleClass="search-field" />
+            <TextField fx:id="amountPay" layoutX="37.0" layoutY="456.0" prefHeight="38.0" prefWidth="306.0" styleClass="payment-field" />
             <Label fx:id="amountDue" layoutX="37.0" layoutY="429.0" prefHeight="18.0" prefWidth="244.0" styleClass="poppins-black" text="Amount Due: P0.00" />
             <Label fx:id="totalAmount" layoutX="37.0" layoutY="517.0" prefHeight="18.0" prefWidth="306.0" styleClass="poppins-black" text="Total Amount : P0.00" />
             <Label fx:id="amountChange" layoutX="37.0" layoutY="547.0" prefHeight="18.0" prefWidth="306.0" styleClass="poppins-black" text="Change: P0.00" />

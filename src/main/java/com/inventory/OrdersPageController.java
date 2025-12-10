@@ -52,19 +52,32 @@ public class OrdersPageController implements Initializable
     @FXML Button signOutButton;
 
     @FXML private TableView<Order> ordersTable;
-    @FXML private TableColumn<Order, Integer> orderIDTable;
-    @FXML private TableColumn<Order, String> userIDTable;
-    @FXML private TableColumn<Order, Integer> prodIDTable;
-    @FXML private TableColumn<Order, Integer> customerIDTable;
-    @FXML private TableColumn<Order, Double> totalTable;
-    @FXML private TableColumn<Order, Integer> quantityTable;
+    @FXML private TableColumn<Order, Number> orderIDTable;
+    @FXML private TableColumn<Order, Number> userIDTable;
+    @FXML private TableColumn<Order, Number> prodIDTable;
+    @FXML private TableColumn<Order, Number> customerIDTable;
+    @FXML private TableColumn<Order, Number> totalAmountTable;
+    @FXML private TableColumn<Order, Number> quantityTable;
     @FXML private TableColumn<Order, String> statusTable;
     @FXML private TableColumn<Order, String> dateTable;
     @FXML private TableColumn<Order, String> cashierTable;
 
+    // TODO: ADD FUNCTIONALITY TO CHANGE ORDERS FROM PENDING TO COMPLETED OR CANCELLED
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
+        // loads the orders table
+        orderIDTable.setCellValueFactory(cellData -> cellData.getValue().orderIDProperty());
+        userIDTable.setCellValueFactory(cellData -> cellData.getValue().orderUserIDProperty());
+        prodIDTable.setCellValueFactory(cellData -> cellData.getValue().orderProdIDProperty());
+        customerIDTable.setCellValueFactory(cellData -> cellData.getValue().orderCustomerIDProperty());
+        totalAmountTable.setCellValueFactory(cellData -> cellData.getValue().orderTotalAmountProperty());
+        quantityTable.setCellValueFactory(cellData -> cellData.getValue().orderQuantityProperty());
+        statusTable.setCellValueFactory(cellData -> cellData.getValue().orderStatusProperty());
+        dateTable.setCellValueFactory(cellData -> cellData.getValue().orderDateProperty());
+        cashierTable.setCellValueFactory(cellData -> cellData.getValue().orderCashierProperty());
+        loadOrders();
+
         // gets the username of the person from the session
         welcomeMessage.setText("Welcome, " + Session.getUsername() + "!");
 
@@ -76,18 +89,6 @@ public class OrdersPageController implements Initializable
             new KeyFrame(Duration.ZERO, new KeyValue(ordersButton.textFillProperty(), fromColor)),
             new KeyFrame(Duration.millis(100), new KeyValue(ordersButton.textFillProperty(), toColor))
         );
-
-        // loads table
-        orderIDTable.setCellValueFactory(new PropertyValueFactory<>("orderId"));
-        userIDTable.setCellValueFactory(new PropertyValueFactory<>("userId"));
-        prodIDTable.setCellValueFactory(new PropertyValueFactory<>("prodId"));
-        customerIDTable.setCellValueFactory(new PropertyValueFactory<>("customerId"));
-        totalTable.setCellValueFactory(new PropertyValueFactory<>("totalAmount"));
-        quantityTable.setCellValueFactory(new PropertyValueFactory<>("orderQuantity"));
-        statusTable.setCellValueFactory(new PropertyValueFactory<>("orderStatus"));
-        dateTable.setCellValueFactory(new PropertyValueFactory<>("orderDate"));
-        cashierTable.setCellValueFactory(new PropertyValueFactory<>("username"));
-        loadOrders();
 
         FadeTransition fadeChicken = new FadeTransition(Duration.millis(100), chickenPink);
         fadeChicken.setFromValue(1);
@@ -236,8 +237,15 @@ public class OrdersPageController implements Initializable
     // load orders from database
     public void loadOrders() 
     {
-        try (Connection conn = SQLite_Connection.connect(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery("SELECT o.order_id, o.user_id, o.prod_id, o.customer_id, o.total_amount, " + "o.order_quantity, o.order_status, o.order_date, a.username AS cashier " + "FROM ORDERS o " + "JOIN ACCOUNT a ON o.user_id = a.user_id")) 
-         {
+        String sql = "SELECT o.order_id, o.user_id, o.prod_id, o.customer_id, o.total_amount, " 
+                   + "o.order_quantity, o.order_status, o.order_date, a.username AS cashier " 
+                   + "FROM ORDERS o " 
+                   + "JOIN ACCOUNT a ON o.user_id = a.user_id";
+
+        try (Connection conn = SQLite_Connection.connect(); 
+        Statement stmt = conn.createStatement(); 
+        ResultSet rs = stmt.executeQuery(sql)) 
+        {
             ordersTable.getItems().clear();
 
             while (rs.next()) 
