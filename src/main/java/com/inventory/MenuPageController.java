@@ -218,7 +218,7 @@ public class MenuPageController implements Initializable
     private void loadMenu()
     {
         menuCardContainer.getChildren().clear();
-        String sql = "SELECT prod_id, meal_name, category, type, prod_price, amount_sold, amount_stock, amount_discount, status, image FROM Product";
+        String sql = "SELECT prod_id, prod_name, category, type, prod_price, amount_sold, amount_stock, amount_discount, status, image FROM Product";
 
         try (Connection conn = SQLite_Connection.connect();
              Statement stmt = conn.createStatement();
@@ -230,7 +230,7 @@ public class MenuPageController implements Initializable
                 Product product = new Product
                 (
                     rs.getInt("prod_id"),
-                    rs.getString("meal_name"),
+                    rs.getString("prod_name"),
                     rs.getString("category"),
                     rs.getString("type"),
                     rs.getDouble("prod_price"),
@@ -262,6 +262,7 @@ public class MenuPageController implements Initializable
         amountDue.setText("Amount Due: P" + String.format("%.2f", dueTotal));
     }
 
+    // TODO: WHEN PAYING AN ORDER AND PUTTING TO DATABASE, AMOUNT_SOLD DOES NOT UPDATE, WHICH AFFECTS ANALYTICS
     @FXML
     private void payOrder (ActionEvent event)
     {
@@ -285,7 +286,7 @@ public class MenuPageController implements Initializable
         // updates stock for each ordered item in the database
         for (MenuOrder order : menuOrdersTable.getItems()) 
         {
-            try (Connection conn = SQLite_Connection.connect(); PreparedStatement pstmt = conn.prepareStatement("UPDATE Product SET amount_stock = amount_stock - ? WHERE meal_name = ?")) 
+            try (Connection conn = SQLite_Connection.connect(); PreparedStatement pstmt = conn.prepareStatement("UPDATE Product SET amount_stock = amount_stock - ? WHERE prod_name = ?")) 
             {
                 pstmt.setInt(1, order.getQuantity());
                 pstmt.setString(2, order.getProdName());
@@ -305,7 +306,7 @@ public class MenuPageController implements Initializable
                 pstmtOrder.setDouble(4, order.getPrice() * order.getQuantity());
                 pstmtOrder.setInt(5, order.getQuantity());
                 pstmtOrder.setString(6, "Pending");
-                pstmtOrder.setString(7, java.time.LocalDateTime.now().toString());
+                pstmtOrder.setString(7, Session.getCurrentDate().toString());
                 pstmtOrder.executeUpdate();
             } 
             catch (Exception e) 

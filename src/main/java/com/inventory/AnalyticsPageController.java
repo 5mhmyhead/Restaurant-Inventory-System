@@ -1,5 +1,6 @@
 package com.inventory;
 
+import java.awt.Container;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -14,6 +15,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -77,23 +79,23 @@ public class AnalyticsPageController implements Initializable
     {
         // sql queries
         String sqlIncomeToday = "SELECT SUM(o.total_amount) AS total_amount_today " 
-                              + "FROM orders o "
+                              + "FROM Orders o "
                               + "WHERE o.order_date = '" + Session.getCurrentDate() + "'";
 
         String sqlTopFiveProduct = "SELECT SUM(amount_sold) AS total_amount_sold " 
                               + "FROM (SELECT amount_sold FROM Product ORDER BY amount_sold DESC LIMIT 5) "
                               + "AS top_meals";
 
-        String sqlTopSelling = "SELECT m.prod_id, m.meal_name, SUM(o.order_quantity) AS total_times_sold "
-                             + "FROM Product m "
-                             + "JOIN Orders o ON m.prod_id = o.prod_id "
-                             + "GROUP BY m.prod_id, m.meal_name "
+        String sqlTopSelling = "SELECT p.prod_id, p.prod_name, SUM(o.order_quantity) AS total_times_sold "
+                             + "FROM Product p "
+                             + "JOIN Orders o ON p.prod_id = o.prod_id "
+                             + "GROUP BY p.prod_id, p.prod_name "
                              + "ORDER BY total_times_sold DESC LIMIT 1 ";
 
-        String sqlLowestSale = "SELECT m.prod_id, m.meal_name, SUM(o.order_quantity) AS total_times_sold "
-                             + "FROM Product m "
-                             + "JOIN Orders o ON m.prod_id = o.prod_id "
-                             + "GROUP BY m.prod_id, m.meal_name "
+        String sqlLowestSale = "SELECT p.prod_id, p.prod_name, SUM(o.order_quantity) AS total_times_sold "
+                             + "FROM Product p "
+                             + "JOIN Orders o ON p.prod_id = o.prod_id "
+                             + "GROUP BY p.prod_id, p.prod_name "
                              + "ORDER BY total_times_sold ASC LIMIT 1 ";
 
         // sql queries for stack bar chart
@@ -122,7 +124,7 @@ public class AnalyticsPageController implements Initializable
             {
                 while (rs.next()) 
                 {
-                    pieChartData.add(new PieChart.Data(rs.getString("meal_name") + " - ₱" + rs.getInt("amount_sold"), rs.getInt("amount_sold")));
+                    pieChartData.add(new PieChart.Data(rs.getString("prod_name") + " - ₱" + rs.getInt("amount_sold"), rs.getInt("amount_sold")));
                 }
             }
 
@@ -139,7 +141,7 @@ public class AnalyticsPageController implements Initializable
 
             // the amount of customers in the database all time
             try (Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT COUNT(DISTINCT order_id) AS total_customers FROM orders"))
+            ResultSet rs = stmt.executeQuery("SELECT COUNT(DISTINCT order_id) AS total_customers FROM Orders"))
             {
                 while (rs.next())
                 {
@@ -172,7 +174,7 @@ public class AnalyticsPageController implements Initializable
 
             // the amount of products sold all time
             try (Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT SUM(order_quantity) AS total_products_sold FROM orders"))
+            ResultSet rs = stmt.executeQuery("SELECT SUM(order_quantity) AS total_products_sold FROM Orders"))
             {
                 while (rs.next())
                 {
@@ -181,13 +183,14 @@ public class AnalyticsPageController implements Initializable
                 }
             }
 
+            // TODO: MAKE LABEL CHANGE FONT DYNAMICALLY DEPENDING ON THE LENGTH OF STRING
             // finding the top selling meal
             try (Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sqlTopSelling))
             {
                 while (rs.next())
                 {
-                    String meal = rs.getString("meal_name");
+                    String meal = rs.getString("prod_name");
                     String amtSold = rs.getString("total_times_sold");
                     topSellingProduct.setText(meal);
                     topSellingLabel.setText(amtSold + " sales this past month");
@@ -200,7 +203,7 @@ public class AnalyticsPageController implements Initializable
             {
                 while (rs.next())
                 {
-                    String meal = rs.getString("meal_name");
+                    String meal = rs.getString("prod_name");
                     String amtSold = rs.getString("total_times_sold");
                     lowestSales.setText(meal);
                     lowestSalesLabel.setText(amtSold + " sales this past month");

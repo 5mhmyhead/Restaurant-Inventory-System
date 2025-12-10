@@ -4,10 +4,12 @@
   src: url(fonts/Poppins-Medium.ttf);
 }
 
-.chart-legend {
+#pieChart .chart-legend {
   background-color: #F8E9E5;
   -fx-background-color: #F8E9E5;
-
+  
+  padding: 50px 0 0 0;
+  -fx-padding: 50px 0 0 0;
 }
 
 .chart-legend-item {
@@ -59,6 +61,11 @@
   -fx-stroke-width: 5px;
   
   -fx-effect:null;
+}
+
+#weeklyChart .chart-legend {
+  background-color: #F8E9E5;
+  -fx-background-color: #F8E9E5;
 }
 
 .chart-legend-item {
