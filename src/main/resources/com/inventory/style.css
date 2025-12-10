@@ -685,46 +685,6 @@
   -fx-underline: true;
 }
 
-.table-view {
-  font-family: "Poppins Regular", sans-serif;
-  -fx-font-family: "Poppins Regular", sans-serif;
-
-  -fx-text-fill: #253657;
-
-  border-color: #F5A1A1;
-  -fx-border-color: #F5A1A1;
-
-  border-radius: 3px;
-  -fx-border-radius: 3px;
-
-  -fx-background-radius: 3px;
-
-  background-color: transparent;
-  -fx-background-color: transparent;
-}
-
-.table-view .column-header-background {
-  font-family: "Poppins Regular", sans-serif;
-  -fx-font-family: "Poppins Regular", sans-serif;
-
-  background-color: #F5A1A1;
-  -fx-background-color: #F5A1A1;
-
-  -fx-background-insets: 0 0 0 0;
-}
-
-.table-view .column-header, .filter {   
-  font-family: "Poppins Regular", sans-serif;
-  -fx-font-family: "Poppins Regular", sans-serif;
-  
-  -fx-text-fill: #253657;
-}
-
-.table-row-cell {
-  background-color: #FFD6B7;
-  -fx-background-color: #FFD6B7;
-}
-
 .toggle-filter-button{
   font-family: "Poppins Black", sans-serif;
   -fx-font-family: "Poppins Black", sans-serif;
