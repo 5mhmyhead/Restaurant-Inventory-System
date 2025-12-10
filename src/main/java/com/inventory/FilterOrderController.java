@@ -64,32 +64,38 @@ public class FilterOrderController implements Initializable
         String productID = enterProd.getText().trim();
         String start = startDate.getText().trim();
         String end = endDate.getText().trim();
-        Date defaultDate = new Date(System.currentTimeMillis());
+
+        String currentDate = Session.getCurrentDate();
         StringBuilder sql = new StringBuilder("SELECT * FROM Orders WHERE 1=1");
+        
         ArrayList<String> parameters = new ArrayList<>();
 
-        //print error message if all fields are empty
-        if (cashier.isEmpty() && productID.isEmpty() && start.isEmpty() && end.isEmpty()) {
-            errMsg.setText("Please enter at least one filter");
+        // print error message if all fields are empty
+        if (cashier.isEmpty() && productID.isEmpty() && start.isEmpty() && end.isEmpty()) 
+        {
+            errMsg.setText("Please enter at least one filter.");
             playAnimation();
             return;
         }
 
-        //for filtering by Cashier
-        if (!cashier.isEmpty()) {
+        // for filtering by Cashier
+        if (!cashier.isEmpty()) 
+        {
             sql.append(" AND cashier_username = ?");
             parameters.add(cashier);
         }
 
-        //for filtering by Product ID
-        if (!productID.isEmpty()) {
+        // for filtering by Product ID
+        if (!productID.isEmpty())
+        {
             sql.append(" AND product_id = ?");
             parameters.add(productID);
         }   
         
-        //for filtering by date
-        //only the starting date is necessary
-        if (!start.isEmpty()) {
+        // for filtering by date
+        // only the starting date is necessary
+        if (!start.isEmpty()) 
+        {
             sql.append(" AND order_date BETWEEN ? AND ?");
             parameters.add(start);
 
@@ -98,9 +104,10 @@ public class FilterOrderController implements Initializable
                 parameters.add(end);
             else
                 //if end date is empty, set to current date
-                parameters.add(defaultDate.toString());
+                parameters.add(currentDate.toString());
         }
 
+        actualController.filterTable(actualController.searchBar.getText(), sql.toString());
         closePopup();
     }
   
@@ -112,7 +119,6 @@ public class FilterOrderController implements Initializable
         transition.play();
     }
 
-    // closes the pop up. also closes it after applying or clearing filters
     // closes the pop up
     @FXML
     private void closePopup ()

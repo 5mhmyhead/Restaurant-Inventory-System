@@ -13,6 +13,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -61,6 +63,9 @@ public class OrdersPageController implements Initializable
     @FXML private TableColumn<Order, String> statusTable;
     @FXML private TableColumn<Order, String> dateTable;
     @FXML private TableColumn<Order, String> cashierTable;
+
+    // master list of products
+    private ObservableList<Order> data = FXCollections.observableArrayList();
 
     // TODO: ADD FUNCTIONALITY TO CHANGE ORDERS FROM PENDING TO COMPLETED OR CANCELLED
     @Override
@@ -253,7 +258,7 @@ public class OrdersPageController implements Initializable
 
             while (rs.next()) 
             {
-                Order order = new Order
+                data.add(new Order
                 (
                     rs.getInt("order_id"),
                     rs.getInt("user_id"),
@@ -264,13 +269,32 @@ public class OrdersPageController implements Initializable
                     rs.getString("order_status"),
                     rs.getString("order_date"),
                     rs.getString("cashier")
-                );
-                ordersTable.getItems().add(order);
+                ));
             }
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
+
+        // shows items in the table
+        ordersTable.setItems(data);
+
+        // TODO: REAPPLY SEARCH
+        // reapplies any search if user has typed something
     }
+
+    // applies filters to the table to show/hide different data
+    public void filterTable(String keyword, String sql)
+    {
+        ObservableList<Order> filtered = FXCollections.observableArrayList();
+
+        for (Order o : data) 
+        {
+            
+        }
+        
+        ordersTable.setItems(filtered);
+    }
+
 }
