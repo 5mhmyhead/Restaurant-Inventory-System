@@ -23,6 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -210,7 +211,6 @@ public class OrdersPageController implements Initializable
             FXMLLoader loader = new FXMLLoader(getClass().getResource("filterOrders.fxml"));
             Parent root = loader.load();
 
-            
             FilterOrderController popupController = loader.getController();
             popupController.setController(this);
 
@@ -219,6 +219,10 @@ public class OrdersPageController implements Initializable
             popupStage.setResizable(false);
             popupStage.setScene(new Scene(root));
             popupStage.initOwner(parentContainer.getScene().getWindow());
+
+            Image icon = new Image(getClass().getResourceAsStream("/com/inventory/images/helloKittyIcon.png"));
+            popupStage.getIcons().add(icon);
+
             popupStage.show();
         } 
         catch (IOException e) 

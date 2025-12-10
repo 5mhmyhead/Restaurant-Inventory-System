@@ -10,7 +10,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,11 +25,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -72,9 +74,21 @@ public class MenuPageController implements Initializable
     private double dueTotal = 0.0;
     private static int customerCounter = 0;
 
+    // master list of products
+    private ObservableList<Product> data = FXCollections.observableArrayList();
+
+    // stores the last state of filter buttons
+    private boolean breakfastFilter, lunchFilter, dinnerFilter, appetizerFilter, vegetarianFilter, nonVegetarianFilter, availabilityFilter, discountFilter;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
+        // listener for search bar
+        searchBar.textProperty().addListener((observable, oldValue, newValue) ->
+        {
+            filterTable(newValue, breakfastFilter, lunchFilter, dinnerFilter, appetizerFilter, vegetarianFilter, nonVegetarianFilter, availabilityFilter, discountFilter);
+        });
+
         // gets the username of the person from the session
         welcomeMessage.setText("Welcome, " + Session.getUsername() + "!");
 
@@ -215,38 +229,37 @@ public class MenuPageController implements Initializable
     }
 
     @FXML
-private void switchToFilterMenu() {
-    try {
-        // Load the FXML file for the filter menu
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("filterMenu.fxml"));
-        Parent root = loader.load();
+    private void switchToFilterMenu() 
+    {
+        try 
+        {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("filterMenu.fxml"));
+            Parent root = loader.load();
 
-        // Get the controller from the loaded FXML
-        FilterMenuController popupController = loader.getController();
+            FilterMenuController popupController = loader.getController();
+            popupController.setController(this);
 
-        // Pass reference to the current controller (if needed)
-        popupController.setController(this);
+            Stage popupStage = new Stage();
+            popupStage.setTitle("Filter Inventory");
+            popupStage.setResizable(false);
+            popupStage.setScene(new Scene(root));
+            
+            Image icon = new Image(getClass().getResourceAsStream("/com/inventory/images/helloKittyIcon.png"));
+            popupStage.getIcons().add(icon);
 
-        // Create a new stage for the popup
-        Stage popupStage = new Stage();
-        popupStage.setTitle("Filter Inventory");
-        popupStage.setResizable(false);
-        popupStage.setScene(new Scene(root));
-
-        // Optional: make it modal (blocks interaction with main window until closed)
-        popupStage.initOwner(parentContainer.getScene().getWindow());
-        popupStage.initModality(Modality.WINDOW_MODAL);
-
-        popupStage.show();
-    } catch (IOException e) {
-        e.printStackTrace();
+            popupStage.show();
+        } 
+        catch (IOException e) 
+        {
+            e.printStackTrace();
+        }
     }
-}
-
 
     // loads product cards
     private void loadMenu()
     {
+        data.clear();
+
         menuCardContainer.getChildren().clear();
         String sql = "SELECT prod_id, prod_name, category, type, prod_price, amount_sold, amount_stock, amount_discount, status, image FROM Product";
 
@@ -270,6 +283,8 @@ private void switchToFilterMenu() {
                     rs.getString("status"),
                     imageBytes
                 );
+                
+                data.add(product);
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("menuCard.fxml"));
                 AnchorPane card = loader.load();
@@ -290,6 +305,61 @@ private void switchToFilterMenu() {
     {
         dueTotal = menuOrdersTable.getItems().stream().mapToDouble(order -> order.getPrice() * order.getQuantity()).sum();
         amountDue.setText("Amount Due: P" + String.format("%.2f", dueTotal));
+    }
+
+    // applies filters to the table to show/hide different data
+    public void filterTable(String keyword, boolean breakfast, boolean lunch, boolean dinner, boolean appetizer, boolean vegetarian, boolean nonVegetarian, boolean availability, boolean discount)
+    {
+        // clear the container first
+        menuCardContainer.getChildren().clear();
+        ObservableList<Product> filtered = FXCollections.observableArrayList();
+
+        for (Product p : data) 
+        {
+            String name = p.getProdName() != null ? p.getProdName().trim() : "";
+                
+            // filters by case-sensitive keyword on search bar
+            boolean matchesSearch =
+                (keyword == null || keyword.trim().isEmpty() || name.contains(keyword.trim()));
+                
+            // filters by category
+            boolean matchesCategory =
+                (!breakfast && !lunch && !dinner && !appetizer) ||
+                (breakfast && "Breakfast".equals(p.getProdCategory())) ||
+                (lunch && "Lunch".equals(p.getProdCategory())) ||
+                (dinner && "Dinner".equals(p.getProdCategory())) ||
+                (appetizer && "Appetizer".equals(p.getProdCategory()));
+
+            // filters by type
+            boolean matchesType =
+                (!vegetarian && !nonVegetarian) ||
+                (vegetarian && "Vegetarian".equals(p.getProdType())) ||
+                (nonVegetarian && "Non-Vegetarian".equals(p.getProdType()));
+
+            // TODO: AVAILABILITY AND DISCOUNT FILTER NOT YET IMPLEMENTED
+            if (matchesSearch && matchesCategory && matchesType) 
+            {
+                filtered.add(p);
+            }
+        }
+
+        for(Product f : filtered)
+        {
+            try
+            {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("menuCard.fxml"));
+                AnchorPane card = loader.load();
+                MenuPageCardController controller = loader.getController();
+                
+                controller.setData(f);
+                controller.setOrdersTable(menuOrdersTable);
+                menuCardContainer.getChildren().add(card);
+            }
+            catch(IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
     // TODO: WHEN PAYING AN ORDER AND PUTTING TO DATABASE, AMOUNT_SOLD DOES NOT UPDATE, WHICH AFFECTS ANALYTICS
@@ -357,8 +427,5 @@ private void switchToFilterMenu() {
         menuOrdersTable.getItems().clear();
         updateAmountDue();
         amountPay.clear();
-
-
     }
-
 }

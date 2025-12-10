@@ -312,6 +312,10 @@ public class InventoryPageController implements Initializable
             popupStage.setResizable(false);
             popupStage.setScene(new Scene(root));
             popupStage.initOwner(parentContainer.getScene().getWindow());
+            
+            Image icon = new Image(getClass().getResourceAsStream("/com/inventory/images/helloKittyIcon.png"));
+            popupStage.getIcons().add(icon);
+
             popupStage.show();
         } 
         catch (IOException e) 
