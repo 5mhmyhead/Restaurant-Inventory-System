@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 
-public class FilterInventoryController
+public class filterInventoryController
 {
     private InventoryPageController actualController;
     public void setController(InventoryPageController controller)
