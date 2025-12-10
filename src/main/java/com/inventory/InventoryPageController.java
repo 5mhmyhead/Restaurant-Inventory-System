@@ -480,7 +480,6 @@ public class InventoryPageController implements Initializable
             typeDrop.getValue().trim().isEmpty() || 
             statusDrop.getValue().trim().isEmpty()) 
         {
-            // TODO: ADD ERROR MESSAGE ON WINDOW INSTEAD FROM CONSOLE
             notifLabel.setText("Please fill in all fields before adding a product.");
             return;
         }
@@ -503,7 +502,6 @@ public class InventoryPageController implements Initializable
                 {
                     if (rs.next()) 
                     {
-                        // TODO: ADD ERROR MESSAGE FOR THIS
                         notifLabel.setText("Item with the same name already exists!");
                         return; // stop execution
                     }
@@ -544,7 +542,6 @@ public class InventoryPageController implements Initializable
                 int rowsInserted = ps.executeUpdate();
                 if (rowsInserted > 0) 
                 {
-                    // TODO: ADD THIS MESSAGE TO WINDOW
                     notifLabel.setText("Item added successfully!");
                     loadItems();
                     clearFields();
@@ -574,7 +571,6 @@ public class InventoryPageController implements Initializable
         // validation check
         if (prodIDField.getText().trim().isEmpty()) 
         {
-            // TODO: ADD ERROR MESSAGE
             notifLabel.setText("Please fill in product ID before updating a product.");
             return; // stop execution
         }
@@ -637,7 +633,6 @@ public class InventoryPageController implements Initializable
 
         if (params.isEmpty()) 
         {
-            // TODO: ADD ERROR MESSAGE FOR THIS
             notifLabel.setText("No changes provided. Update aborted.");
             return;
         }
@@ -678,7 +673,6 @@ public class InventoryPageController implements Initializable
             } 
             else 
             {
-                // TODO: ADD ERROR MESSAGE FOR THIS
                 notifLabel.setText("Item updated successfully!");
                 loadItems();
                 clearFields();
@@ -701,7 +695,6 @@ public class InventoryPageController implements Initializable
         // validation (using && because it only needs at least one of them to be filled)
         if (prodID.isEmpty() && prodName.isEmpty()) 
         {
-            // TODO: ADD ERROR MESSAGE FOR THIS
             notifLabel.setText("Please fill in id or name field before deleting a product");
             return; // stop execution
         }
@@ -717,12 +710,10 @@ public class InventoryPageController implements Initializable
                 int dataTouched = deleteStmt.executeUpdate();
                 if (dataTouched == 0) 
                 {
-                    // TODO: ADD ERROR MESSAGE FOR THIS
                     notifLabel.setText("Item not found!");
                 } 
                 else 
                 {
-                    // TODO: ADD MESSAGE FOR THIS IN WINDOW
                     notifLabel.setText("Item deleted successfully!");
                     loadItems();
                     clearFields();
