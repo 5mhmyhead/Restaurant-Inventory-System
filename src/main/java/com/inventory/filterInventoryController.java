@@ -18,6 +18,7 @@ public class FilterInventoryController
     @FXML private ToggleButton filterAppetizer;
     @FXML private ToggleButton filterNonVegetarian;
     @FXML private ToggleButton filterVegetarian;
+    
     @FXML private Button applyChangesButton;
     @FXML private Button revertChangesButton;
     @FXML private Button cancelButton;

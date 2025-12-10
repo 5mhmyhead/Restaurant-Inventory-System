@@ -13,7 +13,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="768.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inventory.FilterOrderController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="576.0" stroke="#f8e9e5" strokeType="INSIDE" strokeWidth="0.0" width="768.0" />
-      <Label alignment="TOP_LEFT" layoutX="82.0" layoutY="20.0" prefHeight="55.0" prefWidth="279.0" styleClass="poppins-bold" stylesheets="@style.css" text="Filter Orders" textFill="#253657">
+      <Label alignment="TOP_LEFT" layoutX="82.0" layoutY="20.0" prefHeight="55.0" prefWidth="279.0" styleClass="poppins-black" stylesheets="@style.css" text="Filter Orders" textFill="#253657">
          <font>
             <Font size="40.0" />
          </font>
@@ -23,7 +23,7 @@
             <Image url="@images/filter.png" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="10.0" layoutY="86.0" prefHeight="430.0" prefWidth="748.0">
+      <AnchorPane layoutX="10.0" layoutY="86.0" prefHeight="431.0" prefWidth="788.0">
          <children>
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#e76d8a" height="430.0" stroke="#e76d8a" strokeType="INSIDE" styleClass="rounded-rectangle" width="748.0" />
             <ImageView fitHeight="183.0" fitWidth="183.0" layoutX="-55.0" layoutY="204.0" pickOnBounds="true" preserveRatio="true">
@@ -41,30 +41,30 @@
                   <Image url="@images/Ellipse01.png" />
                </image>
             </ImageView>
-            <TextField fx:id="CashierUser" layoutX="39.0" layoutY="73.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="329.0" styleClass="filter-order-text-field" stylesheets="@style.css" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e76d8a" height="14.0" layoutX="57.0" layoutY="67.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="105.0" />
-            <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="54.0" layoutY="66.0" prefHeight="25.0" prefWidth="111.0" styleClass="poppins-bold" stylesheets="@style.css" text="Cashier Username" textFill="#f8e9e5">
+            <TextField fx:id="CashierUser" layoutX="39.0" layoutY="94.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="329.0" styleClass="filter-order-text-field" stylesheets="@style.css" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e76d8a" height="14.0" layoutX="57.0" layoutY="88.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="105.0" />
+            <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="54.0" layoutY="87.0" prefHeight="25.0" prefWidth="111.0" styleClass="poppins-bold" stylesheets="@style.css" text="Cashier Username" textFill="#f8e9e5">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <TextField fx:id="enterProd" layoutX="380.0" layoutY="73.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="329.0" styleClass="filter-order-text-field" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e76d8a" height="14.0" layoutX="398.0" layoutY="67.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="105.0" />
-            <Label alignment="TOP_CENTER" layoutX="395.0" layoutY="66.0" prefHeight="25.0" prefWidth="111.0" styleClass="poppins-bold" stylesheets="@style.css" text="Enter Product ID" textFill="#f8e9e5">
+            <TextField fx:id="enterProd" layoutX="380.0" layoutY="94.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="329.0" styleClass="filter-order-text-field" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e76d8a" height="14.0" layoutX="398.0" layoutY="88.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="91.0" />
+            <Label alignment="TOP_CENTER" layoutX="388.0" layoutY="87.0" prefHeight="25.0" prefWidth="111.0" styleClass="poppins-bold" stylesheets="@style.css" text="Enter Product ID" textFill="#f8e9e5">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <TextField fx:id="startDate" layoutX="39.0" layoutY="176.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="329.0" styleClass="filter-order-text-field" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e76d8a" height="14.0" layoutX="57.0" layoutY="170.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="58.0" />
-            <Label alignment="TOP_CENTER" layoutX="54.0" layoutY="169.0" prefHeight="25.0" prefWidth="65.0" styleClass="poppins-bold" stylesheets="@style.css" text="Start Date" textFill="#f8e9e5">
+            <TextField fx:id="startDate" layoutX="39.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="310.0" styleClass="filter-order-text-field" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e76d8a" height="14.0" layoutX="57.0" layoutY="191.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="63.0" />
+            <Label alignment="TOP_CENTER" layoutX="55.0" layoutY="190.0" prefHeight="25.0" prefWidth="65.0" styleClass="poppins-bold" stylesheets="@style.css" text="Start Date" textFill="#f8e9e5">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <TextField fx:id="endDate" layoutX="39.0" layoutY="241.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="329.0" styleClass="filter-order-text-field" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e76d8a" height="14.0" layoutX="57.0" layoutY="235.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="58.0" />
-            <Label alignment="TOP_CENTER" layoutX="54.0" layoutY="234.0" prefHeight="25.0" prefWidth="65.0" styleClass="poppins-bold" stylesheets="@style.css" text="End Date" textFill="#f8e9e5">
+            <TextField fx:id="endDate" layoutX="400.0" layoutY="197.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="310.0" styleClass="filter-order-text-field" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e76d8a" height="14.0" layoutX="415.0" layoutY="192.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="58.0" />
+            <Label alignment="TOP_CENTER" layoutX="412.0" layoutY="190.0" prefHeight="25.0" prefWidth="65.0" styleClass="poppins-bold" stylesheets="@style.css" text="End Date" textFill="#f8e9e5">
                <font>
                   <Font size="10.0" />
                </font>
@@ -81,30 +81,30 @@
                   <String fx:value="text-center" />
                </styleClass>
             </Label>
+            <Label alignment="TOP_CENTER" layoutX="352.0" layoutY="200.0" prefHeight="43.0" prefWidth="44.0" styleClass="poppins-bold" stylesheets="@style.css" text="to" textFill="#f8e9e5">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
-      <Label alignment="TOP_CENTER" layoutX="24.0" layoutY="113.0" prefHeight="43.0" prefWidth="214.0" styleClass="poppins-bold" stylesheets="@style.css" text="Filter By Cashier" textAlignment="CENTER" textFill="#f8e9e5">
+      <Label alignment="TOP_CENTER" layoutX="36.0" layoutY="133.0" prefHeight="43.0" prefWidth="214.0" styleClass="poppins-bold" stylesheets="@style.css" text="Filter By Cashier" textAlignment="CENTER" textFill="#f8e9e5">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="16.0" layoutY="216.0" prefHeight="43.0" prefWidth="204.0" styleClass="poppins-bold" stylesheets="@style.css" text="Filter by Date" textFill="#f8e9e5">
+      <Label alignment="CENTER" layoutX="23.0" layoutY="234.0" prefHeight="43.0" prefWidth="204.0" styleClass="poppins-bold" stylesheets="@style.css" text="Filter by Date" textFill="#f8e9e5">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <Label alignment="TOP_CENTER" layoutX="369.0" layoutY="113.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="43.0" prefWidth="214.0" styleClass="poppins-bold" stylesheets="@style.css" text="Filter By Product" textFill="#f8e9e5">
+      <Label alignment="TOP_CENTER" layoutX="382.0" layoutY="133.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="43.0" prefWidth="214.0" styleClass="poppins-bold" stylesheets="@style.css" text="Filter By Product" textFill="#f8e9e5">
          <font>
             <Font size="22.0" />
-         </font>
-      </Label>
-      <Label alignment="TOP_CENTER" layoutX="35.0" layoutY="298.0" prefHeight="43.0" prefWidth="44.0" styleClass="poppins-bold" stylesheets="@style.css" text="to" textFill="#f8e9e5">
-         <font>
-            <Font size="16.0" />
          </font>
       </Label>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="42.0" layoutX="460.0" layoutY="44.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="293.0" />
-      <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="26.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="27.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/filterBlue.png" />
          </image>

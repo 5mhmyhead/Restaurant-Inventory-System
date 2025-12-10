@@ -671,6 +671,29 @@
   background-color: #e76d8a;
   -fx-background-color: #e76d8a;
 
+  -fx-text-fill: #f8e9e5;
+
+  border-width: 2px;
+  -fx-border-width: 2px;
+
+  border-style: solid solid solid solid;
+  -fx-border-style: solid solid solid solid;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+
+  border-color: #f8e9e5;
+  -fx-border-color: #f8e9e5;
+}
+
+.filter-order-text-field:focused {
+  background-color: #e76d8a;
+  -fx-background-color: #e76d8a;
+
+  -fx-text-fill: #f8e9e5;
+
   border-width: 2px;
   -fx-border-width: 2px;
 
