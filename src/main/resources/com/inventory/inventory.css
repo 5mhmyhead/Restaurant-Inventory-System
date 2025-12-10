@@ -77,4 +77,36 @@
   -fx-background-radius: 10px;
 }
 
+.combo-box {
+  font-family: "Poppins Black", sans-serif;
+  -fx-font-family: "Poppins Black", sans-serif;
 
+  background-color: #f8e9e5;
+  -fx-background-color: #f8e9e5;
+
+  -fx-text-fill: #693C5B; 
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+}
+
+.combo-box .list-cell {
+  -fx-text-fill: #693C5B; 
+}
+
+.combo-box .list-view .list-cell {
+  -fx-text-fill: #693C5B; 
+
+  background-color: #f8e9e5;
+  -fx-background-color: #f8e9e5;
+}
+
+/* combo-box hover text */
+.combo-box .list-view .list-cell:hover {
+  background-color : #693C5B;
+  -fx-background-color : #693C5B;
+  
+  -fx-text-fill: #f8e9e5;
+}

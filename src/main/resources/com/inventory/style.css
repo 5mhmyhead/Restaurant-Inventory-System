@@ -404,6 +404,54 @@
   -fx-background-radius: 10px;
 }
 
+.button-purple-white-border {
+  font-family: "Poppins", sans-serif;
+  -fx-font-family: "Poppins", sans-serif;
+  
+  font-weight: 900;
+  -fx-font-weight: 900;
+  
+  font-style: normal;
+  -fx-font-style: normal;
+
+  -fx-text-fill: #f8e9e5;
+
+  background-color: #693C5B;
+  -fx-background-color: #693C5B;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-color: #f8e9e5;
+  -fx-border-color: #f8e9e5;
+}
+
+.button-purple-white-border:hover {
+  outline: none;
+  -fx-outline: none;
+
+  cursor: hand;
+  -fx-cursor: hand;
+
+  -fx-text-fill: #693C5B;
+
+  background-color: #f8e9e5;
+  -fx-background-color: #f8e9e5;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+}
+
 .button-login {
   font-family: "Poppins Black", sans-serif;
   -fx-font-family: "Poppins Black", sans-serif;
@@ -598,7 +646,7 @@
   -fx-background-radius: 10px;
 }
 
-.payment-field {
+.search-field:focused {
   -fx-text-fill: #253657;
 
   background-color: #f8e9e5;
@@ -607,18 +655,17 @@
   border-width: 1px;
   -fx-border-width: 1px;
 
-  border-style: solid solid solid solid;
-  -fx-border-style: solid solid solid solid;
+  border-style: solid solid solid none;
+  -fx-border-style: solid solid solid none;
 
   border-color: #F5A1A1;
   -fx-border-color: #F5A1A1;
 
-  border-radius: 10px 10px 10px 10px;
-  -fx-border-radius: 10px 10px 10px 10px;
+  border-radius: 0 10px 10px 0;
+  -fx-border-radius: 0 10px 10px 0;
 
   -fx-background-radius: 10px;
 }
-
 
 .filter-order-text-field {
   background-color: #e76d8a;
@@ -642,6 +689,50 @@
 .text-field-purple {
   background-color: #693C5B;
   -fx-background-color: #693C5B;
+
+  -fx-text-fill: #f8e9e5;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+
+  border-color: #f8e9e5;
+  -fx-border-color: #f8e9e5;
+}
+
+.text-field-purple:hover {
+  background-color: #693C5B;
+  -fx-background-color: #693C5B;
+
+  -fx-text-fill: #f8e9e5;
+
+  border-width: 1px;
+  -fx-border-width: 1px;
+
+  border-style: solid;
+  -fx-border-style: solid;
+
+  border-radius: 10px;
+  -fx-border-radius: 10px;
+
+  -fx-background-radius: 10px;
+
+  border-color: #f8e9e5;
+  -fx-border-color: #f8e9e5;
+}
+
+.text-field-purple:focused {
+  background-color: #693C5B;
+  -fx-background-color: #693C5B;
+
+  -fx-text-fill: #f8e9e5;
 
   border-width: 1px;
   -fx-border-width: 1px;
@@ -707,7 +798,7 @@
   -fx-underline: true;
 }
 
-.toggle-filter-button{
+.toggle-filter-button {
   font-family: "Poppins Black", sans-serif;
   -fx-font-family: "Poppins Black", sans-serif;
     
@@ -737,14 +828,14 @@
   -fx-border-color: #f8e9e5;
 }
 
-.toggle-filter-button:hover{
+.toggle-filter-button:hover {
   outline: none;
   -fx-outline: none;
 
   cursor: hand;
   -fx-cursor: hand;
 
-  -fx-text-fill: #253657;
+  -fx-text-fill: #F5A1A1;
 
   background-color: #f2e0e8;
   -fx-background-color: #f2e0e8;

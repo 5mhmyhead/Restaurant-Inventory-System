@@ -12,59 +12,43 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inventory.FilterInventoryController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="576.0" stroke="WHITE" strokeType="INSIDE" width="768.0" />
-      <Label layoutX="82.0" layoutY="20.0" styleClass="poppins-bold" stylesheets="@style.css" text="FIlter Inventory" textFill="#253657">
+      <Label layoutX="82.0" layoutY="20.0" styleClass="poppins-black" stylesheets="@style.css" text="FIlter Inventory" textFill="#253657">
          <font>
             <Font size="40.0" />
          </font>
       </Label>
-      <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="27.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="27.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/filterBlue.png" />
          </image>
       </ImageView>
       <AnchorPane layoutX="10.0" layoutY="88.0" prefHeight="430.0" prefWidth="748.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e76d8a" height="430.0" layoutX="-1.0" layoutY="-1.0" stroke="WHITE" strokeType="INSIDE" width="748.0" />
-            <Label alignment="TOP_CENTER" layoutX="16.0" layoutY="19.0" prefHeight="43.0" prefWidth="214.0" styleClass="poppins-bold" stylesheets="@style.css" text="Filter by Meal Type" textFill="#f8e9e5">
+            <ImageView fitHeight="471.0" fitWidth="747.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/filterInventory.png" />
+               </image>
+            </ImageView>
+            <Label alignment="TOP_CENTER" layoutX="16.0" layoutY="20.0" prefHeight="43.0" prefWidth="214.0" styleClass="poppins-bold" stylesheets="@style.css" text="Filter by Meal Type" textFill="#f8e9e5">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
-            <ImageView fitHeight="327.0" fitWidth="216.0" layoutX="378.0" layoutY="-66.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
-               <image>
-                  <Image url="@../../../../../../../../Downloads/Ellipse%2027.png" />
-               </image>
-            </ImageView>
-            <Label alignment="TOP_CENTER" layoutX="15.0" layoutY="136.0" prefHeight="43.0" prefWidth="214.0" styleClass="poppins-bold" stylesheets="@style.css" text="Filter by Meal Type" textFill="#f8e9e5">
+            <Label alignment="TOP_CENTER" layoutX="15.0" layoutY="136.0" prefHeight="43.0" prefWidth="214.0" styleClass="poppins-bold" stylesheets="@style.css" text="Filter by Category" textFill="#f8e9e5">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
-            <ImageView fitHeight="172.0" fitWidth="110.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../../../Downloads/Ellipse%2027.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="158.0" fitWidth="169.0" layoutX="590.0" layoutY="206.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
-               <image>
-                  <Image url="@../../../../../../../../Downloads/Ellipse%2026.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="applyChangesButton" layoutX="121.0" layoutY="350.0" mnemonicParsing="false" onAction="#applyFilters" prefWidth="175.0" styleClass="button-pink" stylesheets="@style.css" text="Apply Filters" />
-            <Button fx:id="revertChangesButton" layoutX="300.0" layoutY="350.0" mnemonicParsing="false" onAction="#clearFilters" prefWidth="175.0" styleClass="button-pink" stylesheets="@style.css" text="Revert Changes" />
-            <Button fx:id="cancelButton" layoutX="479.0" layoutY="350.0" mnemonicParsing="false" onAction="#closePopup" prefWidth="175.0" styleClass="button-pink" stylesheets="@style.css" text="Cancel" />
-            <ToggleButton fx:id="filterBreakfast" layoutX="30.0" layoutY="68.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="170.0" styleClass="toggle-filter-button" stylesheets="@style.css" text="Breakfast" />
-            <ToggleButton fx:id="filterLunch" layoutX="209.0" layoutY="68.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="170.0" styleClass="toggle-filter-button" stylesheets="@style.css" text="Lunch" />
-            <ToggleButton fx:id="filterDinner" layoutX="384.0" layoutY="69.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="170.0" styleClass="toggle-filter-button" stylesheets="@style.css" text="Dinner" />
-            <ToggleButton fx:id="filterAppetizer" layoutX="561.0" layoutY="69.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="170.0" styleClass="toggle-filter-button" stylesheets="@style.css" text="Appetizer" />
-            <ToggleButton fx:id="filterVegetarian" layoutX="27.0" layoutY="180.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="170.0" styleClass="toggle-filter-button" stylesheets="@style.css" text="Vegetarian" />
-            <ToggleButton fx:id="filterNonVegetarian" layoutX="207.0" layoutY="181.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="170.0" styleClass="toggle-filter-button" stylesheets="@style.css" text="Non-Vegetarian" />
+            <Button fx:id="applyChangesButton" layoutX="100.0" layoutY="346.0" mnemonicParsing="false" onAction="#applyFilters" prefWidth="175.0" styleClass="button-pink" stylesheets="@style.css" text="Apply Filters" />
+            <Button fx:id="revertChangesButton" layoutX="285.0" layoutY="346.0" mnemonicParsing="false" onAction="#clearFilters" prefWidth="175.0" styleClass="button-pink" stylesheets="@style.css" text="Revert Changes" />
+            <Button fx:id="cancelButton" layoutX="470.0" layoutY="346.0" mnemonicParsing="false" onAction="#closePopup" prefWidth="175.0" styleClass="button-pink" stylesheets="@style.css" text="Cancel" />
+            <ToggleButton fx:id="filterBreakfast" layoutX="23.0" layoutY="65.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="170.0" styleClass="toggle-filter-button" stylesheets="@style.css" text="Breakfast" />
+            <ToggleButton fx:id="filterLunch" layoutX="199.0" layoutY="65.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="170.0" styleClass="toggle-filter-button" stylesheets="@style.css" text="Lunch" />
+            <ToggleButton fx:id="filterDinner" layoutX="375.0" layoutY="65.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="170.0" styleClass="toggle-filter-button" stylesheets="@style.css" text="Dinner" />
+            <ToggleButton fx:id="filterAppetizer" layoutX="551.0" layoutY="65.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="170.0" styleClass="toggle-filter-button" stylesheets="@style.css" text="Appetizer" />
+            <ToggleButton fx:id="filterVegetarian" layoutX="23.0" layoutY="181.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="170.0" styleClass="toggle-filter-button" stylesheets="@style.css" text="Vegetarian" />
+            <ToggleButton fx:id="filterNonVegetarian" layoutX="199.0" layoutY="181.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="170.0" styleClass="toggle-filter-button" stylesheets="@style.css" text="Non-Vegetarian" />
          </children>
       </AnchorPane>
-      <ImageView fitHeight="430.0" fitWidth="748.0" layoutX="11.0" layoutY="478.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../../../../Downloads/Side%20Bar.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>

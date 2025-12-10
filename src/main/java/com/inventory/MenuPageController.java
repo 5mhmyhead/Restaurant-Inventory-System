@@ -315,7 +315,8 @@ private void switchToFilterMenu() {
         // updates stock for each ordered item in the database
         for (MenuOrder order : menuOrdersTable.getItems()) 
         {
-            try (Connection conn = SQLite_Connection.connect(); PreparedStatement pstmt = conn.prepareStatement("UPDATE Product SET amount_stock = amount_stock - ? WHERE prod_name = ?")) 
+            try (Connection conn = SQLite_Connection.connect(); 
+            PreparedStatement pstmt = conn.prepareStatement("UPDATE Product SET amount_stock = amount_stock - ? WHERE prod_name = ?")) 
             {
                 pstmt.setInt(1, order.getQuantity());
                 pstmt.setString(2, order.getProdName());
@@ -327,7 +328,8 @@ private void switchToFilterMenu() {
             }
 
             // insert into Orders
-            try (Connection conn = SQLite_Connection.connect(); PreparedStatement pstmtOrder = conn.prepareStatement("INSERT INTO Orders (user_id, prod_id, customer_id, total_amount, order_quantity, order_status, order_date) " + "VALUES (?, ?, ?, ?, ?, ?, ?)")) 
+            try (Connection conn = SQLite_Connection.connect(); 
+            PreparedStatement pstmtOrder = conn.prepareStatement("INSERT INTO Orders (user_id, prod_id, customer_id, total_amount, order_quantity, order_status, order_date) " + "VALUES (?, ?, ?, ?, ?, ?, ?)")) 
             {
                 pstmtOrder.setInt(1, Session.getUserId());
                 pstmtOrder.setInt(2, order.getMealId());
@@ -342,6 +344,9 @@ private void switchToFilterMenu() {
             {
                 e.printStackTrace();
             }
+
+            // update the amount_sold from products table
+            
         }
 
         double change = payment - dueTotal;

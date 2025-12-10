@@ -48,6 +48,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 // TODO: ADD FUNCTIONALITY TO MAKE AVAILABLE FOOD UNAVAILABLE ONCE STOCK REACHES 0
+// TODO: ADD FUNCTIONALITY OF DISCOUNT FIELD
 public class InventoryPageController implements Initializable
 {
     @FXML private AnchorPane parentContainer;
@@ -81,6 +82,7 @@ public class InventoryPageController implements Initializable
     @FXML TextField prodNameField;
     @FXML TextField prodStockField;
     @FXML TextField prodPriceField;
+    @FXML TextField prodDiscountField;
 
     @FXML ComboBox<String> categoryDrop;
     @FXML ComboBox<String> typeDrop;
