@@ -336,8 +336,17 @@ public class MenuPageController implements Initializable
                 (vegetarian && "Vegetarian".equals(p.getProdType())) ||
                 (nonVegetarian && "Non-Vegetarian".equals(p.getProdType()));
 
-            // TODO: AVAILABILITY AND DISCOUNT FILTER NOT YET IMPLEMENTED
-            if (matchesSearch && matchesCategory && matchesType) 
+            // filters by availability
+            boolean matchesAvailability =
+                (!availability) ||
+                (availability && "Available".equals(p.getProdStatus()));
+
+            // filters by discount
+            boolean matchesDiscount =
+                (!discount) ||
+                (discount && p.getProdAmountDiscount() != 0);
+
+            if (matchesSearch && matchesCategory && matchesType && matchesAvailability && matchesDiscount) 
             {
                 filtered.add(p);
             }
