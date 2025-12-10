@@ -1,6 +1,5 @@
 package com.inventory;
 
-import java.awt.Container;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -15,7 +14,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
