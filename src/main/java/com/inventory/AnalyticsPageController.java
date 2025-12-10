@@ -29,6 +29,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+// TODO: MAKE ANALYTICS BUTTON DISABLED WHEN USER TYPE IS WORKER FROM SESSION CLASS
 public class AnalyticsPageController implements Initializable
 {
     @FXML private AnchorPane parentContainer;

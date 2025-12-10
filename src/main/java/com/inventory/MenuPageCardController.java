@@ -1,9 +1,6 @@
 package com.inventory;
 
 import java.io.ByteArrayInputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
@@ -46,7 +43,7 @@ public class MenuPageCardController
             prodImage.setImage(image);
         }
 
-        maxStock = product.getAmountStock();
+        maxStock = product.getProdAmountStock();
         quantityLabel.setText(String.valueOf(quantity));
         upButton.setOnAction(e -> incrementQuantity());
         downButton.setOnAction(e -> decrementQuantity());
@@ -55,7 +52,7 @@ public class MenuPageCardController
 
     private void changeStyle ()
     {
-        //if available
+        // if available
         if (maxStock > 0)
         {
             prodName.getStyleClass().removeAll("menu-card-label-unavailable");
@@ -73,7 +70,7 @@ public class MenuPageCardController
             rectangleImageFrame.getStyleClass().add("menu-card-border-available");
             buttonSeparator.setStroke(javafx.scene.paint.Color.web("#EF8FA4"));
         }
-        //if out of stock
+        // if out of stock
         else
         {
             prodName.getStyleClass().removeAll("menu-card-label-available");
@@ -116,13 +113,13 @@ public class MenuPageCardController
     {
         if (quantity > 0)
         {
-            int newStock = product.getAmountStock() - quantity;
-            product.setAmountStock(newStock);
+            int newStock = product.getProdAmountStock() - quantity;
+            product.setProdAmountStock(newStock);
             maxStock = newStock;
 
             if (menuOrdersTable != null)
             {
-                MenuOrder order = new MenuOrder(product.getProdId(), product.getProdPrice(), product.getProdName(), quantity);
+                MenuOrder order = new MenuOrder(product.getProdID(), product.getProdPrice(), product.getProdName(), quantity);
                 menuOrdersTable.getItems().add(order);
             }
 

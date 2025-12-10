@@ -97,6 +97,7 @@ public class LoginPageController implements Initializable
             try (Connection conn = SQLite_Connection.connect();
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Account WHERE username = ? AND password = ?")) 
             {
+                // TODO: ALSO SET USER TYPE TO SESSION CLASS
                 stmt.setString(1, user);
                 stmt.setString(2, pass);
 

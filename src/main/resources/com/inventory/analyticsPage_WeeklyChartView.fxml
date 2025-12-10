@@ -200,17 +200,17 @@
             <Font size="50.0" />
          </font>
       </Label>
-      <Label fx:id="topSellingProduct" alignment="CENTER" layoutX="941.0" layoutY="452.0" prefHeight="71.0" prefWidth="329.0" styleClass="poppins-bold" text="label" textAlignment="CENTER" textFill="#f8e9e5">
+      <Label fx:id="topSellingProduct" alignment="CENTER" layoutX="941.0" layoutY="448.0" prefHeight="71.0" prefWidth="329.0" styleClass="poppins-bold" text="nothing yet..." textAlignment="CENTER" textFill="#f8e9e5">
          <font>
             <Font size="35.0" />
          </font>
       </Label>
-      <Label fx:id="lowestSales" alignment="CENTER" layoutX="941.0" layoutY="618.0" prefHeight="71.0" prefWidth="329.0" styleClass="poppins-bold" text="label" textAlignment="CENTER" textFill="#253657">
+      <Label fx:id="lowestSales" alignment="CENTER" layoutX="941.0" layoutY="614.0" prefHeight="71.0" prefWidth="329.0" styleClass="poppins-bold" text="nothing yet..." textAlignment="CENTER" textFill="#253657">
          <font>
             <Font size="35.0" />
          </font>
       </Label>
-      <Label fx:id="topSellingLabel" alignment="CENTER" layoutX="941.0" layoutY="501.0" prefHeight="32.0" prefWidth="329.0" styleClass="poppins-bold" text="label" textAlignment="CENTER" textFill="#b496a2" />
-      <Label fx:id="lowestSalesLabel" alignment="CENTER" layoutX="941.0" layoutY="667.0" prefHeight="32.0" prefWidth="329.0" styleClass="poppins-bold" text="label" textAlignment="CENTER" textFill="#8d6c7c" />
+      <Label fx:id="topSellingLabel" alignment="CENTER" layoutX="941.0" layoutY="501.0" prefHeight="32.0" prefWidth="329.0" styleClass="poppins-bold" text="make some orders first!" textAlignment="CENTER" textFill="#b496a2" />
+      <Label fx:id="lowestSalesLabel" alignment="CENTER" layoutX="941.0" layoutY="667.0" prefHeight="32.0" prefWidth="329.0" styleClass="poppins-bold" text="make some orders first!" textAlignment="CENTER" textFill="#8d6c7c" />
    </children>
 </AnchorPane>

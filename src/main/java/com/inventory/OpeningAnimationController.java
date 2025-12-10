@@ -59,14 +59,8 @@ public class OpeningAnimationController implements Initializable
         transitionCircle.play();
 
         transitionPane.setOnFinished(event -> {
-            try 
-            {
-                switchToLoginPage();
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+            try { switchToLoginPage(); }
+            catch (IOException e) { e.printStackTrace(); }
         });
     }
 

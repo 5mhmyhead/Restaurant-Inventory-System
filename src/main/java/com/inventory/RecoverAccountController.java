@@ -74,7 +74,7 @@ public class RecoverAccountController implements Initializable
             return;
         }
 
-       //check if the email exists
+        // check if the email exists
         try (Connection conn = SQLite_Connection.connect();
         PreparedStatement stmt = conn.prepareStatement("SELECT 1 FROM Account WHERE email = ?")) 
         {

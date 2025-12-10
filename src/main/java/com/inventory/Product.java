@@ -9,64 +9,69 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Product 
 {
-    private final IntegerProperty prodId = new SimpleIntegerProperty();
+    private final IntegerProperty prodID = new SimpleIntegerProperty();
     private final StringProperty prodName = new SimpleStringProperty();
     private final StringProperty prodCategory = new SimpleStringProperty();
     private final StringProperty prodType = new SimpleStringProperty();
-    private final IntegerProperty amountStock = new SimpleIntegerProperty();
     private final DoubleProperty prodPrice = new SimpleDoubleProperty();
-    private final IntegerProperty amountDiscount = new SimpleIntegerProperty();
+    private final DoubleProperty prodAmountSold = new SimpleDoubleProperty();
+    private final IntegerProperty prodAmountStock = new SimpleIntegerProperty();
+    private final IntegerProperty prodAmountDiscount = new SimpleIntegerProperty();
     private final StringProperty prodStatus = new SimpleStringProperty();
     private final byte[] prodImage;
 
     // constructor with image
-    public Product(int id, String name, String category, String type, double prod_price, int sold, int stock, int discount, String status, byte[] image)
+    public Product(int ID, String name, String category, String type, double price, int amountSold, int amountStock, int amountDiscount, String status, byte[] image)
     {
-        this.prodId.set(id);
+        this.prodID.set(ID);
         this.prodName.set(name);
         this.prodCategory.set(category);
         this.prodType.set(type);
-        this.prodPrice.set(prod_price);
-        this.amountStock.set(stock);
-        this.amountDiscount.set(discount);
+        this.prodPrice.set(price);
+        this.prodAmountSold.set(amountSold);
+        this.prodAmountStock.set(amountStock);
+        this.prodAmountDiscount.set(amountDiscount);
         this.prodStatus.set(status);
         this.prodImage = image;
     }
 
     // constructor without image
-    public Product(int id, String name, String category, String type, double prod_price, int sold, int stock, int discount, String status)
+    public Product(int ID, String name, String category, String type, double price, int amountSold, int amountStock, int amountDiscount, String status)
     {
-        this(id, name, category, type, prod_price, sold, stock, discount, status, null);
+        this(ID, name, category, type, price, amountSold, amountStock, amountDiscount, status, null);
     }
 
     // property methods for the table
-    public IntegerProperty prodIdProperty() { return prodId; }
+    public IntegerProperty prodIDProperty() { return prodID; }
     public StringProperty prodNameProperty() { return prodName; }
     public StringProperty prodCategoryProperty() { return prodCategory; }
     public StringProperty prodTypeProperty() { return prodType; }
-    public IntegerProperty amountStockProperty() { return amountStock; }
     public DoubleProperty prodPriceProperty() { return prodPrice; }
-    public IntegerProperty amountDiscountProperty() { return amountDiscount; }
+    public DoubleProperty prodAmountSoldProperty() { return prodAmountSold; }
+    public IntegerProperty prodAmountStockProperty() { return prodAmountStock; }
+    public IntegerProperty prodAmountDiscountProperty() { return prodAmountDiscount; }
     public StringProperty prodStatusProperty() { return prodStatus; }
 
     // getter methods
-    public int getProdId() { return prodId.get(); }
+    public int getProdID() { return prodID.get(); }
     public String getProdName() { return prodName.get(); }
     public String getProdCategory() { return prodCategory.get(); }
     public String getProdType() { return prodType.get(); }
-    public int getAmountStock() { return amountStock.get(); }
     public double getProdPrice() { return prodPrice.get(); }
-    public int getAmountDiscount() { return amountDiscount.get(); }
+    public double getProdAmountSold() { return prodAmountSold.get(); }
+    public int getProdAmountStock() { return prodAmountStock.get(); }
+    public int getProdAmountDiscount() { return prodAmountDiscount.get(); }
     public String getProdStatus() { return prodStatus.get(); }
     public byte[] getProdImage() { return prodImage; }
 
     // setter methods
-    public void setProdId(int id) { this.prodId.set(id); }
+    public void setProdID(int ID) { this.prodID.set(ID); }
     public void setProdName(String name) { this.prodName.set(name); }
     public void setProdCategory(String category) { this.prodCategory.set(category); }
     public void setProdType(String type) { this.prodType.set(type); }
-    public void setAmountStock(int stock) { this.amountStock.set(stock); }
-    public void setProdPrice(double prod_price) { this.prodPrice.set(prod_price); }
-    public void setAmountDiscount(int discount) { this.amountDiscount.set(discount); }
+    public void setProdPrice(double price) { this.prodPrice.set(price); }
+    public void setProdAmountSold(double amountSold) { this.prodAmountSold.set(amountSold); }
+    public void setProdAmountStock(int amountStock) { this.prodAmountStock.set(amountStock); }
+    public void setProdAmountDiscount(int amountDiscount) { this.prodAmountDiscount.set(amountDiscount); }
     public void setProdStatus(String status) { this.prodStatus.set(status); }
 }

@@ -4,7 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class SQLite_Connection {
+public class SQLite_Connection 
+{
     private static final String url = "jdbc:sqlite:src/main/database/Restaurant.db";
 
     public static Connection connect() throws SQLException 

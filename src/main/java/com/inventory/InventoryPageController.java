@@ -68,12 +68,12 @@ public class InventoryPageController implements Initializable
     @FXML private TableView<Product> inventoryTable;
     @FXML private TableColumn<Product, Number> inventoryProductID;
     @FXML private TableColumn<Product, String> inventoryProductName;
-    @FXML private TableColumn<Product, String> inventoryCategory;
-    @FXML private TableColumn<Product, String> inventoryType;
-    @FXML private TableColumn<Product, Number> inventoryStock;
-    @FXML private TableColumn<Product, Number> inventoryPrice;
-    @FXML private TableColumn<Product, Number> inventoryDiscount;
-    @FXML private TableColumn<Product, String> inventoryStatus;
+    @FXML private TableColumn<Product, String> inventoryProductCategory;
+    @FXML private TableColumn<Product, String> inventoryProductType;
+    @FXML private TableColumn<Product, Number> inventoryProductStock;
+    @FXML private TableColumn<Product, Number> inventoryProductPrice;
+    @FXML private TableColumn<Product, Number> inventoryProductDiscount;
+    @FXML private TableColumn<Product, String> inventoryProductStatus;
 
     @FXML TextField searchBar;
     @FXML TextField prodIDField;
@@ -84,6 +84,7 @@ public class InventoryPageController implements Initializable
     @FXML ComboBox<String> categoryDrop;
     @FXML ComboBox<String> typeDrop;
     @FXML ComboBox<String> statusDrop;
+
     @FXML Button signOutButton;
     @FXML Button filterButton;
     @FXML Button importImageButton;
@@ -116,11 +117,8 @@ public class InventoryPageController implements Initializable
             protected void updateItem(String item, boolean empty) 
             {
                 super.updateItem(item, empty);
-                if (empty || item == null) 
-                setText("Select Category");
-
-                else 
-                setText(item);
+                if (empty || item == null) setText("Select Category");
+                else setText(item);
             }
         });
 
@@ -129,12 +127,8 @@ public class InventoryPageController implements Initializable
             protected void updateItem(String item, boolean empty) 
             {
                 super.updateItem(item, empty);
-                if (empty || item == null) 
-                setText("Select Type");
-
-                else 
-                setText(item);
-                
+                if (empty || item == null) setText("Select Type");
+                else setText(item);
             }
         });
 
@@ -144,23 +138,20 @@ public class InventoryPageController implements Initializable
             protected void updateItem(String item, boolean empty) 
             {
                 super.updateItem(item, empty);
-                if (empty || item == null) 
-                setText("Set Status");
-                
-                else 
-                setText(item);
+                if (empty || item == null) setText("Set Status");
+                else setText(item);
             }
         });
         
         // bind columns to Product properties
-        inventoryProductID.setCellValueFactory(cellData -> cellData.getValue().prodIdProperty());
+        inventoryProductID.setCellValueFactory(cellData -> cellData.getValue().prodIDProperty());
         inventoryProductName.setCellValueFactory(cellData -> cellData.getValue().prodNameProperty());
-        inventoryCategory.setCellValueFactory(cellData -> cellData.getValue().prodCategoryProperty());
-        inventoryType.setCellValueFactory(cellData -> cellData.getValue().prodTypeProperty());
-        inventoryStock.setCellValueFactory(cellData -> cellData.getValue().amountStockProperty());
-        inventoryPrice.setCellValueFactory(cellData -> cellData.getValue().prodPriceProperty());
-        inventoryDiscount.setCellValueFactory(cellData -> cellData.getValue().amountDiscountProperty());
-        inventoryStatus.setCellValueFactory(cellData -> cellData.getValue().prodStatusProperty());
+        inventoryProductCategory.setCellValueFactory(cellData -> cellData.getValue().prodCategoryProperty());
+        inventoryProductType.setCellValueFactory(cellData -> cellData.getValue().prodTypeProperty());
+        inventoryProductStock.setCellValueFactory(cellData -> cellData.getValue().prodAmountStockProperty());
+        inventoryProductPrice.setCellValueFactory(cellData -> cellData.getValue().prodPriceProperty());
+        inventoryProductDiscount.setCellValueFactory(cellData -> cellData.getValue().prodAmountDiscountProperty());
+        inventoryProductStatus.setCellValueFactory(cellData -> cellData.getValue().prodStatusProperty());
 
         // listener for search bar
         searchBar.textProperty().addListener((observable, oldValue, newValue) ->
@@ -335,7 +326,7 @@ public class InventoryPageController implements Initializable
     public void loadItems() 
     {
         data.clear();
-        String sql = "SELECT prod_id, meal_name, category, type, prod_price, amount_sold, amount_stock, amount_discount, status FROM Product";
+        String sql = "SELECT prod_id, prod_name, category, type, prod_price, amount_sold, amount_stock, amount_discount, status FROM Product";
 
         try (Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(sql)) 
@@ -344,7 +335,7 @@ public class InventoryPageController implements Initializable
             {
                 data.add(new Product(
                     rs.getInt("prod_id"),
-                    rs.getString("meal_name"),
+                    rs.getString("prod_name"),
                     rs.getString("category"),
                     rs.getString("type"),
                     rs.getDouble("prod_price"),
@@ -414,9 +405,11 @@ public class InventoryPageController implements Initializable
         prodNameField.clear();
         prodPriceField.clear();
         prodStockField.clear();
+
         categoryDrop.setValue(null);
         typeDrop.setValue(null);
         statusDrop.setValue(null);
+
         selectedImage = null;
         importImageDrop.setImage(null);
     }
@@ -471,8 +464,14 @@ public class InventoryPageController implements Initializable
     @FXML
     private void addItem() {
         // validation check
-        if (prodNameField.getText().trim().isEmpty() || prodPriceField.getText().trim().isEmpty() || prodStockField.getText().trim().isEmpty() || categoryDrop.getValue().trim().isEmpty() || typeDrop.getValue().trim().isEmpty() || statusDrop.getValue().trim().isEmpty()) 
+        if (prodNameField.getText().trim().isEmpty() || 
+            prodPriceField.getText().trim().isEmpty() || 
+            prodStockField.getText().trim().isEmpty() || 
+            categoryDrop.getValue().trim().isEmpty() || 
+            typeDrop.getValue().trim().isEmpty() || 
+            statusDrop.getValue().trim().isEmpty()) 
         {
+            // TODO: ADD ERROR MESSAGE ON WINDOW INSTEAD FROM CONSOLE
             System.out.println("Please fill in all fields before adding a product.");
             return;
         }
@@ -488,13 +487,14 @@ public class InventoryPageController implements Initializable
         try (Connection conn = SQLite_Connection.connect()) 
         {
             // check for duplicate name
-            try (PreparedStatement checkStmt = conn.prepareStatement("SELECT 1 FROM Product WHERE meal_name = ?")) 
+            try (PreparedStatement checkStmt = conn.prepareStatement("SELECT 1 FROM Product WHERE prod_name = ?")) 
             {
                 checkStmt.setString(1, name);
                 try (ResultSet rs = checkStmt.executeQuery()) 
                 {
                     if (rs.next()) 
                     {
+                        // TODO: ADD ERROR MESSAGE FOR THIS
                         System.out.println("Item with the same name already exists!");
                         return; // stop execution
                     }
@@ -502,7 +502,7 @@ public class InventoryPageController implements Initializable
             }
 
             // insert if no duplicate
-            try (PreparedStatement ps = conn.prepareStatement("INSERT INTO Product (meal_name, category, type, prod_price, amount_sold, amount_stock, amount_discount, status, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) 
+            try (PreparedStatement ps = conn.prepareStatement("INSERT INTO Product (prod_name, category, type, prod_price, amount_sold, amount_stock, amount_discount, status, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) 
             {
                 ps.setString(1, name);
                 ps.setString(2, category);
@@ -535,6 +535,7 @@ public class InventoryPageController implements Initializable
                 int rowsInserted = ps.executeUpdate();
                 if (rowsInserted > 0) 
                 {
+                    // TODO: ADD THIS MESSAGE TO WINDOW
                     System.out.println("Item added successfully!");
                     loadItems();
                     clearFields();
@@ -557,13 +558,14 @@ public class InventoryPageController implements Initializable
         }
     }
 
-    //updates items that are inside the inventory
+    // updates items that are inside the inventory
     @FXML
     private void updateItem ()
     {
         // validation check
         if (prodIDField.getText().trim().isEmpty()) 
         {
+            // TODO: ADD ERROR MESSAGE
             System.out.println("Please fill in product ID before updating a product.");
             return; // stop execution
         }
@@ -573,17 +575,18 @@ public class InventoryPageController implements Initializable
         String prodName = prodNameField.getText().trim();
         String prodPrice = prodPriceField.getText().trim();
         String prodStock = prodStockField.getText().trim();
-        String category = categoryDrop.getValue() != null ? categoryDrop.getValue().trim() : "";
-        String type = typeDrop.getValue() != null ? typeDrop.getValue().trim() : "";
-        String status = statusDrop.getValue() != null ? statusDrop.getValue().trim() : "";
+        String prodCategory = categoryDrop.getValue() != null ? categoryDrop.getValue().trim() : "";
+        String prodType = typeDrop.getValue() != null ? typeDrop.getValue().trim() : "";
+        String prodStatus = statusDrop.getValue() != null ? statusDrop.getValue().trim() : "";
 
-        // makes query statement based on what values are present (keep in mind that category, type, and drop still need to be filled)
+        // makes query statement based on what values are present 
+        // keep in mind that category, type, and drop still need to be filled
         StringBuilder sql = new StringBuilder("UPDATE Product SET ");
         List<Object> params = new ArrayList<>();
 
         if (!prodName.isEmpty()) 
         {
-            sql.append("meal_name = ?, ");
+            sql.append("prod_name = ?, ");
             params.add(prodName);
         }
     
@@ -599,22 +602,22 @@ public class InventoryPageController implements Initializable
             params.add(Integer.parseInt(prodStock));
         }
     
-        if (!category.isEmpty())
+        if (!prodCategory.isEmpty())
         {
             sql.append("category = ?, ");
-            params.add(category);
+            params.add(prodCategory);
         }
 
-        if (!type.isEmpty()) 
+        if (!prodType.isEmpty()) 
         {
             sql.append("type = ?, ");
-            params.add(type);
+            params.add(prodType);
         }
 
-        if (!status.isEmpty()) 
+        if (!prodStatus.isEmpty()) 
         {
             sql.append("status = ?, ");
-            params.add(status);
+            params.add(prodStatus);
         }
 
         if (selectedImage != null)
@@ -625,6 +628,7 @@ public class InventoryPageController implements Initializable
 
         if (params.isEmpty()) 
         {
+            // TODO: ADD ERROR MESSAGE FOR THIS
             System.out.println("No changes provided. Update aborted.");
             return;
         }
@@ -645,7 +649,7 @@ public class InventoryPageController implements Initializable
                 else if (value instanceof Double) updateStmt.setDouble(i + 1, (Double) value);
                 else if (value instanceof File)
                     {
-                      try (FileInputStream fis = new FileInputStream((File) value)) 
+                        try (FileInputStream fis = new FileInputStream((File) value)) 
                         { 
                             updateStmt.setBinaryStream(i + 1, fis, (int) ((File) value).length());
                         }  
@@ -665,6 +669,7 @@ public class InventoryPageController implements Initializable
             } 
             else 
             {
+                // TODO: ADD ERROR MESSAGE FOR THIS
                 System.out.println("Item updated successfully!");
                 loadItems();
                 clearFields();
@@ -686,13 +691,14 @@ public class InventoryPageController implements Initializable
         // validation (using && because it only needs at least one of them to be filled)
         if (prodID.isEmpty() && prodName.isEmpty()) 
         {
+            // TODO: ADD ERROR MESSAGE FOR THIS
             System.out.println("Please fill in id or name field before deleting a product");
             return; // stop execution
         }
 
         try (Connection conn = SQLite_Connection.connect()) 
         {
-            try (PreparedStatement deleteStmt = conn.prepareStatement("DELETE FROM Product WHERE prod_id = ? OR meal_name = ?")) 
+            try (PreparedStatement deleteStmt = conn.prepareStatement("DELETE FROM Product WHERE prod_id = ? OR prod_name = ?")) 
             {
                 deleteStmt.setString(1, prodID);
                 deleteStmt.setString(2, prodName);
@@ -701,10 +707,12 @@ public class InventoryPageController implements Initializable
                 int dataTouched = deleteStmt.executeUpdate();
                 if (dataTouched == 0) 
                 {
+                    // TODO: ADD ERROR MESSAGE FOR THIS
                     System.out.println("Item not found!");
                 } 
                 else 
                 {
+                    // TODO: ADD MESSAGE FOR THIS IN WINDOW
                     System.out.println("Item deleted successfully!");
                     loadItems();
                     clearFields();

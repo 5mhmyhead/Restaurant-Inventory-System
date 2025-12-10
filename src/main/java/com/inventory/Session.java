@@ -3,7 +3,8 @@ package com.inventory;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Session {
+public class Session 
+{
     // hardcoded manager provided password
     private static String managerProvidedPW = "vivii";
  

@@ -18,13 +18,13 @@ import com.inventory.App;
 // this class is to play an animation from the title page to the login page
 public class TransTitleToLoginController implements Initializable
 {
-    // objects in the scene for the intro animation
+    // objects in the scene for the animation
     @FXML private AnchorPane parentContainer;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
-        // creates an animation where the title page slides into the screen
+        // creates an animation
         TranslateTransition transition = new TranslateTransition();
        
         transition.setNode(parentContainer);

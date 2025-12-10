@@ -15,7 +15,7 @@ import javafx.util.Duration;
 
 import com.inventory.App;
 
-// this class is to play an animation from the login to recover account
+// this class is to play an animation from recover account to login
 public class TransRecoverToLoginController implements Initializable
 {
     // objects in the scene for the animation
