@@ -39,7 +39,8 @@ public class FilterOrderController implements Initializable
     SequentialTransition transition;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources) 
+    {
         // the error message waits for 2 seconds
         delay = new PauseTransition(Duration.seconds(3));
         // then it fades out
@@ -51,12 +52,14 @@ public class FilterOrderController implements Initializable
     }
 
     @FXML
-    void SwitchToOrder(ActionEvent event)   throws IOException {
+    void SwitchToOrder(ActionEvent event)   throws IOException 
+    {
         App.setRoot("ordersPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
     }
     
     @FXML
-    void filter(ActionEvent event) throws IOException {
+    void filter(ActionEvent event) throws IOException 
+    {
         String cashier = CashierUser.getText().trim();
         String productID = enterProd.getText().trim();
         String start = startDate.getText().trim();
@@ -97,6 +100,8 @@ public class FilterOrderController implements Initializable
                 //if end date is empty, set to current date
                 parameters.add(defaultDate.toString());
         }
+
+        closePopup();
     }
   
     //error message animation helper
@@ -108,10 +113,10 @@ public class FilterOrderController implements Initializable
     }
 
     // closes the pop up. also closes it after applying or clearing filters
+    // closes the pop up
     @FXML
     private void closePopup ()
     {
-        // TODO: ADD CANCEL BUTTON
-        // cancelButton.getScene().getWindow().hide();
+        prevButton.getScene().getWindow().hide();
     }
 }

@@ -1,15 +1,13 @@
 package com.inventory;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 
 public class FilterMenuController {
 
-     private MenuPageController actualController;
+    private MenuPageController actualController;
     public void setController(MenuPageController controller)
     {
         this.actualController = controller;
@@ -28,8 +26,6 @@ public class FilterMenuController {
     
     @FXML private CheckBox filterAvailability;
     @FXML private CheckBox filterDiscount;
-    
-    @FXML private Label errorMessage;
     
     // shows/hides items in the table based on the filter that was selected
     @FXML

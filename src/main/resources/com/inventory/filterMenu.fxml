@@ -51,7 +51,6 @@
             </Label>
             <CheckBox fx:id="filterDiscount" layoutX="309.0" layoutY="262.0" mnemonicParsing="false" />
             <CheckBox fx:id="filterAvailability" layoutX="574.0" layoutY="262.0" mnemonicParsing="false" />
-            <Label fx:id="errorMessage" alignment="CENTER" layoutX="247.0" layoutY="304.0" prefHeight="32.0" prefWidth="255.0" styleClass="poppins-semibold" stylesheets="@style.css" textFill="#f8e9e5" />
          </children>
       </AnchorPane>
       <Label layoutX="82.0" layoutY="20.0" styleClass="poppins-black" stylesheets="@style.css" text="FIlter Menu" textFill="#253657">
