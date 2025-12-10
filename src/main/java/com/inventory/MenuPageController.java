@@ -15,6 +15,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -25,6 +27,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.sql.Connection;
@@ -211,10 +215,34 @@ public class MenuPageController implements Initializable
     }
 
     @FXML
-    private void switchToFilterMenu() throws IOException 
-    { 
-        App.setRoot("filterMenu", App.WIDTH, App.HEIGHT);
+private void switchToFilterMenu() {
+    try {
+        // Load the FXML file for the filter menu
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("filterMenu.fxml"));
+        Parent root = loader.load();
+
+        // Get the controller from the loaded FXML
+        FilterMenuController popupController = loader.getController();
+
+        // Pass reference to the current controller (if needed)
+        popupController.setController(this);
+
+        // Create a new stage for the popup
+        Stage popupStage = new Stage();
+        popupStage.setTitle("Filter Inventory");
+        popupStage.setResizable(false);
+        popupStage.setScene(new Scene(root));
+
+        // Optional: make it modal (blocks interaction with main window until closed)
+        popupStage.initOwner(parentContainer.getScene().getWindow());
+        popupStage.initModality(Modality.WINDOW_MODAL);
+
+        popupStage.show();
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
+
 
     // loads product cards
     private void loadMenu()
@@ -329,5 +357,8 @@ public class MenuPageController implements Initializable
         menuOrdersTable.getItems().clear();
         updateAmountDue();
         amountPay.clear();
+
+
     }
+
 }
