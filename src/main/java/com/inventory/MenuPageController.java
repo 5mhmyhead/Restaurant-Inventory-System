@@ -11,12 +11,17 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class MenuPageController implements Initializable
@@ -173,8 +178,32 @@ public class MenuPageController implements Initializable
     }
 
     @FXML
-    private void switchToFilterMenu() throws IOException 
-    { 
-        App.setRoot("filterMenu", App.WIDTH, App.HEIGHT);
+private void switchToFilterMenu() {
+    try {
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("filterMenu.fxml"));
+        Parent root = loader.load();
+
+        FilterMenuController popupController = loader.getController();
+
+        // Create a new Stage for the popup
+        Stage popupStage = new Stage();
+        popupStage.setTitle("Filter Menu");
+        popupStage.setResizable(false);
+
+        // Set modality so the popup is "owned" by the main window
+        popupStage.initOwner(parentContainer.getScene().getWindow());
+        popupStage.initModality(Modality.WINDOW_MODAL);
+
+        // Set the scene
+        popupStage.setScene(new Scene(root));
+
+        // Show the popup
+        popupStage.show();
+
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
+
 }
