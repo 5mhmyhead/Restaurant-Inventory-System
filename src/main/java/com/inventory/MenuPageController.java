@@ -263,6 +263,7 @@ public class MenuPageController implements Initializable
     }
 
     // TODO: WHEN PAYING AN ORDER AND PUTTING TO DATABASE, AMOUNT_SOLD DOES NOT UPDATE, WHICH AFFECTS ANALYTICS
+    // TODO: I WOULD ALSO LIKE TO HAVE THE CHANGE BE DYNAMIC AND CHANGE BEFORE YOU PRESS PAY
     @FXML
     private void payOrder (ActionEvent event)
     {
