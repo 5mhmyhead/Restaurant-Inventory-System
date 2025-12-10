@@ -303,7 +303,7 @@ public class InventoryPageController implements Initializable
             FXMLLoader loader = new FXMLLoader(getClass().getResource("filterInventory.fxml"));
             Parent root = loader.load();
 
-            filterInventoryController popupController = loader.getController();
+            FilterInventoryController popupController = loader.getController();
             popupController.setController(this);
 
             Stage popupStage = new Stage();

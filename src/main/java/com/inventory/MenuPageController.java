@@ -58,7 +58,9 @@ public class MenuPageController implements Initializable
     @FXML private Label amountDue;
     @FXML private Label totalAmount;
     @FXML private Label amountChange;
+    
     @FXML private TextField amountPay;
+    @FXML TextField searchBar;
 
     @FXML Button filterMenuButton;
     @FXML Button signOutButton;

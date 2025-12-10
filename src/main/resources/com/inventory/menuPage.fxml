@@ -142,7 +142,7 @@
             <Image url="@images/searchOrange.png" />
          </image>
       </ImageView>
-      <TextField layoutX="324.0" layoutY="96.0" prefHeight="37.0" prefWidth="350.0" styleClass="search-field" />
+      <TextField fx:id="searchBar" layoutX="324.0" layoutY="96.0" prefHeight="37.0" prefWidth="350.0" styleClass="search-field" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="10.0" layoutX="296.0" layoutY="93.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="100.0" />
       <Label layoutX="299.0" layoutY="89.0" styleClass="poppins-regular" text="Search for an item" textFill="#f5a1a1">
          <font>
@@ -164,26 +164,26 @@
             </ImageView>
             <Button layoutX="193.0" layoutY="593.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="150.0" styleClass="button-purple-white-border" text="Remove" />
             <Button layoutX="33.0" layoutY="593.0" mnemonicParsing="false" onAction="#payOrder" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Pay" />
-            <TableView fx:id="menuOrdersTable" layoutX="10.0" layoutY="10.0" prefHeight="390.0" prefWidth="355.0" stylesheets="@menu.css">
+            <TableView fx:id="menuOrdersTable" layoutX="12.0" layoutY="12.0" prefHeight="390.0" prefWidth="355.0" stylesheets="@menu.css">
               <columns>
                 <TableColumn fx:id="orderTablePrice" prefWidth="100.0" resizable="false" text="Price" />
                 <TableColumn fx:id="orderTableProdName" minWidth="98.0" prefWidth="150.0" resizable="false" text="Product Name" />
-                  <TableColumn fx:id="orderTableQuantity" minWidth="0.0" prefWidth="103.0" resizable="false" text="Quantity" />
+                  <TableColumn fx:id="orderTableQuantity" minWidth="0.0" prefWidth="100.0" resizable="false" text="Quantity" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
             <TextField fx:id="amountPay" layoutX="33.0" layoutY="539.0" prefHeight="40.0" prefWidth="310.0" styleClass="text-field-purple" />
-            <Label fx:id="amountDue" layoutX="33.0" layoutY="477.0" prefHeight="24.0" prefWidth="150.0" styleClass="poppins-black" text="Amount Due: P0.00" textAlignment="CENTER" textFill="#f8e9e5">
+            <Label fx:id="amountDue" layoutX="33.0" layoutY="465.0" prefHeight="24.0" prefWidth="310.0" styleClass="poppins-black" text="Amount Due: P0.00" textAlignment="CENTER" textFill="#f8e9e5">
                <font>
                   <Font size="14.0" />
                </font></Label>
-            <Label fx:id="totalAmount" layoutX="33.0" layoutY="444.0" prefHeight="27.0" prefWidth="310.0" styleClass="poppins-black" text="Total Amount : P0.00" textFill="#f8e9e5">
+            <Label fx:id="totalAmount" layoutX="33.0" layoutY="421.0" prefHeight="27.0" prefWidth="310.0" styleClass="poppins-black" text="Total Amount : P0.00" textFill="#f8e9e5">
                <font>
-                  <Font size="18.0" />
+                  <Font size="20.0" />
                </font></Label>
-            <Label fx:id="amountChange" alignment="CENTER_RIGHT" layoutX="193.0" layoutY="477.0" prefHeight="24.0" prefWidth="150.0" styleClass="poppins-black" text="Change: P0.00" textAlignment="CENTER" textFill="#f8e9e5">
+            <Label fx:id="amountChange" layoutX="33.0" layoutY="485.0" prefHeight="24.0" prefWidth="310.0" styleClass="poppins-black" text="Change: P0.00" textAlignment="CENTER" textFill="#f8e9e5">
                <font>
                   <Font size="14.0" />
                </font></Label>
