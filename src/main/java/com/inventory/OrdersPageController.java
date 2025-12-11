@@ -27,6 +27,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -104,6 +105,16 @@ public class OrdersPageController implements Initializable
         {
             filterTable(newValue, cashierFilter, productFilter, startDateFilter, endDateFilter);
         });
+
+        // ensures you can only enter decimal values in the customer id search
+        TextFormatter<String> decimalFormatter = new TextFormatter<>(change -> {
+            if (change.getControlNewText().matches("\\d*(\\.\\d*)?")) {
+                return change;
+            }
+            return null;
+        });
+
+        editBar.setTextFormatter(decimalFormatter);
 
         // gets the username of the person from the session
         welcomeMessage.setText("Welcome, " + Session.getUsername() + "!");

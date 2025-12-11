@@ -35,6 +35,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
@@ -173,6 +174,19 @@ public class InventoryPageController implements Initializable
         {
             filterTable(newValue, breakfastFilter, lunchFilter, dinnerFilter, appetizerFilter, vegetarianFilter, nonVegetarianFilter, availabilityFilter, discountFilter);
         });
+
+        // ensures you can only enter decimal values in the text fields with numbers
+        TextFormatter<String> decimalFormatter = new TextFormatter<>(change -> {
+            if (change.getControlNewText().matches("\\d*(\\.\\d*)?")) {
+                return change;
+            }
+            return null;
+        });
+
+        prodIDField.setTextFormatter(decimalFormatter);
+        prodStockField.setTextFormatter(decimalFormatter);
+        prodPriceField.setTextFormatter(decimalFormatter);
+        prodDiscountField.setTextFormatter(decimalFormatter);
 
         // gets the username of the person from the session
         welcomeMessage.setText("Welcome, " + Session.getUsername() + "!");
