@@ -209,8 +209,8 @@ public class AnalyticsPageController implements Initializable
                     String amtSold = rs.getString("total_times_sold");
                     if (meal.length() >= 15)
                     {
-                        String f = topSellingProduct.getFont().getFamily();
-                        topSellingProduct.setFont(Font.font(f, 26));                        
+                        String f = lowestSales.getFont().getFamily();
+                        lowestSales.setFont(Font.font(f, 26));                        
                     }
                     lowestSales.setText(meal);
                     lowestSalesLabel.setText(amtSold + " sales this past month");
