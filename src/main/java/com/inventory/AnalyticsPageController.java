@@ -102,7 +102,7 @@ public class AnalyticsPageController implements Initializable
                              + "SELECT date(day, '+1 day') FROM last7days WHERE day < date('now')) "
                              + "SELECT last7days.day, "
                              + "COALESCE(SUM(order_quantity), 0) AS total_sold, "
-                             + "COALESCE(COUNT(DISTINCT Orders.order_id), 0) AS customers "
+                             + "COALESCE(COUNT(DISTINCT Orders.customer_id), 0) AS customers "
                              + "FROM last7days LEFT JOIN Orders ON date(Orders.order_date) = last7days.day "
                              + "GROUP BY last7days.day ORDER BY last7days.day ";
 
