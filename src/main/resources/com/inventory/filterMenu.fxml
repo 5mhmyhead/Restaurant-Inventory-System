@@ -30,7 +30,7 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <Button fx:id="applyChangesButton" layoutX="100.0" layoutY="346.0" mnemonicParsing="false" onAction="#applyFilters" prefWidth="175.0" styleClass="button-pink" stylesheets="@style.css" text="Apply Filters" />
+            <Button fx:id="applyChangesButton" layoutX="100.0" layoutY="346.0" mnemonicParsing="false" onAction="#applyFilters" prefWidth="175.0" styleClass="button-white" stylesheets="@style.css" text="Apply Filters" />
             <Button fx:id="revertChangesButton" layoutX="285.0" layoutY="346.0" mnemonicParsing="false" onAction="#clearFilters" prefWidth="175.0" styleClass="button-pink" stylesheets="@style.css" text="Revert Changes" />
             <Button fx:id="cancelButton" layoutX="470.0" layoutY="346.0" mnemonicParsing="false" onAction="#closePopup" prefWidth="175.0" styleClass="button-pink" stylesheets="@style.css" text="Cancel" />
             <ToggleButton fx:id="filterBreakfast" layoutX="23.0" layoutY="65.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="170.0" styleClass="toggle-filter-button" stylesheets="@style.css" text="Breakfast" />
@@ -39,18 +39,18 @@
             <ToggleButton fx:id="filterAppetizer" layoutX="551.0" layoutY="65.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="170.0" styleClass="toggle-filter-button" stylesheets="@style.css" text="Appetizer" />
             <ToggleButton fx:id="filterVegetarian" layoutX="23.0" layoutY="181.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="170.0" styleClass="toggle-filter-button" stylesheets="@style.css" text="Vegetarian" />
             <ToggleButton fx:id="filterNonVegetarian" layoutX="199.0" layoutY="181.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="170.0" styleClass="toggle-filter-button" stylesheets="@style.css" text="Non-Vegetarian" />
-            <Label layoutX="155.0" layoutY="259.0" styleClass="poppins-bold" stylesheets="@style.css" text="Filter by Discount" textFill="#f8e9e5">
+            <Label layoutX="65.0" layoutY="263.0" styleClass="poppins-bold" stylesheets="@style.css" text="Show only Discounted Products" textFill="#f8e9e5">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="391.0" layoutY="259.0" styleClass="poppins-bold" stylesheets="@style.css" text="Remove Unavailable" textFill="#f8e9e5">
+            <Label layoutX="390.0" layoutY="263.0" styleClass="poppins-bold" stylesheets="@style.css" text="Remove Unavailable Products" textFill="#f8e9e5">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <CheckBox fx:id="filterDiscount" layoutX="309.0" layoutY="262.0" mnemonicParsing="false" />
-            <CheckBox fx:id="filterAvailability" layoutX="574.0" layoutY="262.0" mnemonicParsing="false" />
+            <CheckBox fx:id="filterDiscount" layoutX="335.0" layoutY="263.0" mnemonicParsing="false" prefHeight="10.0" prefWidth="9.0" stylesheets="@tables.css" />
+            <CheckBox fx:id="filterAvailability" layoutX="650.0" layoutY="263.0" mnemonicParsing="false" stylesheets="@tables.css" />
          </children>
       </AnchorPane>
       <Label layoutX="82.0" layoutY="20.0" styleClass="poppins-black" stylesheets="@style.css" text="FIlter Menu" textFill="#253657">

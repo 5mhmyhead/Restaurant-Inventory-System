@@ -28,6 +28,9 @@
 
   border-radius: 5px;
   -fx-border-radius: 5px;
+
+  -fx-background-insets: 2 2;
+  -fx-border-insets: 2 2;
 }
 
 .table-view .column-header .label {
@@ -60,6 +63,9 @@
 .table-cell {
   padding: 10 10;
   -fx-padding: 10 10;
+
+  -fx-background-insets: 2 2;
+  -fx-border-insets: 2 2;
 }
 
 .table-cell:filled {
@@ -121,4 +127,39 @@
   
   padding: 1em;
   -fx-padding: 1em;
+}
+
+/* check box */
+.check-box .box {
+  background-color: #f8e9e5;
+  -fx-background-color: #f8e9e5;
+  
+  border-color: #f5a1a1;
+  -fx-border-color: #f5a1a1;
+
+  border-width: 2;
+  -fx-border-width: 2;
+
+  border-radius: 5;
+  -fx-border-radius: 5;
+  
+  -fx-background-radius: 5;
+  
+  padding: 4;
+  -fx-padding: 4;
+}
+
+.check-box:hover .box {
+  border-color: #E76D8A;
+  -fx-border-color: #E76D8A;
+}
+
+.check-box:selected .box {
+  background-color: #f5a1a1;
+  -fx-background-color: #f5a1a1;
+}
+
+.check-box:selected .mark {
+  background-color: #f8e9e5; 
+  -fx-background-color: #f8e9e5; 
 }

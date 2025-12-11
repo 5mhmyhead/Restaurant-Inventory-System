@@ -2,9 +2,8 @@ package com.inventory;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
+
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
@@ -18,7 +17,6 @@ import javafx.util.Duration;
 
 public class FilterOrderController implements Initializable
 {
-    // TODO: ADD FUNCTIONALITY TO THE ORDER CONTROLLER
     private OrdersPageController actualController;
     public void setController(OrdersPageController controller)
     {
@@ -28,10 +26,14 @@ public class FilterOrderController implements Initializable
     @FXML private TextField CashierUser;
     @FXML private TextField endDate;
     @FXML private TextField enterProd;
-    @FXML private Label errMsg;
-    @FXML private Button filterButton;
-    @FXML private Button prevButton;
     @FXML private TextField startDate;
+    
+    @FXML private Label errMsg;
+    
+    @FXML private Button filterButton;
+    @FXML private Button revertButton;
+    @FXML private Button prevButton;
+    @FXML private Button clearButton;
 
     // animations for the error message
     PauseTransition delay;
@@ -50,67 +52,49 @@ public class FilterOrderController implements Initializable
         // the fade plays after the delay
         transition = new SequentialTransition(errMsg, delay, fade);
     }
-
-    @FXML
-    void SwitchToOrder(ActionEvent event)   throws IOException 
-    {
-        App.setRoot("ordersPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
-    }
     
     @FXML
-    void filter(ActionEvent event) throws IOException 
+    void applyFilters(ActionEvent event) throws IOException 
     {
         String cashier = CashierUser.getText().trim();
         String productID = enterProd.getText().trim();
-        String start = startDate.getText().trim();
-        String end = endDate.getText().trim();
-
-        String currentDate = Session.getCurrentDate();
-        StringBuilder sql = new StringBuilder("SELECT * FROM Orders WHERE 1=1");
-        
-        ArrayList<String> parameters = new ArrayList<>();
+        String startingDate = startDate.getText().trim();
+        String endingDate = endDate.getText().trim();
 
         // print error message if all fields are empty
-        if (cashier.isEmpty() && productID.isEmpty() && start.isEmpty() && end.isEmpty()) 
+        if (cashier.isEmpty() && productID.isEmpty() && startingDate.isEmpty() && endingDate.isEmpty()) 
         {
             errMsg.setText("Please enter at least one filter.");
             playAnimation();
             return;
         }
 
-        // for filtering by Cashier
-        if (!cashier.isEmpty()) 
-        {
-            sql.append(" AND cashier_username = ?");
-            parameters.add(cashier);
-        }
-
-        // for filtering by Product ID
-        if (!productID.isEmpty())
-        {
-            sql.append(" AND product_id = ?");
-            parameters.add(productID);
-        }   
-        
-        // for filtering by date
-        // only the starting date is necessary
-        if (!start.isEmpty()) 
-        {
-            sql.append(" AND order_date BETWEEN ? AND ?");
-            parameters.add(start);
-
-            if (!end.isEmpty())
-                //if end date is not empty, add to sql
-                parameters.add(end);
-            else
-                //if end date is empty, set to current date
-                parameters.add(currentDate.toString());
-        }
-
-        actualController.filterTable(actualController.searchBar.getText(), sql.toString());
+        actualController.filterTable(actualController.searchBar.getText(), cashier, productID, startingDate, endingDate);
         closePopup();
     }
   
+    // clears all filters and shows all items in the table
+    @FXML
+    private void clearFilters()
+    {
+        CashierUser.clear();
+        enterProd.clear();
+        startDate.clear();
+        endDate.clear();
+
+        actualController.filterTable(actualController.searchBar.getText(), null, null, null, null);
+        closePopup();
+    }
+
+    @FXML
+    private void clearFields()
+    {
+        CashierUser.clear();
+        enterProd.clear();
+        startDate.clear();
+        endDate.clear();
+    }
+
     //error message animation helper
     private void playAnimation() 
     {
@@ -124,5 +108,11 @@ public class FilterOrderController implements Initializable
     private void closePopup ()
     {
         prevButton.getScene().getWindow().hide();
+    }
+
+    @FXML
+    void SwitchToOrder(ActionEvent event)   throws IOException 
+    {
+        App.setRoot("ordersPage", App.MAIN_WIDTH, App.MAIN_HEIGHT);
     }
 }

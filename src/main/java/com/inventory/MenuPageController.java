@@ -352,6 +352,16 @@ public class MenuPageController implements Initializable
             }
         }
 
+        // saves the filter options even when using the search bar
+        breakfastFilter = breakfast;
+        lunchFilter = lunch;
+        dinnerFilter = dinner;
+        appetizerFilter = appetizer;
+        vegetarianFilter = vegetarian;
+        nonVegetarianFilter = nonVegetarian;
+        availabilityFilter = availability;
+        discountFilter = discount;
+
         for(Product f : filtered)
         {
             try
@@ -372,7 +382,9 @@ public class MenuPageController implements Initializable
     }
 
     // TODO: WHEN PAYING AN ORDER AND PUTTING TO DATABASE, AMOUNT_SOLD DOES NOT UPDATE, WHICH AFFECTS ANALYTICS
+    // TODO: WHEN STOCK HITS 0, SET STATUS OF PRODUCT TO UNAVAILABLE
     // TODO: I WOULD ALSO LIKE TO HAVE THE CHANGE BE DYNAMIC AND CHANGE BEFORE YOU PRESS PAY
+    // TODO: REMOVE BUTTON DOES NOT WORK YET
     @FXML
     private void payOrder (ActionEvent event)
     {
@@ -388,6 +400,7 @@ public class MenuPageController implements Initializable
 
         if (payment < dueTotal)
         {
+            // TODO: GET ERROR
             return;
         }
         customerCounter++;
@@ -402,6 +415,22 @@ public class MenuPageController implements Initializable
                 pstmt.setInt(1, order.getQuantity());
                 pstmt.setString(2, order.getProdName());
                 pstmt.executeUpdate();
+            } 
+            catch (Exception e) 
+            {
+                e.printStackTrace();
+            }
+
+            // calculate total sales for this order
+            double salesValue = order.getPrice() * order.getQuantity();
+
+            // update the amount_sold from products table
+            try (Connection conn = SQLite_Connection.connect(); 
+            PreparedStatement pstmtSold = conn.prepareStatement("UPDATE Product SET amount_sold = amount_sold + ? WHERE prod_name = ?")) 
+            {
+                pstmtSold.setDouble(1, salesValue);
+                pstmtSold.setString(2, order.getProdName());
+                pstmtSold.executeUpdate();
             } 
             catch (Exception e) 
             {
@@ -425,9 +454,6 @@ public class MenuPageController implements Initializable
             {
                 e.printStackTrace();
             }
-
-            // update the amount_sold from products table
-            
         }
 
         double change = payment - dueTotal;

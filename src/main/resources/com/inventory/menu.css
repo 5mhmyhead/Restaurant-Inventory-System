@@ -44,6 +44,9 @@
 
   border-radius: 5px;
   -fx-border-radius: 5px;
+
+  -fx-background-insets: 2 2;
+  -fx-border-insets: 2 2;
 }
 
 .table-view .column-header-background {
@@ -64,6 +67,9 @@
 .table-cell {
   padding: 10 10;
   -fx-padding: 10 10;
+
+  -fx-background-insets: 2 2;
+  -fx-border-insets: 2 2;
 }
 
 .table-cell:filled {

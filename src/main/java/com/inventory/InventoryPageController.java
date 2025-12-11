@@ -29,6 +29,8 @@ import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
+import javafx.animation.PauseTransition;
+import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.scene.control.Button;
@@ -48,7 +50,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 // TODO: ADD FUNCTIONALITY TO MAKE AVAILABLE FOOD UNAVAILABLE ONCE STOCK REACHES 0
-// TODO: ADD FUNCTIONALITY OF DISCOUNT FIELD
 public class InventoryPageController implements Initializable
 {
     @FXML private AnchorPane parentContainer;
@@ -96,11 +97,16 @@ public class InventoryPageController implements Initializable
     private Connection conn;
     private File selectedImage;
 
+    // animations for the notif
+    PauseTransition delay;
+    FadeTransition fade;
+    SequentialTransition transition;
+
     // master list of products
     private ObservableList<Product> data = FXCollections.observableArrayList();
 
     // stores the last state of filter buttons
-    private boolean breakfastFilter, lunchFilter, dinnerFilter, appetizerFilter, vegetarianFilter, nonVegetarianFilter;
+    private boolean breakfastFilter, lunchFilter, dinnerFilter, appetizerFilter, vegetarianFilter, nonVegetarianFilter, availabilityFilter, discountFilter;
 
     // initializes combo boxes and the table
     @Override
@@ -160,7 +166,7 @@ public class InventoryPageController implements Initializable
         // listener for search bar
         searchBar.textProperty().addListener((observable, oldValue, newValue) ->
         {
-            filterTable(newValue, breakfastFilter, lunchFilter, dinnerFilter, appetizerFilter, vegetarianFilter, nonVegetarianFilter);
+            filterTable(newValue, breakfastFilter, lunchFilter, dinnerFilter, appetizerFilter, vegetarianFilter, nonVegetarianFilter, availabilityFilter, discountFilter);
         });
 
         // gets the username of the person from the session
@@ -250,6 +256,15 @@ public class InventoryPageController implements Initializable
             try { switchToAnalytics(); }
             catch (IOException e2) { e2.printStackTrace(); }
         });
+
+        // animation for the notification label
+        delay = new PauseTransition(Duration.seconds(3));
+        // then it fades out
+        fade = new FadeTransition(Duration.seconds(2), notifLabel);
+        fade.setFromValue(1);
+        fade.setToValue(0);
+        // the fade plays after the delay
+        transition = new SequentialTransition(notifLabel, delay, fade);
     }
 
     // animation helper for moving the sidebar up and down
@@ -367,12 +382,12 @@ public class InventoryPageController implements Initializable
         String currentSearch = searchBar.getText();
         if(currentSearch != null && !currentSearch.isEmpty())
         {
-            filterTable(currentSearch, breakfastFilter, lunchFilter, dinnerFilter, appetizerFilter, vegetarianFilter, nonVegetarianFilter);
+            filterTable(currentSearch, breakfastFilter, lunchFilter, dinnerFilter, appetizerFilter, vegetarianFilter, nonVegetarianFilter, availabilityFilter, discountFilter);
         }
     }
 
     // applies filters to the table to show/hide different data
-    public void filterTable(String keyword, boolean breakfast, boolean lunch, boolean dinner, boolean appetizer, boolean vegetarian, boolean nonVegetarian)
+    public void filterTable(String keyword, boolean breakfast, boolean lunch, boolean dinner, boolean appetizer, boolean vegetarian, boolean nonVegetarian, boolean availability, boolean discount)
     {
         ObservableList<Product> filtered = FXCollections.observableArrayList();
 
@@ -398,11 +413,32 @@ public class InventoryPageController implements Initializable
                 (vegetarian && "Vegetarian".equals(p.getProdType())) ||
                 (nonVegetarian && "Non-Vegetarian".equals(p.getProdType()));
 
-            if (matchesSearch && matchesCategory && matchesType) 
+            // filters by availability
+            boolean matchesAvailability =
+                (!availability) ||
+                (availability && "Available".equals(p.getProdStatus()));
+
+            // filters by discount
+            boolean matchesDiscount =
+                (!discount) ||
+                (discount && p.getProdAmountDiscount() != 0);
+
+            if (matchesSearch && matchesCategory && matchesType && matchesAvailability && matchesDiscount) 
             {
                 filtered.add(p);
             }
         }
+
+        // saves the filter options even when using the search bar
+        breakfastFilter = breakfast;
+        lunchFilter = lunch;
+        dinnerFilter = dinner;
+        appetizerFilter = appetizer;
+        vegetarianFilter = vegetarian;
+        nonVegetarianFilter = nonVegetarian;
+        availabilityFilter = availability;
+        discountFilter = discount;
+
         inventoryTable.setItems(filtered);
     }
 
@@ -414,6 +450,7 @@ public class InventoryPageController implements Initializable
         prodNameField.clear();
         prodPriceField.clear();
         prodStockField.clear();
+        prodDiscountField.clear();
 
         categoryDrop.setValue(null);
         typeDrop.setValue(null);
@@ -476,11 +513,13 @@ public class InventoryPageController implements Initializable
         if (prodNameField.getText().trim().isEmpty() || 
             prodPriceField.getText().trim().isEmpty() || 
             prodStockField.getText().trim().isEmpty() || 
+            prodDiscountField.getText().trim().isEmpty() ||
             categoryDrop.getValue().trim().isEmpty() || 
             typeDrop.getValue().trim().isEmpty() || 
             statusDrop.getValue().trim().isEmpty()) 
         {
             notifLabel.setText("Please fill in all fields before adding a product.");
+            playAnimation();
             return;
         }
 
@@ -488,9 +527,17 @@ public class InventoryPageController implements Initializable
         String name = prodNameField.getText().trim();
         double prod_price = Double.parseDouble(prodPriceField.getText().trim());
         int stock = Integer.parseInt(prodStockField.getText().trim());
+        int discount = Integer.parseInt(prodDiscountField.getText().trim());
         String type = typeDrop.getValue().trim();
         String status = statusDrop.getValue().trim();
         String category = categoryDrop.getValue().trim();
+
+        double final_price = prod_price;
+        
+        if(discount > 0)
+        {
+            final_price = prod_price - (prod_price * discount / 100.0);
+        }
 
         try (Connection conn = SQLite_Connection.connect()) 
         {
@@ -502,8 +549,9 @@ public class InventoryPageController implements Initializable
                 {
                     if (rs.next()) 
                     {
-                        notifLabel.setText("Item with the same name already exists!");
-                        return; // stop execution
+                        notifLabel.setText("An item with the same name already exists!");
+                        playAnimation();
+                        return;
                     }
                 }
             }
@@ -514,10 +562,10 @@ public class InventoryPageController implements Initializable
                 ps.setString(1, name);
                 ps.setString(2, category);
                 ps.setString(3, type);
-                ps.setDouble(4, prod_price);
+                ps.setDouble(4, final_price);
                 ps.setInt(5, 0);
                 ps.setInt(6, stock);
-                ps.setInt(7, 0); 
+                ps.setInt(7, discount); 
                 ps.setString(8, status);
 
                 // adds image if there is
@@ -543,6 +591,7 @@ public class InventoryPageController implements Initializable
                 if (rowsInserted > 0) 
                 {
                     notifLabel.setText("Item added successfully!");
+                    playAnimation();
                     loadItems();
                     clearFields();
                 }
@@ -553,7 +602,7 @@ public class InventoryPageController implements Initializable
                     if (rs.next()) 
                     {
                         int newId = rs.getInt(1);
-                        notifLabel.setText("Inserted product with ID: " + newId);
+                        System.out.println("Inserted product with ID: " + newId);
                     }
                 }
             }
@@ -571,7 +620,8 @@ public class InventoryPageController implements Initializable
         // validation check
         if (prodIDField.getText().trim().isEmpty()) 
         {
-            notifLabel.setText("Please fill in product ID before updating a product.");
+            notifLabel.setText("Please fill in the product ID before updating a product.");
+            playAnimation();
             return; // stop execution
         }
 
@@ -580,6 +630,7 @@ public class InventoryPageController implements Initializable
         String prodName = prodNameField.getText().trim();
         String prodPrice = prodPriceField.getText().trim();
         String prodStock = prodStockField.getText().trim();
+        String prodDiscount = prodDiscountField.getText().trim();
         String prodCategory = categoryDrop.getValue() != null ? categoryDrop.getValue().trim() : "";
         String prodType = typeDrop.getValue() != null ? typeDrop.getValue().trim() : "";
         String prodStatus = statusDrop.getValue() != null ? statusDrop.getValue().trim() : "";
@@ -588,6 +639,23 @@ public class InventoryPageController implements Initializable
         // keep in mind that category, type, and drop still need to be filled
         StringBuilder sql = new StringBuilder("UPDATE Product SET ");
         List<Object> params = new ArrayList<>();
+
+        Double priceValue = prodPrice.isEmpty() ? null : Double.parseDouble(prodPrice);
+        Integer discountValue = prodDiscount.isEmpty() ? null : Integer.parseInt(prodDiscount);
+
+        // if discount is present but price is not provided, retrieve current price
+        if (discountValue != null && priceValue == null) priceValue = getCurrentPrice(prodID);
+
+        // if discount is provided, automatically compute final price
+        if (discountValue != null && priceValue != null) {
+            double discountedPrice = priceValue - (priceValue * discountValue / 100.0);
+
+            sql.append("prod_price = ?, ");
+            params.add(discountedPrice);
+
+            sql.append("amount_discount = ?, ");
+            params.add(discountValue);
+        }
 
         if (!prodName.isEmpty()) 
         {
@@ -613,6 +681,12 @@ public class InventoryPageController implements Initializable
             params.add(prodCategory);
         }
 
+        if (!prodDiscount.isEmpty())
+        {
+            sql.append("amount_discount = ?, ");
+            params.add(prodDiscount);
+        }
+
         if (!prodType.isEmpty()) 
         {
             sql.append("type = ?, ");
@@ -634,6 +708,7 @@ public class InventoryPageController implements Initializable
         if (params.isEmpty()) 
         {
             notifLabel.setText("No changes provided. Update aborted.");
+            playAnimation();
             return;
         }
 
@@ -670,10 +745,12 @@ public class InventoryPageController implements Initializable
             if (dataTouched == 0) 
             {
                 notifLabel.setText("Item not found!");
+                playAnimation();
             } 
             else 
             {
                 notifLabel.setText("Item updated successfully!");
+                playAnimation();
                 loadItems();
                 clearFields();
             }
@@ -684,7 +761,26 @@ public class InventoryPageController implements Initializable
         }
     }
 
-    // TODO: HANDLE EDGE CASES FOR DELETING AN ITEM E.G ITEM BEING DELETED WAS ON AN ORDER
+    private double getCurrentPrice(String prodID) 
+    {
+        String query = "SELECT prod_price FROM Product WHERE prod_id = ?";
+    
+        try (Connection conn = SQLite_Connection.connect();
+        PreparedStatement ps = conn.prepareStatement(query)) 
+        {
+            ps.setString(1, prodID);
+            
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) return rs.getDouble("prod_price");
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        
+        return 0;
+    }
+
     // deletes items inside the inventory
     @FXML
     private void deleteItem ()
@@ -695,7 +791,8 @@ public class InventoryPageController implements Initializable
         // validation (using && because it only needs at least one of them to be filled)
         if (prodID.isEmpty() && prodName.isEmpty()) 
         {
-            notifLabel.setText("Please fill in id or name field before deleting a product");
+            notifLabel.setText("Please fill in the Product ID or name before deleting a product");
+            playAnimation();
             return; // stop execution
         }
 
@@ -711,10 +808,12 @@ public class InventoryPageController implements Initializable
                 if (dataTouched == 0) 
                 {
                     notifLabel.setText("Item not found!");
+                    playAnimation();
                 } 
                 else 
                 {
                     notifLabel.setText("Item deleted successfully!");
+                    playAnimation();
                     loadItems();
                     clearFields();
                 }
@@ -725,5 +824,13 @@ public class InventoryPageController implements Initializable
         {
             e.printStackTrace();
         }
+    }
+
+    // notif message animation helper
+    private void playAnimation() 
+    {
+        transition.jumpTo(Duration.ZERO);
+        transition.stop();
+        transition.play();
     }
 }

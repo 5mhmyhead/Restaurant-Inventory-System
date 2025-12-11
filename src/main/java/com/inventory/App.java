@@ -41,7 +41,7 @@ public class App extends Application
         }
 
         scene = new Scene(root, MAIN_WIDTH, MAIN_HEIGHT);
-        //add this temporarily to load table if accessing without going through title page
+        // add this temporarily to load table if accessing without going through title page
         // scene = new Scene(loadFXML("openingAnimation"), WIDTH, HEIGHT);
 
         stage.setTitle("Kawaii Count");

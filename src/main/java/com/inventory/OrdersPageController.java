@@ -55,8 +55,7 @@ public class OrdersPageController implements Initializable
 
     @FXML private TableView<Order> ordersTable;
     @FXML private TableColumn<Order, Number> orderIDTable;
-    @FXML private TableColumn<Order, Number> userIDTable;
-    @FXML private TableColumn<Order, Number> prodIDTable;
+    @FXML private TableColumn<Order, String> prodNameTable;
     @FXML private TableColumn<Order, Number> customerIDTable;
     @FXML private TableColumn<Order, Number> totalAmountTable;
     @FXML private TableColumn<Order, Number> quantityTable;
@@ -67,14 +66,16 @@ public class OrdersPageController implements Initializable
     // master list of products
     private ObservableList<Order> data = FXCollections.observableArrayList();
 
+    // stores the last state of the text field filters
+    private String cashierFilter, productFilter, startDateFilter, endDateFilter;
+
     // TODO: ADD FUNCTIONALITY TO CHANGE ORDERS FROM PENDING TO COMPLETED OR CANCELLED
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
         // loads the orders table
         orderIDTable.setCellValueFactory(cellData -> cellData.getValue().orderIDProperty());
-        userIDTable.setCellValueFactory(cellData -> cellData.getValue().orderUserIDProperty());
-        prodIDTable.setCellValueFactory(cellData -> cellData.getValue().orderProdIDProperty());
+        prodNameTable.setCellValueFactory(cellData -> cellData.getValue().orderProdNameProperty());
         customerIDTable.setCellValueFactory(cellData -> cellData.getValue().orderCustomerIDProperty());
         totalAmountTable.setCellValueFactory(cellData -> cellData.getValue().orderTotalAmountProperty());
         quantityTable.setCellValueFactory(cellData -> cellData.getValue().orderQuantityProperty());
@@ -82,6 +83,12 @@ public class OrdersPageController implements Initializable
         dateTable.setCellValueFactory(cellData -> cellData.getValue().orderDateProperty());
         cashierTable.setCellValueFactory(cellData -> cellData.getValue().orderCashierProperty());
         loadOrders();
+
+        // listener for search bar
+        searchBar.textProperty().addListener((observable, oldValue, newValue) ->
+        {
+            filterTable(newValue, cashierFilter, productFilter, startDateFilter, endDateFilter);
+        });
 
         // gets the username of the person from the session
         welcomeMessage.setText("Welcome, " + Session.getUsername() + "!");
@@ -245,24 +252,23 @@ public class OrdersPageController implements Initializable
     // load orders from database
     public void loadOrders() 
     {
-        String sql = "SELECT o.order_id, o.user_id, o.prod_id, o.customer_id, o.total_amount, " 
+        data.clear();
+        String sql = "SELECT o.order_id, p.prod_name, o.customer_id, o.total_amount, " 
                    + "o.order_quantity, o.order_status, o.order_date, a.username AS cashier " 
-                   + "FROM ORDERS o " 
-                   + "JOIN ACCOUNT a ON o.user_id = a.user_id";
+                   + "FROM Orders o " 
+                   + "LEFT JOIN Account a ON o.user_id = a.user_id "
+                   + "LEFT JOIN Product p ON o.prod_id = p.prod_id";
 
         try (Connection conn = SQLite_Connection.connect(); 
         Statement stmt = conn.createStatement(); 
         ResultSet rs = stmt.executeQuery(sql)) 
         {
-            ordersTable.getItems().clear();
-
             while (rs.next()) 
             {
                 data.add(new Order
                 (
                     rs.getInt("order_id"),
-                    rs.getInt("user_id"),
-                    rs.getInt("prod_id"),
+                    rs.getString("prod_name"),
                     rs.getInt("customer_id"),
                     rs.getDouble("total_amount"),
                     rs.getInt("order_quantity"),
@@ -280,21 +286,72 @@ public class OrdersPageController implements Initializable
         // shows items in the table
         ordersTable.setItems(data);
 
-        // TODO: REAPPLY SEARCH
         // reapplies any search if user has typed something
+        String currentSearch = searchBar.getText();
+        if(currentSearch != null && !currentSearch.isEmpty())
+        {
+            filterTable(currentSearch, cashierFilter, productFilter, startDateFilter, endDateFilter);
+        }
     }
 
     // applies filters to the table to show/hide different data
-    public void filterTable(String keyword, String sql)
+    public void filterTable(String keyword, String cashier, String productName, String startingDate, String endingDate)
     {
         ObservableList<Order> filtered = FXCollections.observableArrayList();
 
         for (Order o : data) 
         {
+            String name = o.getOrderCashier() != null ? o.getOrderCashier().trim() : "";
+            String product = o.getOrderProdName() != null ? o.getOrderProdName().trim() : "";
             
-        }
+            String orderDate = o.getOrderDate() != null ? o.getOrderDate().trim() : "";
+            String start = startingDate != null ? startingDate.trim() : "";
+            String end = endingDate != null ? endingDate.trim() : "";
+            
+            // filters by case-sensitive product name on search bar
+            boolean matchesProductSearch =
+                (keyword == null || keyword.trim().isEmpty() || product.contains(keyword.trim()));
+
+            // filters by case-sensitive cashier name on search bar
+            boolean matchesNameSearch =
+                (keyword == null || keyword.trim().isEmpty() || name.contains(keyword.trim()));
         
+            // filter by cashier from text field
+            boolean matchesCashier =
+                (cashier == null || cashier.trim().isEmpty() || cashier.contains(name));
+
+            // filter by product name from text field
+            boolean matchesProduct =
+                (productName == null || productName.trim().isEmpty() || productName.contains(product));
+
+            // filter by start and end date
+            boolean matchesDate = true;
+
+            if (!start.isEmpty() && !end.isEmpty()) 
+            {
+                matchesDate = (orderDate.compareTo(start) >= 0 && orderDate.compareTo(end) <= 0);
+            }
+            else if (!start.isEmpty()) 
+            {
+                matchesDate = (orderDate.compareTo(start) >= 0);
+            }
+            else if (!end.isEmpty()) 
+            {
+                matchesDate = (orderDate.compareTo(end) <= 0);
+            }
+
+            if ((matchesNameSearch || matchesProductSearch) && matchesCashier && matchesProduct && matchesDate) 
+            {
+                filtered.add(o);
+            }
+        }
+
+        // saves the filter options even when using the search bar
+        cashierFilter = cashier;
+        productFilter = productName;
+        startDateFilter = startingDate;
+        endDateFilter = endingDate;
+
         ordersTable.setItems(filtered);
     }
-
 }

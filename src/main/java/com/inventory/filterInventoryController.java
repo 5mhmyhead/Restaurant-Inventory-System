@@ -2,6 +2,7 @@ package com.inventory;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ToggleButton;
 
 public class FilterInventoryController
@@ -23,6 +24,9 @@ public class FilterInventoryController
     @FXML private Button revertChangesButton;
     @FXML private Button cancelButton;
 
+    @FXML private CheckBox filterAvailability;
+    @FXML private CheckBox filterDiscount;
+
     // shows/hides items in the table based on the filter that was selected
     @FXML
     private void applyFilters()
@@ -31,10 +35,14 @@ public class FilterInventoryController
         boolean lunch = filterLunch.isSelected();
         boolean dinner = filterDinner.isSelected();
         boolean appetizer = filterAppetizer.isSelected();
+
         boolean vegetarian = filterVegetarian.isSelected();
         boolean nonVegetarian = filterNonVegetarian.isSelected();
 
-        actualController.filterTable(actualController.searchBar.getText(), breakfast, lunch, dinner, appetizer, vegetarian, nonVegetarian);
+        boolean availability = filterAvailability.isSelected();
+        boolean discount = filterDiscount.isSelected();
+
+        actualController.filterTable(actualController.searchBar.getText(), breakfast, lunch, dinner, appetizer, vegetarian, nonVegetarian, availability, discount);
         closePopup();
     }
 
@@ -49,7 +57,10 @@ public class FilterInventoryController
         filterVegetarian.setSelected(false);
         filterNonVegetarian.setSelected(false);
 
-        actualController.filterTable(actualController.searchBar.getText(), false, false, false, false, false, false);
+        filterAvailability.setSelected(false);
+        filterDiscount.setSelected(false);
+
+        actualController.filterTable(actualController.searchBar.getText(), false, false, false, false, false, false, false, false);
         closePopup();
     }
 

@@ -584,6 +584,9 @@
 }
 
 .text-field {
+  font-family: "Poppins", sans-serif;
+  -fx-font-family: "Poppins", sans-serif;
+
   -fx-text-fill: #253657;
 
   background-color: #f8e9e5;
@@ -605,6 +608,9 @@
 }
 
 .text-field:focused {
+  font-family: "Poppins", sans-serif;
+  -fx-font-family: "Poppins", sans-serif;
+
   -fx-text-fill: #253657;
 
   background-color: #f8e9e5;
@@ -668,13 +674,16 @@
 }
 
 .filter-order-text-field {
+  font-family: "Poppins", sans-serif;
+  -fx-font-family: "Poppins", sans-serif;
+
   background-color: #e76d8a;
   -fx-background-color: #e76d8a;
 
   -fx-text-fill: #f8e9e5;
 
-  border-width: 2px;
-  -fx-border-width: 2px;
+  border-width: 1px;
+  -fx-border-width: 1px;
 
   border-style: solid solid solid solid;
   -fx-border-style: solid solid solid solid;
@@ -689,6 +698,9 @@
 }
 
 .filter-order-text-field:focused {
+  font-family: "Poppins", sans-serif;
+  -fx-font-family: "Poppins", sans-serif;
+
   background-color: #e76d8a;
   -fx-background-color: #e76d8a;
 
@@ -710,6 +722,9 @@
 }
 
 .text-field-purple {
+  font-family: "Poppins", sans-serif;
+  -fx-font-family: "Poppins", sans-serif;
+
   background-color: #693C5B;
   -fx-background-color: #693C5B;
 
@@ -731,6 +746,9 @@
 }
 
 .text-field-purple:hover {
+  font-family: "Poppins", sans-serif;
+  -fx-font-family: "Poppins", sans-serif;
+
   background-color: #693C5B;
   -fx-background-color: #693C5B;
 
@@ -752,6 +770,9 @@
 }
 
 .text-field-purple:focused {
+  font-family: "Poppins", sans-serif;
+  -fx-font-family: "Poppins", sans-serif;
+
   background-color: #693C5B;
   -fx-background-color: #693C5B;
 

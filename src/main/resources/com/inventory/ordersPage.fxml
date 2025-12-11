@@ -66,10 +66,9 @@
             <TableView fx:id="ordersTable" layoutX="20.0" layoutY="20.0" prefHeight="520.0" prefWidth="923.0" style="-fx-background-color: #f8e9e5;" stylesheets="@tables.css">
               <columns>
                 <TableColumn fx:id="orderIDTable" prefWidth="90.0" text="Order ID" />
-                  <TableColumn fx:id="userIDTable" prefWidth="90.0" text="User ID" />
-                  <TableColumn fx:id="prodIDTable" prefWidth="100.0" text="Product ID" />
-                <TableColumn fx:id="customerIDTable" prefWidth="125.0" text="Customer ID" />
-                  <TableColumn fx:id="totalAmountTable" prefWidth="150.0" text="Total(₱)" />
+                  <TableColumn fx:id="customerIDTable" prefWidth="107.0" text="Customer ID" />
+                <TableColumn fx:id="prodNameTable" prefWidth="170.0" text="Product Name" />
+                  <TableColumn fx:id="totalAmountTable" prefWidth="98.0" text="Total(₱)" />
                   <TableColumn fx:id="quantityTable" prefWidth="100.0" text="Quantity" />
                   <TableColumn fx:id="statusTable" prefWidth="100.0" text="Status" />
                   <TableColumn fx:id="dateTable" prefWidth="125.0" text="Date" />
