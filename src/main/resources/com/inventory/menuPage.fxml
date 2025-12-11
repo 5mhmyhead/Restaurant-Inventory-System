@@ -143,8 +143,8 @@
          </image>
       </ImageView>
       <TextField fx:id="searchBar" layoutX="324.0" layoutY="96.0" prefHeight="37.0" prefWidth="350.0" styleClass="search-field" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="10.0" layoutX="296.0" layoutY="93.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="100.0" />
-      <Label layoutX="299.0" layoutY="89.0" styleClass="poppins-regular" text="Search for an item" textFill="#f5a1a1">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="10.0" layoutX="296.0" layoutY="93.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="90.0" />
+      <Label layoutX="301.0" layoutY="89.0" styleClass="poppins-regular" text="Search for an item" textFill="#f5a1a1">
          <font>
             <Font size="10.0" />
          </font>

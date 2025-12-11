@@ -93,6 +93,15 @@ public class MenuPageController implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
+        // disable the analytics page if user is a worker
+        if(Session.getUserType().equals("worker"))
+        {
+            analyticsButton.setDisable(true);
+            analyticsButton.setOpacity(0);
+
+            hatWhite.setOpacity(0);
+        } 
+
         // listener for search bar
         searchBar.textProperty().addListener((observable, oldValue, newValue) ->
         {
@@ -437,6 +446,7 @@ public class MenuPageController implements Initializable
             playAnimation();
             return;
         }
+        // TODO: FIX AUTOINCREMENT ERROR
         customerCounter++;
         int customerId = customerCounter;
 

@@ -3,6 +3,7 @@ package com.inventory;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ResourceBundle;
@@ -15,6 +16,7 @@ import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -49,10 +51,15 @@ public class OrdersPageController implements Initializable
     @FXML private ImageView hatWhite;
     
     @FXML TextField searchBar;
+    @FXML TextField editBar;
 
     @FXML Button filterMenuButton;
     @FXML Button signOutButton;
 
+    @FXML Button setCancelledButton;
+    @FXML Button setPendingButton;
+    @FXML Button setCompletededButton;
+    
     @FXML private TableView<Order> ordersTable;
     @FXML private TableColumn<Order, Number> orderIDTable;
     @FXML private TableColumn<Order, String> prodNameTable;
@@ -69,10 +76,18 @@ public class OrdersPageController implements Initializable
     // stores the last state of the text field filters
     private String cashierFilter, productFilter, startDateFilter, endDateFilter;
 
-    // TODO: ADD FUNCTIONALITY TO CHANGE ORDERS FROM PENDING TO COMPLETED OR CANCELLED
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
+        // disable the analytics page if user is a worker
+        if(Session.getUserType().equals("worker"))
+        {
+            analyticsButton.setDisable(true);
+            analyticsButton.setOpacity(0);
+
+            hatWhite.setOpacity(0);
+        } 
+
         // loads the orders table
         orderIDTable.setCellValueFactory(cellData -> cellData.getValue().orderIDProperty());
         prodNameTable.setCellValueFactory(cellData -> cellData.getValue().orderProdNameProperty());
@@ -353,5 +368,66 @@ public class OrdersPageController implements Initializable
         endDateFilter = endingDate;
 
         ordersTable.setItems(filtered);
+    }
+
+    // functions to set orders to cancelled, pending, or completed
+    @FXML
+    void setOrderCancelled(ActionEvent event) 
+    {
+        int orderSearch = Integer.parseInt(editBar.getText());
+    
+        // update the order_status to cancelled
+        try (Connection conn = SQLite_Connection.connect(); 
+        PreparedStatement pstmt = conn.prepareStatement("UPDATE Orders SET order_status = 'Cancelled' WHERE customer_id = ?")) 
+        {
+            pstmt.setInt(1, orderSearch);
+            pstmt.executeUpdate();
+        } 
+        catch (Exception e) 
+        {
+               e.printStackTrace();
+        }
+
+        loadOrders();
+    }
+
+    @FXML
+    void setOrderPending(ActionEvent event) 
+    {
+        int orderSearch = Integer.parseInt(editBar.getText());
+    
+        // update the order_status to cancelled
+        try (Connection conn = SQLite_Connection.connect(); 
+        PreparedStatement pstmt = conn.prepareStatement("UPDATE Orders SET order_status = 'Pending' WHERE customer_id = ?")) 
+        {
+            pstmt.setInt(1, orderSearch);
+            pstmt.executeUpdate();
+        } 
+        catch (Exception e) 
+        {
+               e.printStackTrace();
+        }
+
+        loadOrders();
+    }
+
+    @FXML
+    void setOrderCompleted(ActionEvent event) 
+    {
+        int orderSearch = Integer.parseInt(editBar.getText());
+    
+        // update the order_status to cancelled
+        try (Connection conn = SQLite_Connection.connect(); 
+        PreparedStatement pstmt = conn.prepareStatement("UPDATE Orders SET order_status = 'Completed' WHERE customer_id = ?")) 
+        {
+            pstmt.setInt(1, orderSearch);
+            pstmt.executeUpdate();
+        } 
+        catch (Exception e) 
+        {
+               e.printStackTrace();
+        }
+
+        loadOrders();
     }
 }

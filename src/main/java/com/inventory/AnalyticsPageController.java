@@ -30,7 +30,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
-// TODO: MAKE ANALYTICS BUTTON DISABLED WHEN USER TYPE IS WORKER FROM SESSION CLASS
 public class AnalyticsPageController implements Initializable
 {
     @FXML private AnchorPane parentContainer;
@@ -182,7 +181,6 @@ public class AnalyticsPageController implements Initializable
                 }
             }
 
-            // TODO: MAKE LABEL CHANGE FONT DYNAMICALLY DEPENDING ON THE LENGTH OF STRING
             // finding the top selling meal
             try (Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sqlTopSelling))
@@ -212,7 +210,7 @@ public class AnalyticsPageController implements Initializable
                     if (meal.length() >= 15)
                     {
                         String f = topSellingProduct.getFont().getFamily();
-                        topSellingProduct.setFont(Font.font(f, 20));                        
+                        topSellingProduct.setFont(Font.font(f, 26));                        
                     }
                     lowestSales.setText(meal);
                     lowestSalesLabel.setText(amtSold + " sales this past month");

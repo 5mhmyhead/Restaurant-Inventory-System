@@ -108,6 +108,15 @@ public class InventoryPageController implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources) 
     {
+        // disable the analytics page if user is a worker
+        if(Session.getUserType().equals("worker"))
+        {
+            analyticsButton.setDisable(true);
+            analyticsButton.setOpacity(0);
+
+            hatWhite.setOpacity(0);
+        } 
+
         // populate all combo boxes
         categoryDrop.getItems().addAll("Breakfast", "Lunch", "Dinner", "Appetizer");
         typeDrop.getItems().addAll("Vegetarian", "Non-Vegetarian");
