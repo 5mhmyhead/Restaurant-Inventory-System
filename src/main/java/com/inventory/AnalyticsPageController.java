@@ -194,7 +194,7 @@ public class AnalyticsPageController implements Initializable
                     if (meal.length() >= 15)
                     {
                         String f = topSellingProduct.getFont().getFamily();
-                        topSellingProduct.setFont(Font.font(f, 20));                        
+                        topSellingProduct.setFont(Font.font(f, 26));                        
                     }
                     topSellingProduct.setText(meal);
                     topSellingLabel.setText(amtSold + " sales this past month");

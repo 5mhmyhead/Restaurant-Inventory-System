@@ -8,6 +8,8 @@ import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
+import javafx.animation.PauseTransition;
+import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
@@ -25,6 +27,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -45,6 +48,7 @@ public class MenuPageController implements Initializable
     @FXML private AnchorPane parentContainer;
     @FXML private AnchorPane selectedBar;
     @FXML private Label welcomeMessage;
+    @FXML private Label errorMessage;
 
     @FXML private Button inventoryButton;
     @FXML private Button menuButton;
@@ -68,11 +72,17 @@ public class MenuPageController implements Initializable
     @FXML private TextField amountPay;
     @FXML TextField searchBar;
 
+    @FXML Button removeButton;
     @FXML Button filterMenuButton;
     @FXML Button signOutButton;
 
     private double dueTotal = 0.0;
     private static int customerCounter = 0;
+
+    // animations for the error
+    PauseTransition delay;
+    FadeTransition fade;
+    SequentialTransition transition;
 
     // master list of products
     private ObservableList<Product> data = FXCollections.observableArrayList();
@@ -88,6 +98,16 @@ public class MenuPageController implements Initializable
         {
             filterTable(newValue, breakfastFilter, lunchFilter, dinnerFilter, appetizerFilter, vegetarianFilter, nonVegetarianFilter, availabilityFilter, discountFilter);
         });
+
+        // ensures you can only enter decimal values in the amount paid
+        TextFormatter<String> decimalFormatter = new TextFormatter<>(change -> {
+            if (change.getControlNewText().matches("\\d*(\\.\\d*)?")) {
+                return change;
+            }
+            return null;
+        });
+
+        amountPay.setTextFormatter(decimalFormatter);
 
         // gets the username of the person from the session
         welcomeMessage.setText("Welcome, " + Session.getUsername() + "!");
@@ -183,6 +203,15 @@ public class MenuPageController implements Initializable
             try { switchToAnalytics(); }
             catch (IOException e2) { e2.printStackTrace(); }
         });
+
+        // animation for the error label
+        delay = new PauseTransition(Duration.seconds(3));
+        // then it fades out
+        fade = new FadeTransition(Duration.seconds(2), errorMessage);
+        fade.setFromValue(1);
+        fade.setToValue(0);
+        // the fade plays after the delay
+        transition = new SequentialTransition(errorMessage, delay, fade);
     }
 
     // animation helper for moving the sidebar up and down
@@ -381,10 +410,13 @@ public class MenuPageController implements Initializable
         }
     }
 
-    // TODO: WHEN PAYING AN ORDER AND PUTTING TO DATABASE, AMOUNT_SOLD DOES NOT UPDATE, WHICH AFFECTS ANALYTICS
-    // TODO: WHEN STOCK HITS 0, SET STATUS OF PRODUCT TO UNAVAILABLE
-    // TODO: I WOULD ALSO LIKE TO HAVE THE CHANGE BE DYNAMIC AND CHANGE BEFORE YOU PRESS PAY
-    // TODO: REMOVE BUTTON DOES NOT WORK YET
+    @FXML
+    void clearTable(ActionEvent event) 
+    {
+        menuOrdersTable.getItems().clear();
+        loadMenu();
+    }
+
     @FXML
     private void payOrder (ActionEvent event)
     {
@@ -395,12 +427,14 @@ public class MenuPageController implements Initializable
         }
         catch (NumberFormatException e)
         {
+            e.printStackTrace();
             return;
         }
 
         if (payment < dueTotal)
         {
-            // TODO: GET ERROR
+            errorMessage.setText("Please enter a valid amount!");
+            playAnimation();
             return;
         }
         customerCounter++;
@@ -437,6 +471,32 @@ public class MenuPageController implements Initializable
                 e.printStackTrace();
             }
 
+            // update the status of the product
+            try (Connection conn = SQLite_Connection.connect();
+            PreparedStatement getStock = conn.prepareStatement("SELECT amount_stock FROM Product WHERE prod_name = ?")) 
+            {
+                getStock.setString(1, order.getProdName());
+                ResultSet rs = getStock.executeQuery();
+
+                if (rs.next()) 
+                    {
+                    int remainingStock = rs.getInt("amount_stock");
+                    // change the products status
+                    String newStatus = remainingStock <= 0 ? "Unavailable" : "Available";
+
+                    try (PreparedStatement updateStatus = conn.prepareStatement("UPDATE Product SET status = ? WHERE prod_name = ?")) 
+                    {
+                        updateStatus.setString(1, newStatus);
+                        updateStatus.setString(2, order.getProdName());
+                        updateStatus.executeUpdate();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+
             // insert into Orders
             try (Connection conn = SQLite_Connection.connect(); 
             PreparedStatement pstmtOrder = conn.prepareStatement("INSERT INTO Orders (user_id, prod_id, customer_id, total_amount, order_quantity, order_status, order_date) " + "VALUES (?, ?, ?, ?, ?, ?, ?)")) 
@@ -462,5 +522,13 @@ public class MenuPageController implements Initializable
         menuOrdersTable.getItems().clear();
         updateAmountDue();
         amountPay.clear();
+    }
+
+    // notif message animation helper
+    private void playAnimation() 
+    {
+        transition.jumpTo(Duration.ZERO);
+        transition.stop();
+        transition.play();
     }
 }
