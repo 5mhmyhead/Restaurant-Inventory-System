@@ -139,7 +139,7 @@ public class AnalyticsPageController implements Initializable
 
             // the amount of customers in the database all time
             try (Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT COUNT(DISTINCT order_id) AS total_customers FROM Orders"))
+            ResultSet rs = stmt.executeQuery("SELECT COUNT(DISTINCT customer_id) AS total_customers FROM Orders"))
             {
                 while (rs.next())
                 {
