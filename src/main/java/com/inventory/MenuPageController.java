@@ -371,7 +371,6 @@ public class MenuPageController implements Initializable
         }
     }
 
-    // TODO: WHEN PAYING AN ORDER AND PUTTING TO DATABASE, AMOUNT_SOLD DOES NOT UPDATE, WHICH AFFECTS ANALYTICS
     // TODO: I WOULD ALSO LIKE TO HAVE THE CHANGE BE DYNAMIC AND CHANGE BEFORE YOU PRESS PAY
     @FXML
     private void payOrder (ActionEvent event)
@@ -427,7 +426,17 @@ public class MenuPageController implements Initializable
             }
 
             // update the amount_sold from products table
-            
+            try (Connection conn = SQLite_Connection.connect(); 
+            PreparedStatement pstmt = conn.prepareStatement("UPDATE Product SET amount_sold = amount_sold + ? WHERE prod_name = ?")) 
+            {
+                pstmt.setInt(1, order.getQuantity());
+                pstmt.setString(2, order.getProdName());
+                pstmt.executeUpdate();
+            } 
+            catch (Exception e) 
+            {
+                e.printStackTrace();
+            }
         }
 
         double change = payment - dueTotal;
