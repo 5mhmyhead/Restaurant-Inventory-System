@@ -27,6 +27,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 // TODO: MAKE ANALYTICS BUTTON DISABLED WHEN USER TYPE IS WORKER FROM SESSION CLASS
@@ -190,6 +191,11 @@ public class AnalyticsPageController implements Initializable
                 {
                     String meal = rs.getString("prod_name");
                     String amtSold = rs.getString("total_times_sold");
+                    if (meal.length() >= 15)
+                    {
+                        String f = topSellingProduct.getFont().getFamily();
+                        topSellingProduct.setFont(Font.font(f, 20));                        
+                    }
                     topSellingProduct.setText(meal);
                     topSellingLabel.setText(amtSold + " sales this past month");
                 }
@@ -203,6 +209,11 @@ public class AnalyticsPageController implements Initializable
                 {
                     String meal = rs.getString("prod_name");
                     String amtSold = rs.getString("total_times_sold");
+                    if (meal.length() >= 15)
+                    {
+                        String f = topSellingProduct.getFont().getFamily();
+                        topSellingProduct.setFont(Font.font(f, 20));                        
+                    }
                     lowestSales.setText(meal);
                     lowestSalesLabel.setText(amtSold + " sales this past month");
                 }
