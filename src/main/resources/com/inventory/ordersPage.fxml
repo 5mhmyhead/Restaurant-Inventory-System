@@ -63,16 +63,16 @@
          <children>
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f5a1a1" height="520.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="963.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="500.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="943.0" />
-            <TableView fx:id="ordersTable" layoutX="30.0" layoutY="20.0" prefHeight="480.0" prefWidth="923.0" style="-fx-background-color: #f8e9e5;" stylesheets="@tables.css">
+            <TableView fx:id="ordersTable" layoutX="20.0" layoutY="20.0" prefHeight="480.0" prefWidth="923.0" style="-fx-background-color: #f8e9e5;" stylesheets="@tables.css">
               <columns>
-                <TableColumn fx:id="orderIDTable" prefWidth="90.0" text="Order ID" />
-                  <TableColumn fx:id="customerIDTable" prefWidth="107.0" text="Customer ID" />
-                <TableColumn fx:id="prodNameTable" prefWidth="170.0" text="Product Name" />
-                  <TableColumn fx:id="totalAmountTable" prefWidth="98.0" text="Total(₱)" />
-                  <TableColumn fx:id="quantityTable" prefWidth="100.0" text="Quantity" />
-                  <TableColumn fx:id="statusTable" prefWidth="100.0" text="Status" />
-                  <TableColumn fx:id="dateTable" prefWidth="125.0" text="Date" />
-                  <TableColumn fx:id="cashierTable" prefWidth="125.0" text="Cashier" />
+                <TableColumn fx:id="orderIDTable" prefWidth="87.0" resizable="false" text="Order ID" />
+                  <TableColumn fx:id="customerIDTable" prefWidth="123.0" resizable="false" text="Customer ID" />
+                <TableColumn fx:id="prodNameTable" prefWidth="163.0" resizable="false" text="Product Name" />
+                  <TableColumn fx:id="totalAmountTable" prefWidth="98.0" resizable="false" text="Total(₱)" />
+                  <TableColumn fx:id="quantityTable" prefWidth="100.0" resizable="false" text="Quantity" />
+                  <TableColumn fx:id="statusTable" prefWidth="100.0" resizable="false" text="Status" />
+                  <TableColumn fx:id="dateTable" prefWidth="125.0" resizable="false" text="Date" />
+                  <TableColumn fx:id="cashierTable" prefWidth="125.0" resizable="false" text="Cashier" />
               </columns>
                <opaqueInsets>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
