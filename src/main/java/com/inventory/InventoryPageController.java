@@ -183,10 +183,31 @@ public class InventoryPageController implements Initializable
             return null;
         });
 
+        TextFormatter<String> decimalFormatter1 = new TextFormatter<>(change -> {
+            if (change.getControlNewText().matches("\\d*(\\.\\d*)?")) {
+                return change;
+            }
+            return null;
+        });
+
+        TextFormatter<String> decimalFormatter2 = new TextFormatter<>(change -> {
+            if (change.getControlNewText().matches("\\d*(\\.\\d*)?")) {
+                return change;
+            }
+            return null;
+        });
+
+        TextFormatter<String> decimalFormatter3 = new TextFormatter<>(change -> {
+            if (change.getControlNewText().matches("\\d*(\\.\\d*)?")) {
+                return change;
+            }
+            return null;
+        });
+
         prodIDField.setTextFormatter(decimalFormatter);
-        prodStockField.setTextFormatter(decimalFormatter);
-        prodPriceField.setTextFormatter(decimalFormatter);
-        prodDiscountField.setTextFormatter(decimalFormatter);
+        prodStockField.setTextFormatter(decimalFormatter1);
+        prodPriceField.setTextFormatter(decimalFormatter2);
+        prodDiscountField.setTextFormatter(decimalFormatter3);
 
         // gets the username of the person from the session
         welcomeMessage.setText("Welcome, " + Session.getUsername() + "!");
