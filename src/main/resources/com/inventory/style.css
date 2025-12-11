@@ -908,9 +908,9 @@
   -fx-background-radius: 10px;
 }
 
-.menu-card-border-available{
-  background-color: #F8E9E5;
-  -fx-background-color: #F8E9E5;
+.menu-card-border-available {
+  background-color: transparent;
+  -fx-background-color: transparent;
 
   stroke: #EF8FA4;
   -fx-stroke: #EF8FA4;
@@ -919,13 +919,11 @@
   -fx-stroke-width: 1;
 
   -fx-stroke-type: inside;
-  -fx-arc-width: 20;
-  -fx-arc-height: 20;
 }
 
 .menu-card-border-unavailable{
-  background-color: #F8E9E5;
-  -fx-background-color: #F8E9E5;
+  background-color: transparent;
+  -fx-background-color: transparent;
 
   stroke: #FCB7A4;
   -fx-stroke: #FCB7A4;
@@ -934,8 +932,6 @@
   -fx-stroke-width: 1;
 
   -fx-stroke-type: inside;
-  -fx-arc-width: 20;
-  -fx-arc-height: 20;
 }
 
 .menu-card-label-available{
@@ -1237,4 +1233,9 @@
   
   padding: 0;
   -fx-padding: 0;
+}
+
+#imagePane {
+  overflow: hidden;
+  -fx-overflow: hidden;
 }

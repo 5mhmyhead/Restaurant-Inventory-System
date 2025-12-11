@@ -3,6 +3,7 @@
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -133,7 +134,11 @@
          <children>
             <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f5a1a1" height="562.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="542.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="580.0" />
-            <FlowPane fx:id="menuCardContainer" hgap="15.0" layoutX="15.0" layoutY="15.0" prefHeight="533.0" prefWidth="571.0" vgap="10.0" />
+            <ScrollPane fx:id="scrollPane" layoutX="14.0" layoutY="14.0" prefHeight="534.0" prefWidth="572.0" stylesheets="@scroll.css">
+               <content>
+                  <FlowPane fx:id="menuCardContainer" hgap="4.0" prefHeight="533.0" prefWidth="571.0" style="-fx-background-color: f8e9e5; -fx-border-color: f8e9e5;" stylesheets="@scroll.css" vgap="4.0" />
+               </content>
+            </ScrollPane>
          </children>
       </AnchorPane>
       <Button layoutX="284.0" layoutY="96.0" prefHeight="37.0" prefWidth="40.0" styleClass="search-icon-container" />
@@ -143,7 +148,7 @@
          </image>
       </ImageView>
       <TextField fx:id="searchBar" layoutX="324.0" layoutY="96.0" prefHeight="37.0" prefWidth="350.0" styleClass="search-field" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="10.0" layoutX="296.0" layoutY="93.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="90.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="10.0" layoutX="296.0" layoutY="93.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="100.0" />
       <Label layoutX="301.0" layoutY="89.0" styleClass="poppins-regular" text="Search for an item" textFill="#f5a1a1">
          <font>
             <Font size="10.0" />

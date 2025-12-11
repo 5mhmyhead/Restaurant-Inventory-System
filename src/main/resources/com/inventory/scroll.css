@@ -1,0 +1,56 @@
+/* scrollpane css */
+.scroll-pane {
+  background-color: transparent;
+  -fx-background-color: transparent;
+}
+
+.scroll-pane:vertical > .track-background {
+  background-color: transparent;
+  -fx-background-color: transparent;
+}
+
+.scroll-pane > .corner {
+  background-color: transparent;
+  -fx-background-color: transparent;
+}
+.scroll-pane > .viewport {
+  background-color: transparent;
+  -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical {
+  background-color:transparent;
+  -fx-background-color:transparent;
+}
+
+.scroll-bar:horizontal {
+  background-color:transparent;
+  -fx-background-color:transparent;
+}
+
+.increment-button, .decrement-button {
+  background-color: transparent;
+  -fx-background-color: transparent;
+  
+  border-color: transparent;
+  -fx-border-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+  background-color: transparent;
+  -fx-background-color: transparent;
+  
+  border-color: transparent;
+  -fx-border-color: transparent;
+  
+  -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+  background-color: #f5a1a1;
+  -fx-background-color: #f5a1a1;
+  -fx-background-radius: 3px;
+}
+

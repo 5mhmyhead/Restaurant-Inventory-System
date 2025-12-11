@@ -318,6 +318,7 @@ public class OrdersPageController implements Initializable
         {
             String name = o.getOrderCashier() != null ? o.getOrderCashier().trim() : "";
             String product = o.getOrderProdName() != null ? o.getOrderProdName().trim() : "";
+            String status = o.getOrderStatus() != null ? o.getOrderStatus().trim() : "";
             
             String orderDate = o.getOrderDate() != null ? o.getOrderDate().trim() : "";
             String start = startingDate != null ? startingDate.trim() : "";
@@ -331,6 +332,10 @@ public class OrdersPageController implements Initializable
             boolean matchesNameSearch =
                 (keyword == null || keyword.trim().isEmpty() || name.contains(keyword.trim()));
         
+            // filters by case-sensitive status on search bar
+            boolean matchesStatus = 
+                (keyword == null || keyword.trim().isEmpty() || status.contains(keyword.trim()));
+
             // filter by cashier from text field
             boolean matchesCashier =
                 (cashier == null || cashier.trim().isEmpty() || cashier.contains(name));
@@ -355,7 +360,7 @@ public class OrdersPageController implements Initializable
                 matchesDate = (orderDate.compareTo(end) <= 0);
             }
 
-            if ((matchesNameSearch || matchesProductSearch) && matchesCashier && matchesProduct && matchesDate) 
+            if ((matchesNameSearch || matchesProductSearch || matchesStatus) && matchesCashier && matchesProduct && matchesDate) 
             {
                 filtered.add(o);
             }

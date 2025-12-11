@@ -11,6 +11,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
@@ -180,20 +181,20 @@
                   <Image url="@images/itemPane.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="36.0" fitWidth="32.0" layoutX="45.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="36.0" fitWidth="32.0" layoutX="45.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/scalesWhite.png" />
                </image>
             </ImageView>
-            <Label layoutX="89.0" layoutY="13.0" styleClass="poppins-bold" text="Add or Delete Item" textFill="#f8e9e5">
+            <Label layoutX="89.0" layoutY="10.0" styleClass="poppins-bold" text="Add or Delete Item" textFill="#f8e9e5">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <Button fx:id="addButton" layoutX="51.0" layoutY="220.0" mnemonicParsing="false" onAction="#addItem" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Add" />
-            <Button fx:id="updateButton" layoutX="215.0" layoutY="220.0" mnemonicParsing="false" onAction="#updateItem" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Update" />
-            <Button fx:id="clearButton" layoutX="419.0" layoutY="220.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Clear" />
-            <Button fx:id="deleteButton" layoutX="584.0" layoutY="220.0" mnemonicParsing="false" onAction="#deleteItem" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Delete" />
+            <Button fx:id="addButton" layoutX="51.0" layoutY="227.0" mnemonicParsing="false" onAction="#addItem" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Add" />
+            <Button fx:id="updateButton" layoutX="215.0" layoutY="227.0" mnemonicParsing="false" onAction="#updateItem" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Update" />
+            <Button fx:id="clearButton" layoutX="419.0" layoutY="227.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Clear" />
+            <Button fx:id="deleteButton" layoutX="584.0" layoutY="227.0" mnemonicParsing="false" onAction="#deleteItem" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Delete" />
             <TextField fx:id="prodNameField" layoutX="50.0" layoutY="117.0" prefHeight="32.0" prefWidth="215.0" styleClass="text-field-purple" />
             <TextField fx:id="prodIDField" layoutX="50.0" layoutY="63.0" prefHeight="32.0" prefWidth="215.0" styleClass="text-field-purple" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#693c5b" height="3.0" layoutX="65.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="60.0" />
@@ -227,10 +228,14 @@
             <AnchorPane fx:id="imageDropPane" layoutX="718.0" layoutY="63.0" onDragDropped="#handleDragDropped" onDragOver="#handleDragOver" prefHeight="140.0" prefWidth="217.0">
                <children>
                   <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#f8e9e5" height="140.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="217.0" />
-                  <ImageView fx:id="importImageDrop" fitHeight="120.0" fitWidth="197.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" />
+                  <StackPane fx:id="imagePane" layoutX="10.0" layoutY="10.0" prefHeight="120.0" prefWidth="197.0" style="-fx-border-radius: 20; -fx-background-radius: 20;">
+                     <children>
+                        <ImageView fx:id="importImageDrop" fitHeight="120.0" fitWidth="197.0" pickOnBounds="true" />
+                     </children>
+                  </StackPane>
                </children>
             </AnchorPane>
-            <Button fx:id="importImageButton" layoutX="785.0" layoutY="220.0" mnemonicParsing="false" onAction="#chooseImage" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Import Image" />
+            <Button fx:id="importImageButton" layoutX="785.0" layoutY="227.0" mnemonicParsing="false" onAction="#chooseImage" prefHeight="32.0" prefWidth="150.0" styleClass="button-inventory" text="Import Image" />
             <ComboBox fx:id="categoryDrop" layoutX="526.0" layoutY="63.0" prefHeight="32.0" prefWidth="150.0" promptText="Select Category" styleClass="combo-box" stylesheets="@inventory.css" />
             <ComboBox fx:id="typeDrop" layoutX="526.0" layoutY="117.0" prefHeight="32.0" prefWidth="150.0" promptText="Select Type" styleClass="combo-box" stylesheets="@inventory.css" />
             <ComboBox fx:id="statusDrop" layoutX="526.0" layoutY="171.0" prefHeight="32.0" prefWidth="150.0" promptText="Set Status" stylesheets="@inventory.css" />
@@ -239,7 +244,7 @@
                   <Font size="10.0" />
                </font>
             </Label>
-            <Label fx:id="notifLabel" layoutX="469.0" layoutY="16.0" prefHeight="28.0" prefWidth="381.0" stylesheets="@style.css" textFill="#f8e9e5">
+            <Label fx:id="notifLabel" layoutX="469.0" layoutY="15.0" prefHeight="28.0" prefWidth="381.0" stylesheets="@style.css" textFill="#f8e9e5">
                <styleClass>
                   <String fx:value="text-center" />
                   <String fx:value="poppins-bold" />

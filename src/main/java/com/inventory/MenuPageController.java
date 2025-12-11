@@ -23,6 +23,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -65,6 +66,8 @@ public class MenuPageController implements Initializable
     @FXML private TableColumn<MenuOrder, String>  orderTableProdName;
     @FXML private TableColumn<MenuOrder, Integer>  orderTableQuantity;
 
+    @FXML private ScrollPane scrollPane;
+
     @FXML private Label amountDue;
     @FXML private Label totalAmount;
     @FXML private Label amountChange;
@@ -77,7 +80,6 @@ public class MenuPageController implements Initializable
     @FXML Button signOutButton;
 
     private double dueTotal = 0.0;
-    private static int customerCounter = 0;
 
     // animations for the error
     PauseTransition delay;
@@ -101,6 +103,9 @@ public class MenuPageController implements Initializable
 
             hatWhite.setOpacity(0);
         } 
+        
+        // scrollpane settings
+        scrollPane.setFitToWidth(true);
 
         // listener for search bar
         searchBar.textProperty().addListener((observable, oldValue, newValue) ->
@@ -446,9 +451,9 @@ public class MenuPageController implements Initializable
             playAnimation();
             return;
         }
-        // TODO: FIX AUTOINCREMENT ERROR
-        customerCounter++;
-        int customerId = customerCounter;
+        
+        // gets the last customer_id and adds one
+        int customerId = getLastCustomerId() + 1;
 
         // updates stock for each ordered item in the database
         for (MenuOrder order : menuOrdersTable.getItems()) 
@@ -532,6 +537,25 @@ public class MenuPageController implements Initializable
         menuOrdersTable.getItems().clear();
         updateAmountDue();
         amountPay.clear();
+    }
+
+    // function to get last customer_id from the database
+    private int getLastCustomerId() {
+        String sql = "SELECT COALESCE(MAX(customer_id), 0) AS last_id FROM Orders";
+
+        try (Connection conn = SQLite_Connection.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery()) {
+
+            if (rs.next()) {
+                return rs.getInt("last_id");
+            }
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0; // no customers
     }
 
     // notif message animation helper

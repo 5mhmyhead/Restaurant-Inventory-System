@@ -15,7 +15,7 @@
       <Rectangle fill="#f8e9e5" height="180.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="180.0" />
       <Rectangle fx:id="rectangleBorder" fill="#f8e9e5" height="180.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="menu-card-box-available" width="180.0" />
       <Rectangle fx:id="rectangleImageFrame" fill="#f8e9e5" height="84.0" layoutX="10.0" layoutY="48.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="menu-card-border-available" width="160.0" />
-      <ImageView fx:id="prodImage" fitHeight="84.0" fitWidth="160.0" layoutX="10.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="prodImage" fitHeight="82.0" fitWidth="158.0" layoutX="11.0" layoutY="49.0" pickOnBounds="true" />
       <Label fx:id="prodName" layoutX="10.0" layoutY="10.0" prefHeight="28.0" prefWidth="160.0">
          <styleClass>
             <String fx:value="menu-card-label-available" />
