@@ -136,7 +136,7 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8e9e5" height="542.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="580.0" />
             <ScrollPane fx:id="scrollPane" layoutX="14.0" layoutY="14.0" prefHeight="534.0" prefWidth="572.0" stylesheets="@scroll.css">
                <content>
-                  <FlowPane fx:id="menuCardContainer" hgap="4.0" prefHeight="533.0" prefWidth="571.0" style="-fx-background-color: f8e9e5; -fx-border-color: f8e9e5;" stylesheets="@scroll.css" vgap="4.0" />
+                  <FlowPane fx:id="menuCardContainer" hgap="4.0" prefHeight="533.0" prefWidth="571.0" style="-fx-background-color: f8e9e5; -fx-border-color: f8e9e5;" stylesheets="@scroll.css" vgap="10.0" />
                </content>
             </ScrollPane>
          </children>
